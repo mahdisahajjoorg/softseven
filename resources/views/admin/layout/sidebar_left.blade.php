@@ -148,10 +148,10 @@
                         <ul class="nav nav-children">
 
                             <li>
-                            <a href="">Game Level</a>                                                                                                                                                                                                     
+                            <a href="{{route('game.index')}}">Game Level</a>                                                                                                                                                                                                     
                             </li>
                             <li>
-                            <a href="">Add Game Level</a>                                                                                                                                                                                                     
+                            <a href="{{route('game.add_game_level_form')}}">Add Game Level</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>

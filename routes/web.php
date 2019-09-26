@@ -44,4 +44,11 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/delete-memo','SchoolController@delete_memo')->name('school.delete_memo');
     Route::get('/school-expired','SchoolController@school_expired')->name('school.school_expired');
     Route::get('/edit-expire-month/{id}/{month}','SchoolController@edit_expire_month')->name('school.edit_expire_month');
+
+    //Game Level
+    Route::get('/game-level','GameLevelController@index')->name('game.index');
+    Route::get('/add-game-level','GameLevelController@add_game_level_form')->name('game.add_game_level_form');
+    Route::post('/add-game-level','GameLevelController@add_game_level_form_submit')->name('game.add_game_level_form_submit');
+    Route::post('/edit-game-level','GameLevelController@edit_game_level')->name('game.edit_game_level');
+    Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
 });
