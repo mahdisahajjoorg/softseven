@@ -52,6 +52,9 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/edit-game-level','GameLevelController@edit_game_level')->name('game.edit_game_level');
     Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
 
+    //Flag
+    Route::get('/flags','FlagController@index')->name('flag.index');
+
 });
 
 

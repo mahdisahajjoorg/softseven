@@ -181,7 +181,7 @@
                         <ul class="nav nav-children">
 
                             <li>
-                            <a href="">Flags</a>                                                                                                                                                                                                     
+                            <a href="{{route('flag.index')}}">Flags</a>                                                                                                                                                                                                     
 
                             </li>
                             <li>
