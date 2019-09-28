@@ -36,6 +36,15 @@
     <form action="{{ route('spelling_bee.store') }}" method="POST">
         @csrf
     <div class="panel-body">
+                @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif    
         <div class="validation-message">
             <ul></ul>
         </div>
@@ -52,7 +61,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">SpellingBee Grade</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" name="grade">
+                <input type="text" class="form-control" name="grade" value="{{old('grade')}}">
             </div>
         </div>
     </div>
