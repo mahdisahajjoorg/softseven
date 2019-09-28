@@ -82,10 +82,10 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>GeoRace SuperContest</span></a>
                         <ul class="nav nav-children">
                             <li>
-                            <a href="">All Geo Level</a>                                                                                    
+                            <a href="{{route('question.all_geo_level_view')}}">All Geo Level</a>                                                                                    
                             </li>
                              <li>
-                            <a href="">All Question</a>                                                                                                                 
+                            <a href="{{route('question.all_geo_q_view')}}">All Question</a>                                                                                                                 
                             </li>
                         </ul>
                     </li> 

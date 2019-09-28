@@ -69,9 +69,6 @@ class QuestionController extends Controller
         else{
           return Redirect::back()->with('success_message', 'You must select one Image');
         }
-
-    	$users = DB::table('wordracesettings')->where('id', $id)->first();
-    	return view('admin.Question.edit_ques', ["data" =>$users]);
     }
     public function add_ques()
     {
@@ -297,6 +294,8 @@ class QuestionController extends Controller
         else{
             $data2["image"] = $data["image_other"];
         }
+
+        dd($data2);
 
         if (!empty($data2["image"])) {
           DB::table('wordracesettings')->insert($data2);

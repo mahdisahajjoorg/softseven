@@ -101,8 +101,52 @@ class MoneyController extends Controller
 		$data["img"] = scandir("assets/img/questionimage/thumb/", 1);
 		$data["data"] = DB::table('money_questions')->where('id', $id)->first();
 		$data["contest_name"] = DB::table('money_questions')->get();
-		// print_r($data["data"]); die();
     	return view('admin.money.edit_money_ques_2', $data);
+	}
+
+	public function money_update(Request $request)
+	{
+        $data =  $request->all();
+
+        $validateData = $request->validate([
+            'answer1' => 'required',
+            'hint' => 'required'
+        ]);
+
+        if ($image=$request->file('image')) {
+ 
+           $uploadPath = 'assets/img/questionimage/thumb/';
+           
+           $file_name = time()."-".$image->getClientOriginalName();
+           $dbUrl = $uploadPath."/".$file_name;
+       
+           $image->move($uploadPath,$dbUrl);
+      
+            $data['image']= $file_name;
+         
+        }
+
+        $data2 = array();
+        $data2["money_contest_id"] = $data["contest"];
+        $data2["answer1"] = $data["answer1"];
+        $data2["hint"] = $data["hint"];
+        $data2["id"] = $data["id"];
+
+        if (!empty($data["image"])) {
+            $data2["image"] = $data["image"];
+        }
+        else{
+            $data2["image"] = $data["image_other"];
+        }
+
+        if (!empty($data2["image"])) {
+          DB::table('money_questions')->where('id',$data["id"])->update($data2);
+          return redirect()->route('question.all_money_question')->with('success_message','Question Updated successfully!');
+        }
+        else{
+          return Redirect::back()->with('success_message', 'You must select one Image');
+        }
+
 	}
 
 	public function del_question(Request $request)
@@ -171,6 +215,12 @@ class MoneyController extends Controller
           return Redirect::back()->with('success_message', 'You must select one Image');
         }
 
+	}
+
+	public function del_ques_two(Request $request)
+	{
+		DB::table('money_questions')->where('id', $request->id)->delete();
+        echo json_decode(1);
 	}
 
     

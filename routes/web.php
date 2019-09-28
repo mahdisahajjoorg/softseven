@@ -105,6 +105,22 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('questions/delete_money_qustion','MoneyController@del_question')->name('question.del_money_question_form');
     Route::get('questions/add_money','MoneyController@add_question_money')->name('question.add_money_question_form');
     Route::post('questions/add_money_store','MoneyController@store_question_money')->name('question.add_money_submit');
+    Route::post('questions/update_money_two','MoneyController@money_update')->name('question.update_money_2_submit');
+    Route::get('del_money_two','MoneyController@del_ques_two')->name('question.del_money_question_two_form');
+
+
+    //GeoRace -All level question
+    Route::get('questions/geo_level/GeloLevel','GeoRaceController@add_form')->name('question.all_geo_level');
+    Route::post('questions/geo_level/GeloLevel_add','GeoRaceController@store_all_level')->name('question.add_Geo_question_form_submit');
+     Route::get('questions/all_geo_level/AllGeloLevel','GeoRaceController@index')->name('question.all_geo_level_view');
+     Route::get('questions/edit_geo_level/{id}','GeoRaceController@edit_all_level')->name('ques_w.edit_all_level_wordrace_form');
+     Route::post('questions/update_geo_level','GeoRaceController@update_all_level')->name('question.update_Geo_question_form_submit');
+     Route::get('del_al_level_two','GeoRaceController@del_al_level')->name('question.del_al_level_two');
+
+     //GeoRace -All question
+     Route::get('questions/all_geo_qustion','GeoRaceController@show')->name('question.all_geo_q_view');
+     Route::get('questions/add_geo','GeoRaceController@add_ques')->name('question.all_geo_question');
+
     //end by rakesh
     });
     
