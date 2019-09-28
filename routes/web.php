@@ -55,6 +55,9 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Flag
     Route::get('/flags','FlagController@index')->name('flag.index');
+    Route::get('/add-flag','FlagController@add_flag_form')->name('flag.add_flag_form');
+    Route::post('/add-flag','FlagController@add_flag_form_submit')->name('flag.add_flag_form_submit');
+    Route::post('/remove-flag','FlagController@remove_flag')->name('flag.remove_flag');
 
 
 
@@ -65,7 +68,28 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 //start by sajol mahmud
 
 Route::group(['middleware'=>['authMiddleware']],function(){
-    Route::resource('spelling_bee', 'SpellingBeeController');
+    Route::resource('allgrade', 'SpellingBeeController');
+    Route::get('/delete-grade','SpellingBeeController@delete_grade')->name('spelling_bee.delete_grade');
+
+    //al weeks
+    
+    Route::get('questions/allweek','SpellingBeeController@allWeek')->name('all_week');
+    Route::get('questions/allweek/edit{id}','SpellingBeeController@weekEdit')->name('all_week.edit');
+    Route::get('questions/allweek/create','SpellingBeeController@weekCreate')->name('all_week.create');
+    Route::get('questions/allweek/save','SpellingBeeController@weekSave')->name('all_week.save');
+    Route::get('questions/allweek/update/{id}','SpellingBeeController@weekUpdate')->name('all_week.update');
+    Route::get('questions/allweek/delete','SpellingBeeController@weekdelete')->name('all_week.delete');
+
+
+
+    //all question
+    
+    Route::get('questions','SpellingBeeController@allQuestion')->name('questions');
+    Route::get('questions/edit{id}','SpellingBeeController@questionEdit')->name('questions.edit');
+    Route::get('questions/create','SpellingBeeController@questionCreate')->name('questions.create');
+    Route::get('questions/save','SpellingBeeController@questionSave')->name('questions.save');
+    Route::get('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
+    Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
 }); 
 
 //End by sajol mahmud

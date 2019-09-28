@@ -127,10 +127,10 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>Spelling Bee</span></a>
                         <ul class="nav nav-children">
                              <li>
-                            <a href="{{ route('spelling_bee.index') }}">All Grade</a>                                                                                                                                                                                                     
+                            <a href="{{ route('allgrade.index') }}">All Grade</a>                                                                                                                                                                                                     
                             </li>
                             <li>
-                            <a href="">All Week</a>                                                                                                                                                                                                     
+                            <a href="{{ route('all_week') }}">All Week</a>                                                                                                                                                                                                     
                             
                             </li>
                              <li>
@@ -185,7 +185,7 @@
 
                             </li>
                             <li>
-                            <a href="">Flag Add</a>                                                                                                                                                                                                     
+                            <a href="{{route('flag.add_flag_form')}}">Flag Add</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>
