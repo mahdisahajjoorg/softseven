@@ -65,6 +65,7 @@ class MoneyController extends Controller
 
         $data =  $request->all();
 
+        $data2["money_cat_id"] = $data["money_cat_id"];
         $data2["money_contest_name"] = $data["money_contest_name"];
         $data2["total_number_problem"] = $data["total_number_problem"];
         $data2["start_date"] = $data["start_date"];
@@ -74,6 +75,9 @@ class MoneyController extends Controller
         $data2["money_contest_name"] = $data["money_contest_name"];
         $data2["modified_date"] = date("Y/m/d");
         $data2["created_date"] = $data["created_date"];
+
+        $user = DB::table('money_cats')->where('money_cat_id', $data2["money_cat_id"])->first();
+        $data2["money_cat_name"] = $user->money_cat_name;
 
         DB::table('money_contests')->where('id',$data["id"])->update($data2);
         return redirect()->route('question.all_money_level_question_form')->with('success_message','Question Updated successfully!');
@@ -94,7 +98,11 @@ class MoneyController extends Controller
 
 	public function money_edit($id)
 	{
-		die();
+		$data["img"] = scandir("assets/img/questionimage/thumb/", 1);
+		$data["data"] = DB::table('money_questions')->where('id', $id)->first();
+		$data["contest_name"] = DB::table('money_questions')->get();
+		// print_r($data["data"]); die();
+    	return view('admin.money.edit_money_ques_2', $data);
 	}
 
 	public function del_question(Request $request)
@@ -108,12 +116,8 @@ class MoneyController extends Controller
 	public function add_question_money()
 	{
 		$data["last"] = DB::table('money_contests')->latest('id')->first();
-		$data["img"] = DB::table('questions')->select('image')->get();
-
-		$data["img"] = scandir("assets/question/img", 1);
-        print_r($data["img"]);
-
-
+		$data["img"] = scandir("assets/img/questionimage/thumb/", 1);
+  
 		return view('admin.money.question_add' , $data);
 	}
 

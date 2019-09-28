@@ -80,7 +80,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Money contest-all question
     Route::get('questions/all_money_qustion','MoneyController@show')->name('question.all_money_question');
-    Route::get('questions/edit_money_qustion/{id}','MoneyController@show')->name('money.edit_money_submit_form');
+    Route::get('questions/edit_money_qustion/{id}','MoneyController@money_edit')->name('money.edit_money_submit_form');
     Route::get('questions/delete_money_qustion','MoneyController@del_question')->name('question.del_money_question_form');
     Route::get('questions/add_money','MoneyController@add_question_money')->name('question.add_money_question_form');
     Route::post('questions/add_money_store','MoneyController@store_question_money')->name('question.add_money_submit');

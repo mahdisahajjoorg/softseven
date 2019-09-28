@@ -109,13 +109,11 @@
                             <div class="isotope-item document col-sm-6 col-md-4 col-lg-3">
                                 <div class="thumbnail">
                                     <div class="thumb-preview">
-                                        <a class="thumb-image nrthumb" data-image="<?php echo $value->image ?>"href="#"><img src="{{url('assets/img/levels/'.$value->image)}}" class="img-responsive" height="150px;" alt="" /></a>
+                                        <a class="thumb-image nrthumb" data-image="<?php echo $value; ?>"href="#"><img src="{{ url('assets/img/questionimage/thumb/'.$value) }}" class="img-responsive" height="150px;" alt="" /></a>
                                     </div>
                                 </div>
                             </div>
                         <?php } ?>
-                    	
-
                     </div>
                 </div>
             </div>
@@ -142,7 +140,7 @@
 	                <ul></ul>
 	            </div>
 	            <div style="text-align:center;">
-	               <img height="120px" src="{{ url('assets/img/levels/'.$data->image) }}" alt="myImage">
+	               <img height="120px" src="{{ url('assets/img/questionimage/thumb/'.$data->image) }}" alt="myImage">
 	            </div>
 	            <br>
             <form id="summary-form" class="form-horizontal"  method="post" action="{{route('question.update_w_level')}}" enctype="multipart/form-data">
@@ -183,7 +181,7 @@
 	            <div class="form-group">
 	                <label class="col-sm-3 control-label">Wordrece Level Color</label>
 	                <div class="col-sm-9">
-	                       <input id="simple-color-picker" name="color" type="text" class="form-control" value="{{ url('assets/img/levels/'.$data->color) }}"/>
+	                       <input id="simple-color-picker" name="color" type="text" class="form-control" value="{{ url($data->color) }}"/>
 	                 <input  name="id" type="hidden" class="form-control" value="<?php echo $data->id; ?>"/>
 	                
 	                </div>
@@ -230,7 +228,7 @@
             var imggg = $(this).attr('data-image');
           
             var inputid = $(".modal-body").attr('data-inputid');
-            var webrooturl = "/softseven/public/assets/img/levels/";
+            var webrooturl ="/softseven/public/assets/img/questionimage/thumb/";
             var imgurl = webrooturl + imggg;
          
             $("#" + inputid).parent().parent().find('.image_other').val(imggg);

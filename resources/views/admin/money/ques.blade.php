@@ -85,7 +85,7 @@
                 
                 <tr> 
                      <td>
-                         <img src="{{ url('assets/question/img/'.$q->Image) }}" class="img-responsive" alt="" />
+                         <img src="{{ url('assets/img/questionimage/thumb/'.$q->Image) }}" class="img-responsive" alt="" />
                      </td>
 		             <td><?php echo $q->answer1; ?></td>
 		             <td><?php echo $q->hint; ?></td>

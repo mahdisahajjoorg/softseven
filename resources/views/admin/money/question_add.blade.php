@@ -48,7 +48,7 @@
 						                		<div class="isotope-item document col-sm-6 col-md-4 col-lg-3">
 							                        <div class="thumbnail">
 							                            <div class="thumb-preview">
-							                                <a class="thumb-image nrthumb" data-image="<?php echo $value->image ?>"href="#"><img src="{{url($value->image)}}" class="img-responsive" height="150px;" alt="" /></a>
+							                                <a class="thumb-image nrthumb" data-image="<?php echo $value; ?>"href="#"><img src="{{ url('assets/img/questionimage/thumb/'.$value) }}" class="img-responsive" height="150px;" alt="" /></a>
 							                            </div>
 							                        </div>
 							                    </div>
@@ -148,7 +148,7 @@
         var imggg = $(this).attr('data-image');
       
         var inputid = $(".modal-body").attr('data-inputid');
-        var webrooturl = "/softseven/public/";
+        var webrooturl ="/softseven/public/assets/img/questionimage/thumb/";
         var imgurl = webrooturl + imggg;
      
         $("#" + inputid).parent().parent().find('.image_other').val(imggg);
