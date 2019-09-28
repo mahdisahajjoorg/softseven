@@ -51,4 +51,5 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/add-game-level','GameLevelController@add_game_level_form_submit')->name('game.add_game_level_form_submit');
     Route::post('/edit-game-level','GameLevelController@edit_game_level')->name('game.edit_game_level');
     Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
+
 });
