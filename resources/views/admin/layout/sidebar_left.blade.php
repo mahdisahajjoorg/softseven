@@ -127,7 +127,7 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>Spelling Bee</span></a>
                         <ul class="nav nav-children">
                              <li>
-                            <a href="">All Grade</a>                                                                                                                                                                                                     
+                            <a href="{{ route('spelling_bee.index') }}">All Grade</a>                                                                                                                                                                                                     
                             </li>
                             <li>
                             <a href="">All Week</a>                                                                                                                                                                                                     

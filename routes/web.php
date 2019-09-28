@@ -53,3 +53,13 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
 
 });
+
+
+
+//start by sajol mahmud
+
+Route::group(['middleware'=>['authMiddleware']],function(){
+    Route::resource('spelling_bee', 'SpellingBeeController');
+}); 
+
+//End by sajol mahmud
