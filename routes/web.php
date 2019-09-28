@@ -55,6 +55,9 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Flag
     Route::get('/flags','FlagController@index')->name('flag.index');
+    Route::get('/add-flag','FlagController@add_flag_form')->name('flag.add_flag_form');
+    Route::post('/add-flag','FlagController@add_flag_form_submit')->name('flag.add_flag_form_submit');
+    Route::post('/remove-flag','FlagController@remove_flag')->name('flag.remove_flag');
 
 
 

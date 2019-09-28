@@ -25,6 +25,12 @@
 </header>
 
 <section class="panel">
+@if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
@@ -46,19 +52,62 @@
                 </tr>
             </thead>
             <tbody>
-            @if($school->count()>0)
+            @if($countries->count()>0)
+            @foreach($countries as $s)
                 <tr>
-                    <td>School</td>
+                    <td>Country</td>
                     <td>
-                    
+                     {{$s->name}}
                     </td>
                     <td>
-                    <a href="javascript:;" onclick="deleteFlag()" class="btn btn-primary delete">Remove</a>
+                      <img src="{{url('')}}/assets/flag/country/{{$s->flag_file_name}}" class="shadow" height="70" width="170">  
+                    </td>
+                    <td>
+                    <a href="javascript:;" onclick="deleteFlag({{$s->id}},'Country')" class="btn btn-primary delete">Remove</a>
                       
                     </td>
                     
                 </tr>
-            @endif       
+                @endforeach
+            @endif  
+                 
+            @if($states->count()>0)
+            @foreach($states as $s)
+                <tr>
+                    <td>Usa State</td>
+                    <td>
+                     {{$s->name}}
+                    </td>
+                    <td>
+                      <img src="{{url('')}}/assets/flag/state/{{$s->flag_file_name}}" class="shadow" height="70" width="170">  
+                    </td>
+                    <td>
+                    <a href="javascript:;" onclick="deleteFlag({{$s->id}},'State')" class="btn btn-primary delete">Remove</a>
+                      
+                    </td>
+                    
+                </tr>
+                @endforeach
+            @endif
+            @if($schools->count()>0)
+            @foreach($schools as $s)
+                <tr>
+                    <td>School</td>
+                    <td>
+                     {{$s->school_name}}
+                    </td>
+                    <td>
+                      <img src="{{url('')}}/assets/flag/school/{{$s->flag_file_name}}" class="shadow" height="70" width="170">  
+                    </td>
+                    <td>
+                    <a href="javascript:;" onclick="deleteFlag({{$s->id}},'School')" class="btn btn-primary delete">Remove</a>
+                      
+                    </td>
+                    
+                </tr>
+                @endforeach
+            @endif 
+
                 
             </tbody>
         </table>
@@ -69,10 +118,10 @@
 @section('css_js_down')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function deleteFlag(id){
+    function deleteFlag(id,type){
     swal({
     title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this memo info!",
+    text: "Once removed, you will not be able to recover this flag info!",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -81,26 +130,24 @@
   if (willDelete) {
     $.ajax({
             type: "POST",
-            url: "{{route('school.delete_memo')}}",
-            data: {id:id,"_token": "{{ csrf_token() }}"},
+            url: "{{route('flag.remove_flag')}}",
+            data: {id:id,type:type,"_token": "{{ csrf_token() }}"},
             dataType: "json",
             cache: false,
             success:
             function (data) {
-                if(data.code==1){
-                    swal("Memo deleted successfully!", {
+                if(data==1){
+                    swal("Flag removed successfully!", {
                         icon: "success",
                         }).then(function(){
-                            var u = '{{ route("school.school_memo", ":id" )}}';
-                            u = u.replace(':id',data.school_id);
-                            window.location.href = u;                                                  
+                            window.location.href = "{{route('flag.index')}}";                                                  
                         });
                 }
             }
                 });
     
   } else {
-    swal("The memo is not deleted!");
+    swal("The flag is not removed!");
   }
 });
   }

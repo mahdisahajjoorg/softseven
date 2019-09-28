@@ -185,7 +185,7 @@
 
                             </li>
                             <li>
-                            <a href="">Flag Add</a>                                                                                                                                                                                                     
+                            <a href="{{route('flag.add_flag_form')}}">Flag Add</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>
