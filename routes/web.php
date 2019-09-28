@@ -52,8 +52,42 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/edit-game-level','GameLevelController@edit_game_level')->name('game.edit_game_level');
     Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
 
-    //Flag
-    Route::get('/flags','FlagController@index')->name('flag.index');
+
+    // start by rakesh
+    //question 
+    Route::get('Settings/add_new_level','QuestionController@add_set_ques')->name('question.set_add');
+    Route::post('Settings/add','QuestionController@store_set_question')->name('question.add_question_setting_form_submit');
+    Route::get('questions/index/auditory','QuestionController@index')->name('question.question');
+
+    Route::get('questions_settings_delete','QuestionController@delete_w_setting_ques')->name('question_w.delete_w_s_ques');
+
+    Route::get('settings/wordraceSettings','QuestionController@Word_race_settings')->name('question.ques_settions_form');
+    Route::get('settings/edit_w_level/{id}','QuestionController@Word_race_settings_edit')->name('question.edit_settings_form');
+    Route::post('update_w_level','QuestionController@Word_race_settings_update')->name('question.update_w_level');
+
+    Route::get('questions/add','QuestionController@add_ques')->name('question.add_question_form');
+    Route::post('/add-question','QuestionController@store')->name('question.add_question_form_submit');
+    Route::get('questions/edit_a/{id}','QuestionController@Word_race_question_edit')->name('ques_w.edit_wordrace_form');
+    Route::post('questions/update_a','QuestionController@Word_race_question_update')->name('question.edit_w_question_form_submit');
+    Route::get('questions_delete','QuestionController@delete_w_ques')->name('question_w.delete_w_ques');
+
+    //Money contest-all money level
+    Route::get('questions/all_money_level/AllMoneyLevel','MoneyController@index')->name('question.all_money_level_question_form');
+    Route::get('questions/money_level','MoneyController@add_form')->name('question.add_money_level_question_form');
+    Route::post('money_leve_add','MoneyController@store_money_q')->name('question.store_money_level_question_form');
+    Route::get('questions/edit_money_level/{id}','MoneyController@edit_form_ques')->name('ques.edit_money_q_form');
+    Route::post('update_money','MoneyController@update_form_ques')->name('question.update_money_level_question_form');
+    Route::get('del_money','MoneyController@del_ques')->name('question.del_money_level_question_form');
+
+    //Money contest-all question
+    Route::get('questions/all_money_qustion','MoneyController@show')->name('question.all_money_question');
+    Route::get('questions/edit_money_qustion/{id}','MoneyController@show')->name('money.edit_money_submit_form');
+    Route::get('questions/delete_money_qustion','MoneyController@del_question')->name('question.del_money_question_form');
+    Route::get('questions/add_money','MoneyController@add_question_money')->name('question.add_money_question_form');
+    Route::post('questions/add_money_store','MoneyController@store_question_money')->name('question.add_money_submit');
+    //end by rakesh
+
+
 
 });
 

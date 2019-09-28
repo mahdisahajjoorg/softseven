@@ -40,16 +40,16 @@
                         </ul>
                     </li>
                     <li class="nav-parent">
-                        <a><i class="fa fa-copy" aria-hidden="true"></i><span>Questions</span></a>
+                        <a><i class="fa fa-copy" aria-hidden="true"></i><span>WordRace Questions</span></a>
                         <ul class="nav nav-children">
                             <li>
-                            <a href="">Add Question</a>
+                            <a href="{{route('question.add_question_form')}}">Add WordRace Question</a>
                             </li>
                             <li>
-                            <a href="">WordRace Questions</a>
+                            <a href="{{route('question.question')}}">WordRace Questions</a>
                             </li>
                             <li>
-                            <a href="">WordRace Settings</a>
+                            <a href="{{route('question.ques_settions_form')}}">WordRace Settings</a>
                             </li>
                         </ul>
                     </li>
@@ -58,11 +58,11 @@
                         <ul class="nav nav-children">
                 
                             <li>
-                            <a href="">All Mony Level</a>
+                            <a href="{{route('question.all_money_level_question_form')}}">All Mony Level</a>
                             </li>
 
                             <li>
-                            <a href="">All Question</a>
+                            <a href="{{route('question.all_money_question')}}">All Question</a>
                             </li>
                         </ul>
                     </li> 
