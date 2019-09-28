@@ -44,7 +44,7 @@
        <div class="row">
 
        <div class="col-sm-12 text-right">
-        <a href="{{ route('spelling_bee.create') }}" class="btn btn-primary">Add Grade</a>
+        <a href="{{ route('allgrade.create') }}" class="btn btn-primary">Add Grade</a>
 
        </div>
 
@@ -68,7 +68,7 @@
             <td> SpellingBee</td>
             <td><?php echo $con['grade']; ?></td>
             <td>
-                <a href="{{route('spelling_bee.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
+                <a href="{{route('allgrade.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
                 <a href="javascript:;" onclick="deleteSpellingBee({{$con->id}})" class="btn btn-danger">Delete</a> 
             </td>
 
@@ -98,20 +98,19 @@
     })
 .then((willDelete) => {
   if (willDelete) {
-    var url = 'spelling_bee/destroy/'+id;
     $.ajax({
             type: "GET",
-            url: url,
+            url: "{{route('spelling_bee.delete_grade')}}",
             data: {id:id},
             dataType: "json",
             cache: false,
             success:
             function (data) {
                 if(data==1){
-                    swal("Employee deleted successfully!", {
+                    swal("Grade deleted successfully!", {
                         icon: "success",
                         }).then(function(){
-                            window.location.href = '{{route('employee.index')}}';                                                  
+                            window.location.href = '{{route('allgrade.index')}}';                                                  
                         });
                 }
             }
