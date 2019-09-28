@@ -53,8 +53,25 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/delete-game-level','GameLevelController@delete_game_level')->name('game.delete_game_level');
 
 
+
+
+});
+
+
+
+//start by sajol mahmud
+
+Route::group(['middleware'=>['authMiddleware']],function(){
+    Route::resource('spelling_bee', 'SpellingBeeController');
+}); 
+
+//End by sajol mahmud
+
+
+
     // start by rakesh
-    //question 
+    Route::group(['middleware'=>['authMiddleware']],function(){
+        //question 
     Route::get('Settings/add_new_level','QuestionController@add_set_ques')->name('question.set_add');
     Route::post('Settings/add','QuestionController@store_set_question')->name('question.add_question_setting_form_submit');
     Route::get('questions/index/auditory','QuestionController@index')->name('question.question');
@@ -86,17 +103,5 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('questions/add_money','MoneyController@add_question_money')->name('question.add_money_question_form');
     Route::post('questions/add_money_store','MoneyController@store_question_money')->name('question.add_money_submit');
     //end by rakesh
-
-
-
-});
-
-
-
-//start by sajol mahmud
-
-Route::group(['middleware'=>['authMiddleware']],function(){
-    Route::resource('spelling_bee', 'SpellingBeeController');
-}); 
-
-//End by sajol mahmud
+    });
+    
