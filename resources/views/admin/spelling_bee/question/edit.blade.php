@@ -6,27 +6,10 @@
 @endsection
 
 @section('main_content')
-{{-- <header class="page-header">
-    <h2>SpellingBee Weeks</h2>
-
-    <div class="right-wrapper pull-right">
-        <ol class="breadcrumbs">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i>
-                </a>
-            </li>
-            <li><span>Questions</span></li>
-            <li><span>Index</span></li>
-        </ol>
-
-        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-    </div>
-</header> --}}
 
 <section class="panel">
 
-<form action="{{ route('all_week.update', $week['id']) }}" id="summary-form" class="form-horizontal" enctype="multipart/form-data" method="GET" accept-charset="utf-8">
+<form action="{{ route('questions.update', $question->id) }}" id="summary-form" class="form-horizontal" enctype="multipart/form-data" method="POST" accept-charset="utf-8">
 
 @csrf
     <div style="display:none;"><input type="hidden" name="_method" value="POST"></div><section class="panel">
@@ -37,7 +20,8 @@
         </div>
         <h2 class="panel-title">Add Speeling Week</h2>
     </header>
-    <div class="panel-body">
+<div class="panel-body">
+
                 @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -46,7 +30,7 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif  
+                            @endif    
         <div class="validation-message">
             <ul></ul>
         </div>
@@ -58,42 +42,54 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">SpellingBee week<span class="required">*</span></label>
+
+        <div class="form-group" id="pr_grade">
+            <label class="col-sm-3 control-label">SpellingBee Grade<span class="required">*</span></label>
             <div class="col-sm-9">
-                <select class="form-control" name="grade">
-                   {{--  <option value="1">Grade 1</option><option value="2">Grade 2</option><option value="3">Grade 3</option><option value="4">Grade 4</option><option value="5">Grade 5</option> --}}  
-                   @foreach($allgrade as $grade)
-                        <option value="{{ $grade['id'] }}" <?php echo ($grade['id'] == $week['grade_id'])?'selected':'' ?>>{{ $grade['grade'] }}</option>
-                   @endforeach    
+                <select class="form-control" name="grade" id="grade_id">
+                    @foreach($allgrade as $grade)
+                    <option value="{{ $grade->id }}">{{ $grade->grade }}</option>
+                    @endforeach            
                 </select>
             </div>
         </div>
+
+
+
+
+
         <div class="form-group">
-            <label class="col-sm-3 control-label">SpellingBee week</label>
+            <label class="col-sm-3 control-label">SpellingBee week<span class="required">*</span></label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" name="week" value="{{ $week['week'] }}">
+                <select class="form-control" name="week" id="weekid" style="border: 1px solid rgb(204, 204, 204);">
+                        @foreach($weeks as $week)
+                         <option value="{{ $week->id }}">{{ $week->week }}</option>
+                         @endforeach
+                </select>
             </div>
         </div>
-        
-                        <div class="form-group">
-                    <label class="col-sm-3 control-label">Status</label>
-                    <div class="col-sm-9">
 
-                    <div class="radio pull-left">
-                    <label>   &nbsp; &nbsp;<input type="radio" value="1" name="status" <?php echo ($week['status'] == 1)?'checked':'' ?>>Yes</label>
-                    &nbsp; &nbsp;
-                    &nbsp;
-                    &nbsp;
-                    </div>
-                    <div class="radio">
-                    <label><input type="radio" value="0" name="status" <?php echo ($week['status'] == 0)?'checked':'' ?>>No</label>
-                    </div>
-                        
-                    </div>
-                </div>
-        
-        
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">SpellingBee Word</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="word" value="{{ $question->word }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">SpellingBee Definition</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="definition" value="{{ $question->definition }}">
+            </div>
+        </div>
+
+    <div class="form-group">
+    <label class="col-sm-3 control-label">Attach Mp3 File<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <input type="file" class="form-control" name="music" value="{{ $question->music }}">
+            </div>
+        </div>
     </div>
     <footer class="panel-footer">
         <div class="row">

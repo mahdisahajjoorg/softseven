@@ -58,9 +58,31 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/add-flag','FlagController@add_flag_form')->name('flag.add_flag_form');
     Route::post('/add-flag','FlagController@add_flag_form_submit')->name('flag.add_flag_form_submit');
     Route::post('/remove-flag','FlagController@remove_flag')->name('flag.remove_flag');
+    
+    //Prohibited Words
+    Route::get('/block-words','BlockWordsController@index')->name('blockwords.index');
+    Route::post('/update-block-words','BlockWordsController@update_block_words')->name('blockwords.update_block_words');
+    Route::post('/delete-block-words','BlockWordsController@delete_block_words')->name('blockwords.delete_block_words');
+    Route::get('/add-block-words','BlockWordsController@add_block_words_form')->name('blockwords.add_block_words_form');
+    Route::post('/add-block-words','BlockWordsController@add_block_words_form_submit')->name('blockwords.add_block_words_form_submit');
 
+    //Words
+    Route::get('/words','BlockWordsController@words')->name('blockwords.words');
+    Route::post('/delete-words','BlockWordsController@delete_words')->name('blockwords.delete_words');
+    Route::get('/add-word','BlockWordsController@add_word_form')->name('blockwords.add_word_form');
+    Route::post('/add-word','BlockWordsController@add_word_form_submit')->name('blockwords.add_word_form_submit');
 
+    //Unaccepted Students
+    Route::get('/unapproved-students','StudentController@unapproved_students')->name('student.unapproved_students');
+    Route::get('/approve/{id}','StudentController@approve')->name('student.approve');
+    Route::get('/change-to-nonstudent/{id}','StudentController@change_to_nonstudent')->name('student.change_to_nonstudent');
+    Route::get('/approve-all','StudentController@approve_all')->name('student.approve_all');
 
+    //Certificates
+    Route::get('/certificates','CertificateController@index')->name('certificate.index');
+    Route::post('/delete-certificate','CertificateController@delete_certificate')->name('certificate.delete_certificate');
+    Route::get('/edit-certificate/{id}','CertificateController@edit_certificate_form')->name('certificate.edit_certificate_form');
+    Route::post('/edit-certificate','CertificateController@edit_certificate_form_submit')->name('certificate.edit_certificate_form_submit');
 });
 
 
@@ -74,7 +96,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //al weeks
     
     Route::get('questions/allweek','SpellingBeeController@allWeek')->name('all_week');
-    Route::get('questions/allweek/edit{id}','SpellingBeeController@weekEdit')->name('all_week.edit');
+    Route::get('questions/allweek/edit/{id}','SpellingBeeController@weekEdit')->name('all_week.edit');
     Route::get('questions/allweek/create','SpellingBeeController@weekCreate')->name('all_week.create');
     Route::get('questions/allweek/save','SpellingBeeController@weekSave')->name('all_week.save');
     Route::get('questions/allweek/update/{id}','SpellingBeeController@weekUpdate')->name('all_week.update');
@@ -85,11 +107,16 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //all question
     
     Route::get('questions','SpellingBeeController@allQuestion')->name('questions');
-    Route::get('questions/edit{id}','SpellingBeeController@questionEdit')->name('questions.edit');
+    Route::get('questions/edit/{id}','SpellingBeeController@questionEdit')->name('questions.edit');
     Route::get('questions/create','SpellingBeeController@questionCreate')->name('questions.create');
-    Route::get('questions/save','SpellingBeeController@questionSave')->name('questions.save');
-    Route::get('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
+    Route::post('questions/save','SpellingBeeController@questionSave')->name('questions.save');
+    Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
+
+    //All firstname
+    Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
+    Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
 }); 
 
 //End by sajol mahmud

@@ -7,7 +7,7 @@
 
 @section('main_content')
 <header class="page-header">
-    <h2>SpellingBee Weeks</h2>
+    <h2>SpellingBee Questions</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
@@ -44,7 +44,7 @@
        <div class="row">
 
        <div class="col-sm-12 text-right">
-        <a href="{{ route('all_week.create') }}" class="btn btn-primary">Add Grade</a>
+        <a href="{{ route('questions.create') }}" class="btn btn-primary">Add Spelling Qustion</a>
 
        </div>
 
@@ -68,12 +68,20 @@
 
             <?php foreach ($questions as $con) {?>
          <tr>
-            <td> SpellingBee</td>
-            <td><?php echo $con['week']; ?></td>
-            <td><?php echo $con->grade->grade; ?></td>
+            <td><?php echo $con['definition']; ?></td>
             <td>
-                <a href="{{route('all_week.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
-                <a href="javascript:;" onclick="deleteWeeks({{$con->id}})" class="btn btn-danger">Delete</a> 
+                
+                <audio controls>
+                  <source src="audio/questions/{{ $con['music'] }}">
+                </audio>
+            </td>
+            <td><?php echo $con['word']; ?></td>
+            <td><?php echo $con->grade->grade; ?></td>
+            <td><?php echo isset($con->week->week)?$con->week->week:''; ?></td>
+            
+            <td>
+                <a href="{{route('questions.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
+                <a href="javascript:;" onclick="deleteQuestion({{$con->id}})" class="btn btn-danger">Delete</a> 
             </td>
 
          </tr>
@@ -92,7 +100,7 @@
 @section('css_js_down')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function deleteWeeks(id){
+    function deleteQuestion(id){
     swal({
     title: "Are you sure?",
     text: "Once deleted, you will not be able to recover this info!",
@@ -104,7 +112,7 @@
   if (willDelete) {
     $.ajax({
             type: "GET",
-            url: "{{route('all_week.delete')}}",
+            url: "{{route('questions.delete')}}",
             data: {id:id},
             dataType: "json",
             cache: false,
@@ -114,14 +122,14 @@
                     swal("Grade deleted successfully!", {
                         icon: "success",
                         }).then(function(){
-                            window.location.href = '{{route('allgrade.index')}}';                                                  
+                            window.location.href = '{{route('questions')}}';                                                  
                         });
                 }
             }
                 });
     
   } else {
-    swal("The employee is not deleted!");
+    swal("The Question is not deleted!");
   }
 });
   }
