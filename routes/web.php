@@ -83,6 +83,11 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/delete-certificate','CertificateController@delete_certificate')->name('certificate.delete_certificate');
     Route::get('/edit-certificate/{id}','CertificateController@edit_certificate_form')->name('certificate.edit_certificate_form');
     Route::post('/edit-certificate','CertificateController@edit_certificate_form_submit')->name('certificate.edit_certificate_form_submit');
+    Route::get('/add-certificate','CertificateController@add_certificate_form')->name('certificate.add_certificate_form');
+    Route::post('/add-certificate','CertificateController@add_certificate_form_submit')->name('certificate.add_certificate_form_submit');
+
+    //Scores
+    Route::get('/scores','ScoreController@index')->name('score.index');
 });
 
 

@@ -65,7 +65,7 @@
                             
                             <?php echo $score->title; ?></td>
                         <td>
-                            <img src="{{url('')}}/assets/upload/certificates/{{$score->image_file_name}}"/>
+                            <img src="{{url('')}}/assets/upload/certificates/{{$score->image_file_name}}" height="180" width="180"/>
                         </td>
                         
                         <td>
