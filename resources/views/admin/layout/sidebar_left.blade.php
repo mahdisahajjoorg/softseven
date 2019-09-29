@@ -198,12 +198,12 @@
                         <ul class="nav nav-children">
 
                             <li>
-                            <a href="">Prohibited Word</a>                                                                                                                                                                                                     
+                            <a href="{{route('blockwords.index')}}">Prohibited Word</a>                                                                                                                                                                                                     
 
                             </li>
                             
                             <li>
-                            <a href="">Prohibited Word Add</a>                                                                                                                                                                                                     
+                            <a href="{{route('blockwords.add_block_words_form')}}">Prohibited Word Add</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>
@@ -217,11 +217,11 @@
 
                             
                             <li>
-                            <a href="">Words Add</a>                                                                                                                                                                                                     
+                            <a href="{{route('blockwords.add_word_form')}}">Words Add</a>                                                                                                                                                                                                     
 
                             </li>
                             <li>
-                            <a href="">Words</a>                                                                                                                                                                                                     
+                            <a href="{{route('blockwords.words')}}">Words</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>
@@ -235,7 +235,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Unaccepted Students</a>                                                                                                                                                                                                     
+                    <a href="{{route('student.unapproved_students')}}">Unaccepted Students</a>                                                                                                                                                                                                     
 
                     </li>
                     <li class="nav-parent">
@@ -261,7 +261,7 @@
                     <a href="">Certificate Add</a>                                                                                                                                                                                                     
                            </li>
                             <li>
-                    <a href="">Certificates</a>                                                                                                                                                                                                                                 
+                    <a href="{{route('certificate.index')}}">Certificates</a>                                                                                                                                                                                                                                 
                                 </li>
                             <li>
                     <a href="">Certificates Show</a>                                                                                                                                                                                                                                 
