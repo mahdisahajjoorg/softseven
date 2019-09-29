@@ -113,8 +113,10 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
 
-    //Notice Controller
-    Route::resource('notice', 'NoticeController');
+    //All firstname
+    Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
+    Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
 }); 
 
 //End by sajol mahmud

@@ -1,6 +1,6 @@
 @extends('master')
 
-@section('title','Notice')
+@section('title','Employees')
 
 @section('css_js_up')
 @endsection
@@ -25,27 +25,18 @@
 </header> --}}
 
 <section class="panel">
-
-<form action="{{ route('notice.store') }}" id="summary-form" class="form-horizontal" enctype="multipart/form-data" method="POST" accept-charset="utf-8">
-
-@csrf
-    <div style="display:none;"><input type="hidden" name="_method" value="POST"></div><section class="panel">
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-        <h2 class="panel-title">Notice Add</h2>
+        <h2 class="panel-title">Add Speeling Grade</h2>
     </header>
-<div class="panel-body">
-        @if(Session::get('success'))
-       <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ Session::get('success') }}
-        </div>
-        @endif
 
-
+    <form action="{{ route('firstname_list.update', $user->id) }}" method="POST">
+        @csrf
+       
+    <div class="panel-body">
                 @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -54,17 +45,24 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif  
-                    <div class="validation-message">
-                        <ul></ul>
-                    </div>
-                   <div class="form-group">
-                        <label class="col-sm-3 control-label">Message<span class="required">*</span></label>
-                        <div class="col-sm-9">
-                          <textarea name="notice" class="form-control input-lg" required="required" cols="30" rows="6" id="NoticeMessage"></textarea>                        </div>
-                    </div>
-                
+                            @endif    
+        <div class="validation-message">
+            <ul></ul>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">Game<span class="required">*</span></label>
+            <div class="col-sm-9">
+                <select class="form-control" name="firstname_status">
+                    <option value="1" {{ $user->status==1?'selected':'' }}>Yes</option>
+                    <option value="0" {{ $user->status==0?'selected':'' }}>No</option>
+                    <option value="2" {{ $user->status==2?'selected':'' }}>Unknown</option>
+                </select>
             </div>
+        </div>
+
+
+
+    </div>
     <footer class="panel-footer">
         <div class="row">
             <div class="col-sm-9 col-sm-offset-3">
@@ -73,7 +71,6 @@
             </div>
         </div>
     </footer>
-</section>
 </form>
 </section>
 @endsection

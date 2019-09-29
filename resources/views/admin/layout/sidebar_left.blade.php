@@ -276,7 +276,7 @@
                     </li>
 					
 					 <li class="nav-parent">
-                    <a href="">Current First Name List</a>                                                                                                                                                                                                                                 
+                    <a href="{{ route('firstname_list') }}">Current First Name List</a>                                                                                                                                                                                                                                 
 
                     </li>
 
