@@ -134,7 +134,7 @@
                             
                             </li>
                              <li>
-                            <a href="">All Qustion</a>                                                                                                                                                                                                     
+                            <a href="{{ route('questions') }}">All Qustion</a>                                                                                                                                                                                                     
                             </li>
                         </ul>
                     </li> 
@@ -271,9 +271,8 @@
                         
                     </li>
 					<li class="nav-parent">
-                    <a href="">Notice</a>                                                                                                                                                                                                                                 
+                    <a href="{{ route('notice.create') }}">Notice</a>                                                                                                                                                                                                                                 
 
-                       
                     </li>
 					
 					 <li class="nav-parent">

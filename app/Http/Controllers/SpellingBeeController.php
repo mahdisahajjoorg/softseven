@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Speeling;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class SpellingBeeController extends Controller
 {
@@ -176,59 +179,95 @@ return redirect()->route('allgrade.index')->with("success","Data Deleted Success
 //Question section
 
     public function allQuestion(){
-        $questions = \App\Question::all();
-        return view('admin.spelling_bee.weeks.index')->with('questions', $questions);
+        $questions = \App\Speeling::all();
+        return view('admin.spelling_bee.question.index')->with('questions', $questions);
     }
 
     public function questionCreate(){
-        $allgrade = \App\Allgrade::all();
-        return view('admin.spelling_bee.weeks.add')->with('allgrade', $allgrade);
+        $allgrade = \App\Speeling::all();
+        return view('admin.spelling_bee.question.add')->with('allgrade', $allgrade);
     }
 
     public function questionSave(Request $request){
     $request->validate([
-            'grade' => 'required',
             'week' => 'required',
-            'status' => 'required',
+            'grade' => 'required',
+            'word' => 'required',
+            'definition' => 'required',
+            'music' => 'required',
         ]);
-        $grade = new \App\Allweek;
+        $grade = new \App\Speeling;
+            $uniqueid=uniqid();
+
+
+if ($request->hasFile('music')) {
+    $music = $request->file('music');
+    $extension = $music->getClientOriginalExtension();
+    $filename  = 'qn_' . time() . '.' . $extension;
+    $path   = $music->move('audio/questions/',$filename);
+}
+
 
         $grade->grade_id = $request->grade;
-        $grade->week = $request->week;
-        $grade->status = $request->status;
+        $grade->week_id = $request->week;
+        $grade->word = $request->word;
+        $grade->definition = $request->definition;
+        $grade->music = $filename;
+        
         $grade->save();
 
-        return redirect()->route('all_week')->with("success","Data Inserted Successfully");
+        return redirect()->route('questions')->with("success","Data Inserted Successfully");
     }
 
     public function questionEdit($id){
         $allgrade = \App\Allgrade::all();
-        $all_week = \App\Allweek::find($id);
+        $allWeek = \App\Allweek::all();
+        $question = \App\Speeling::find($id);
 
         $data = [
             'allgrade'=> $allgrade,
-            'week'=> $all_week,
+            'question'=> $question,
+            'weeks'=>$allWeek,
         ];
-        return view('admin.spelling_bee.weeks.edit', $data);
+        return view('admin.spelling_bee.question.edit', $data);
     }
+
+
     public function questionUpdate($id, Request $request){
     $request->validate([
-            'grade' => 'required',
             'week' => 'required',
-            'status' => 'required',
+            'grade' => 'required',
+            'word' => 'required',
+            'definition' => 'required',
         ]);
-        $grade = \App\Allweek::find($id);
+        $grade = \App\Speeling::find($id);
+            $uniqueid=uniqid();
+
+
+if ($request->hasFile('music')) {
+    unlink('audio/questions/'.$grade->music);
+    $music = $request->file('music');
+    $extension = $music->getClientOriginalExtension();
+    $filename  = 'qn_' . time() . '.' . $extension;
+    $path   = $music->move('audio/questions/',$filename);
+        $grade->music = $filename;
+}
+
 
         $grade->grade_id = $request->grade;
-        $grade->week = $request->week;
-        $grade->status = $request->status;
+        $grade->week_id = $request->week;
+        $grade->word = $request->word;
+        $grade->definition = $request->definition;
+
+        
         $grade->save();
 
-        return redirect()->route('all_week')->with("success","Data Updated Successfully");
+        return redirect()->route('questions')->with("success","Data Updated Successfully");
     }
     public function questionDelete(Request $request){
-        $week = \App\Allweek::find($request->id);
-        if($week->delete()){
+        $question = \App\Speeling::find($request->id);
+        unlink('audio/questions/'.$question->music);
+        if($question->delete()){
             echo json_decode(1);
         }
     }
