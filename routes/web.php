@@ -96,7 +96,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //al weeks
     
     Route::get('questions/allweek','SpellingBeeController@allWeek')->name('all_week');
-    Route::get('questions/allweek/edit{id}','SpellingBeeController@weekEdit')->name('all_week.edit');
+    Route::get('questions/allweek/edit/{id}','SpellingBeeController@weekEdit')->name('all_week.edit');
     Route::get('questions/allweek/create','SpellingBeeController@weekCreate')->name('all_week.create');
     Route::get('questions/allweek/save','SpellingBeeController@weekSave')->name('all_week.save');
     Route::get('questions/allweek/update/{id}','SpellingBeeController@weekUpdate')->name('all_week.update');
@@ -107,11 +107,14 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //all question
     
     Route::get('questions','SpellingBeeController@allQuestion')->name('questions');
-    Route::get('questions/edit{id}','SpellingBeeController@questionEdit')->name('questions.edit');
+    Route::get('questions/edit/{id}','SpellingBeeController@questionEdit')->name('questions.edit');
     Route::get('questions/create','SpellingBeeController@questionCreate')->name('questions.create');
-    Route::get('questions/save','SpellingBeeController@questionSave')->name('questions.save');
-    Route::get('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
+    Route::post('questions/save','SpellingBeeController@questionSave')->name('questions.save');
+    Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
+
+    //Notice Controller
+    Route::resource('notice', 'NoticeController');
 }); 
 
 //End by sajol mahmud
