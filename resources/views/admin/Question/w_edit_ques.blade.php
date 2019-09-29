@@ -169,7 +169,7 @@
 	            var imggg = $(this).attr('data-image');
 	          
 	            var inputid = $(".modal-body").attr('data-inputid');
-	            var webrooturl = "/softseven/public/assets/img/questionimage/thumb/";
+	            var webrooturl ="{{url('/')}}/assets/img/questionimage/thumb/";
 	            var imgurl = webrooturl + imggg;
 	         
 	            $("#" + inputid).parent().parent().find('.image_other').val(imggg);

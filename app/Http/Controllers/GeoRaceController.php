@@ -96,6 +96,138 @@ class GeoRaceController extends Controller
 
 	public function add_ques()
 	{
-		# code...
+        $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
+        $users["data"] =  DB::table('georace_contests')->get();
+
+        return view('admin.Georace.add_geo_ques', $users);
 	}
+    public function store_ques(Request $request)
+    {
+        $data = array();
+        $data2 =array();
+        $data =  $request->all();
+
+        $validateData = $request->validate([
+            'answer1' => 'required',
+            'answer2' => 'required',
+            'answer3' => 'required',
+            'answer4' => 'required',
+            'hint' => 'required'
+        ]);
+
+        $data2["answer1"] = $data["answer1"];
+        $data2["answer2"] = $data["answer2"];
+        $data2["answer3"] = $data["answer3"];
+        $data2["answer4"] = $data["answer4"];
+        $data2["hint"] = $data["hint"];
+        $data2["georace_contest_id"] = $data["contest"];
+        $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
+     
+        $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
+        $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
+        $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
+        $data2["created_date"] = date("Y/m/d"); 
+
+        if ($image=$request->file('image')) {
+ 
+           $uploadPath = 'assets/img/questionimage/thumb/';
+           
+           $file_name = time()."-".$image->getClientOriginalName();
+           $dbUrl = $uploadPath."/".$file_name;
+       
+           $image->move($uploadPath,$dbUrl);
+      
+            $data['image']= $file_name;
+         
+        }
+
+
+        if (!empty($data["image"])) {
+            $data2["image"] = $data["image"];
+        }
+        else{
+            $data2["image"] = $data["image_other"];
+        }
+
+
+        if (!empty($data2["image"])) {
+            DB::table('georace_questions')->insert($data2);
+          return redirect()->route('question.all_geo_q_view')->with('success_message','Question Inserted successfully!');
+        }
+        else{
+          return Redirect::back()->with('success_message', 'You must select one Image');
+        }
+    }
+
+    public function geo_edit($id)
+    {
+        $users["data"] = DB::table('georace_questions')->where('id', $id)->first();
+        $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
+        $users["data2"] =  DB::table('georace_contests')->get();
+        return view('admin.Georace.edit_geo_ques', $users);
+    }
+
+    public function update_geo(Request $request)
+    {
+        $data = array();
+        $data2 =array();
+        $data =  $request->all();
+
+        $validateData = $request->validate([
+            'answer1' => 'required',
+            'answer2' => 'required',
+            'answer3' => 'required',
+            'answer4' => 'required',
+            'hint' => 'required'
+        ]);
+
+        $data2["answer1"] = $data["answer1"];
+        $data2["answer2"] = $data["answer2"];
+        $data2["answer3"] = $data["answer3"];
+        $data2["answer4"] = $data["answer4"];
+        $data2["hint"] = $data["hint"];
+
+        $data2["georace_contest_id"] = $data["contest"];
+        $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
+     
+        $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
+        $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
+        $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
+
+        if ($image=$request->file('image')) {
+ 
+           $uploadPath = 'assets/img/questionimage/thumb/';
+           
+           $file_name = time()."-".$image->getClientOriginalName();
+           $dbUrl = $uploadPath."/".$file_name;
+       
+           $image->move($uploadPath,$dbUrl);
+      
+            $data['image']= $file_name;
+         
+        }
+
+
+        if (!empty($data["image"])) {
+            $data2["image"] = $data["image"];
+        }
+        else{
+            $data2["image"] = $data["image_other"];
+        }
+
+        if (!empty($data2["image"])) {
+            DB::table('georace_questions')->where('id',$data["id"])->update($data2);
+            return redirect()->route('question.all_geo_q_view')->with('success_message','Question Updated successfully!');
+        }
+        else{
+            return Redirect::back()->with('success_message', 'You must select one Image');
+        }
+        
+    }
+
+    public function del_geo_ques(Request $request)
+    {
+        DB::table('georace_questions')->where('id', $request->id)->delete();
+        echo json_decode(1);
+    }
 }

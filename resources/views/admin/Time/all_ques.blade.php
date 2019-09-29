@@ -18,62 +18,7 @@
     padding: 0;
 }
 </style>
-
-              
-<script>
-// Navigation
-    (function ($) {
-
-        'use strict';
-
-        var $items = $('.nav-main li.nav-parent');
-
-        function expand(li) {
-
-            li.children('ul.nav-children').slideDown('fast', function () {
-                li.addClass('nav-expanded');
-                $(this).css('display', '');
-                ensureVisible(li);
-            });
-        }
-
-        function collapse(li) {
-            li.children('ul.nav-children').slideUp('fast', function () {
-                $(this).css('display', '');
-                li.removeClass('nav-expanded');
-            });
-        }
-
-        function ensureVisible(li) {
-            var scroller = li.offsetParent();
-            if (!scroller.get(0)) {
-                return false;
-            }
-
-            var top = li.position().top;
-            if (top < 0) {
-                scroller.animate({
-                    scrollTop: scroller.scrollTop() + top
-                }, 'fast');
-            }
-        }
-
-        $items.find('> a').on('click', function () {
-
-            var prev = $(this).closest('ul.nav').find('> li.nav-expanded'),
-                    next = $(this).closest('li');
-
-            if (prev.get(0) !== next.get(0)) {
-                collapse(prev);
-                expand(next);
-            } else {
-                collapse(prev);
-            }
-        });
-
-    }).apply(this, [jQuery]);
-
-	</script>                
+             
 <section class="content-body" style="margin: -4%;" role="main">
 	<header class="page-header">
 	    <h2>Questions</h2>
@@ -111,7 +56,7 @@
     <div class="panel-body">
         <div class="row">
            <div class="col-sm-12 text-right">
-           <a href="{{route('question.add_all_geo_question')}}" class="btn btn-primary">Add Geo Question</a>                  
+           <a href="{{route('question.add_time_question_two')}}" class="btn btn-primary">Add Time Question</a>                  
            </div>
           <br>
           <br>
@@ -138,11 +83,11 @@
                     </td>
                     <td><?php echo $info->hint; ?></td>
                     <td>
-                       <?php echo $info->georace_contest_name; ?>
+                       <?php echo $info->time_contest_id; ?>
                     </td>
                     <td>
-                      <a href="{{route('ques_w.edit_geo_ques_wordrace_form',['id'=>$info->id])}}" class="btn btn-primary">Edit</a>
-                      <a href="javascript:;" onclick="deleteE_al_geo_ques({{$info->id}})" class="btn btn-danger">Delete</a>
+                      <a href="{{route('ques_w.edit_time_ques',['id'=>$info->id])}}" class="btn btn-primary">Edit</a>
+                      <a href="javascript:;" onclick="deleteE_al_time_questwo({{$info->id}})" class="btn btn-danger">Delete</a>
 
                     </td>
                 </tr>
@@ -170,7 +115,7 @@
 @section('css_js_down')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function deleteE_al_geo_ques(id){
+    function deleteE_al_time_questwo(id){
     swal({
     title: "Are you sure?",
     text: "Once deleted, you will not be able to recover this GeoRace Question info!",
@@ -182,7 +127,7 @@
   if (willDelete) {
     $.ajax({
             type: "GET",
-            url: "{{route('question.del_geo_question')}}",
+            url: "{{route('ques_w.edit_time_quesdel_time_ques')}}",
             data: {id:id},
             dataType: "json",
             cache: false,
@@ -192,7 +137,7 @@
                     swal(" GeoRace Qustion deleted successfully!", {
                         icon: "success",
                         }).then(function(){
-                            window.location.href = '{{route('question.all_geo_q_view')}}';                                                  
+                            window.location.href = '{{route('question.all_time_question_two')}}';                                                  
                         });
                 }
             }
