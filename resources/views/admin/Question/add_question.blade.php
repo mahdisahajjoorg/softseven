@@ -40,6 +40,16 @@
             {{Session::get('success_message')}}
         </div>
     @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <form id="summary-form" class="form-horizontal"  method="post" action="{{route('question.add_question_form_submit')}}" enctype="multipart/form-data">	
      @csrf
 
@@ -167,7 +177,11 @@
 			            var imggg = $(this).attr('data-image');
 			          
 			            var inputid = $(".modal-body").attr('data-inputid');
+<<<<<<< HEAD
+			            var webrooturl ="{{url('/')}}/assets/img/questionimage/thumb/";
+=======
 			            var webrooturl ="{{url('')}}/assets/img/questionimage/thumb/";
+>>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
 			            var imgurl = webrooturl + imggg;
 			         
 			            $("#" + inputid).parent().parent().find('.image_other').val(imggg);

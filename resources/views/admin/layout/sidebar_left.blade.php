@@ -70,11 +70,11 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>Time SuperContest</span></a>
                         <ul class="nav nav-children">
                             <li>
-                            <a href="">All Time Level</a>                            
+                            <a href="{{route('question.all_time_question')}}">All Time Level</a>                            
                             </li>
 
                             <li>
-                            <a href="">All Question</a>                                                        
+                            <a href="{{route('question.all_time_question_two')}}">All Question</a>        
                             </li>
                         </ul>
                     </li> 
@@ -271,12 +271,16 @@
                         
                     </li>
 					<li class="nav-parent">
+<<<<<<< HEAD
+                    <a href="{{route('ques_w.notice')}}">Notice</a>
+=======
                     <a href="{{ route('notice.create') }}">Notice</a>                                                                                                                                                                                                                                 
 
+>>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
                     </li>
 					
 					 <li class="nav-parent">
-                    <a href="">Current First Name List</a>                                                                                                                                                                                                                                 
+                    <a href="{{ route('firstname_list') }}">Current First Name List</a>                                                                                                                                                                                                                                 
 
                     </li>
 

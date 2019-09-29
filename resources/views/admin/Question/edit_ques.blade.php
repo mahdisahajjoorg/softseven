@@ -6,6 +6,8 @@
 @endsection
 
 @section('main_content')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
 
 <script>
 // Navigation
@@ -78,6 +80,22 @@
 </style>
 
 <header class="page-header">
+    @if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
@@ -228,7 +246,11 @@
             var imggg = $(this).attr('data-image');
           
             var inputid = $(".modal-body").attr('data-inputid');
+<<<<<<< HEAD
+            var webrooturl ="{{url('/')}}/assets/img/questionimage/thumb/";
+=======
             var webrooturl ="{{url('')}}/assets/img/questionimage/thumb/";
+>>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
             var imgurl = webrooturl + imggg;
          
             $("#" + inputid).parent().parent().find('.image_other').val(imggg);

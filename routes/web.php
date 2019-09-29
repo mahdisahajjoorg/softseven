@@ -118,8 +118,10 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
 
-    //Notice Controller
-    Route::resource('notice', 'NoticeController');
+    //All firstname
+    Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
+    Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
 }); 
 
 //End by sajol mahmud
@@ -173,7 +175,35 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
      //GeoRace -All question
      Route::get('questions/all_geo_qustion','GeoRaceController@show')->name('question.all_geo_q_view');
-     Route::get('questions/add_geo','GeoRaceController@add_ques')->name('question.all_geo_question');
+     Route::get('questions/add_geo','GeoRaceController@add_ques')->name('question.add_all_geo_question');
+     Route::post('questions/store_geo','GeoRaceController@store_ques')->name('question.add_geo_question_form_submit');
+     Route::get('questions/edit_geo_qustion/{id}','GeoRaceController@geo_edit')->name('ques_w.edit_geo_ques_wordrace_form');
+     Route::post('questions/update_geo','GeoRaceController@update_geo')->name('question.update_geo_question_form_submit');
+     Route::get('questions/del_geo_question','GeoRaceController@del_geo_ques')->name('question.del_geo_question');
+
+     //Time - All level question
+     Route::get('questions/all_time_level','TimeController@index')->name('question.all_time_question');
+     Route::get('questions/time_level','TimeController@add_time_level_ques')->name('question.add_time_level_tt');
+     Route::post('questions/store_time_lvl','TimeController@store_time_level_ques')->name('question.add_time_level_question');
+     Route::get('questions/edit_time_level/{id}','TimeController@edit_ques_level')->name('question.all_time_edit_question');
+     Route::post('questions/update_time_lvl','TimeController@update_ques_level')->name('question.update_time_level_question');
+     Route::get('questions/del_time_level','TimeController@del_level')->name('question.del_time_level');
+     //Time - All Question
+     Route::get('questions/all_time_qustion','TimeController@show')->name('question.all_time_question_two');
+     Route::get('questions/add_time','TimeController@add_time')->name('question.add_time_question_two');
+     Route::post('questions/add_time_store','TimeController@store_time')->name('question.add_time_question_form_submit');
+     Route::get('questions/edit_time_question/{id}','TimeController@edit_time_ques')->name('ques_w.edit_time_ques');
+     Route::post('questions/update_time_question','TimeController@update_time_ques')->name('question.update_time_question_form_submit');
+     Route::get('questions/del_ques','TimeController@del_time_ques')->name('ques_w.edit_time_quesdel_time_ques');
+
+     //Notice
+     Route::get('users/notice','Notice@index')->name('ques_w.notice');
+     Route::post('users/notice_store','Notice@store')->name('question.add_notice_submit');
+     Route::get('users/allnotice','Notice@show')->name('ques_w.show_notice');
+     Route::get('users/notice_del','Notice@del')->name('ques_w.notice_del');
+
+     //Firstname
+     Route::get('firstname/firstnamelist','FirstnameController@index')->name('ques_w.first_name');
 
     //end by rakesh
     });

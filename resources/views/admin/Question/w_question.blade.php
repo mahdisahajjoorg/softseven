@@ -76,6 +76,22 @@
 	</script>                
 <section class="content-body" style="margin: -4%;" role="main">
 	<header class="page-header">
+        @if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 	    <h2>Questions</h2>
 
 	    <div class="right-wrapper pull-right">

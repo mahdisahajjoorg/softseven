@@ -133,8 +133,8 @@
     var abc ="";
     abc ='<?php  echo $data->Image; ?>';
 if(abc != undefined){
-    var webrooturl = "/softseven/public/";
-        var imgurl = webrooturl + "assets/img/questionimage/thumb//" + abc;
+    var webrooturl = "{{url('/')}}";
+        var imgurl = webrooturl + "/assets/img/questionimage/thumb//" + abc;
     $('.imgdiv').append(
                     '<img width="100px;" class="img-responsive" alt="" src="' + imgurl + '">');
             }  
