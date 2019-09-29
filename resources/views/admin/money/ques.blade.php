@@ -85,14 +85,14 @@
                 
                 <tr> 
                      <td>
-                         <img src="{{ url('assets/question/img/'.$q->Image) }}" class="img-responsive" alt="" />
+                         <img src="{{ url('assets/img/questionimage/thumb/'.$q->Image) }}" class="img-responsive" alt="" />
                      </td>
 		             <td><?php echo $q->answer1; ?></td>
 		             <td><?php echo $q->hint; ?></td>
 		             <td><?php echo $q->money_contest_name; ?></td>
 		             <td>
                     <a href="{{route('money.edit_money_submit_form',['id'=>$q->id])}}" class="btn btn-primary">Edit</a>
-                    <a href="javascript:;" onclick="deleteMoney_ques({{$q->id}})" class="btn btn-danger">Delete</a>                                          
+                    <a href="javascript:;" onclick="deleteMoney_ques_two({{$q->id}})" class="btn btn-danger">Delete</a>                                          
                      </td>
                </tr>
                @endforeach
@@ -130,7 +130,7 @@
 
 
 
-         </section>
+</section>
    
 </div>   
 
@@ -139,10 +139,10 @@
 @section('css_js_down')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
-    function deleteMoney_ques(id){
+    function deleteMoney_ques_two(id){
     swal({
     title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this employee info!",
+    text: "Once deleted, you will not be able to recover this Question info!",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -151,14 +151,14 @@
   if (willDelete) {
     $.ajax({
             type: "GET",
-            url: "{{route('question.del_money_question_form')}}",
+            url: "{{route('question.del_money_question_two_form')}}",
             data: {id:id},
             dataType: "json",
             cache: false,
             success:
             function (data) {
                 if(data==1){
-                    swal("Employee deleted successfully!", {
+                    swal(" Deleted successfully!", {
                         icon: "success",
                         }).then(function(){
                             window.location.href = '{{route('question.all_money_question')}}';                                                  
@@ -168,7 +168,7 @@
                 });
     
   } else {
-    swal("The employee is not deleted!");
+    swal("The Question is not deleted!");
   }
 });
   }

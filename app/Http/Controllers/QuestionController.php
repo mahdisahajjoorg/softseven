@@ -24,7 +24,7 @@ class QuestionController extends Controller
 
     public function Word_race_settings_edit($id)
     {
-      $users["img"] = DB::table('wordracesettings')->select('image')->get();
+      $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
     	$users["data"] = DB::table('wordracesettings')->where('id', $id)->first();
     	return view('admin.Question.edit_ques', $users);
     }
@@ -39,7 +39,7 @@ class QuestionController extends Controller
 
       if ($image=$request->file('image')) {
  
-           $uploadPath = 'assets/img/levels/';
+           $uploadPath = 'assets/img/questionimage/thumb/';
            
            $file_name = time()."-".$image->getClientOriginalName();
            $dbUrl = $uploadPath."/".$file_name;
@@ -69,9 +69,6 @@ class QuestionController extends Controller
         else{
           return Redirect::back()->with('success_message', 'You must select one Image');
         }
-
-    	$users = DB::table('wordracesettings')->where('id', $id)->first();
-    	return view('admin.Question.edit_ques', ["data" =>$users]);
     }
     public function add_ques()
     {
@@ -94,7 +91,7 @@ class QuestionController extends Controller
 
     	if ($image=$request->file('image')) {
  
-           $uploadPath = 'assets/img/questionimage/thumb';
+           $uploadPath = 'assets/img/questionimage/thumb/';
            
            $file_name = time()."-".$image->getClientOriginalName();
            $dbUrl = $uploadPath."/".$file_name;
@@ -163,8 +160,9 @@ class QuestionController extends Controller
     public function Word_race_question_edit($id)
     {
 
-        $users["img"] = DB::table('questions')->select('image')->get();
+        $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
         $users["data"] = DB::table('questions')->where('id', $id)->first();
+     
         return view('admin.Question.w_edit_ques', $users);
 
     }
@@ -186,40 +184,38 @@ class QuestionController extends Controller
         
         if ($image=$request->file('image')) {
  
-           $uploadPath = 'assets/question/img';
+           $uploadPath = 'assets/img/questionimage/thumb';
            
            $file_name = time()."-".$image->getClientOriginalName();
            $dbUrl = $uploadPath."/".$file_name;
        
            $image->move($uploadPath,$dbUrl);
       
-            $data['image']= $dbUrl;
+            $data['image']= $file_name;
          
         }
 
         if ($hintmp3=$request->file('hintmp3')) {
-           $uploadPath = 'assets/question/audio';
+           $uploadPath = 'assets/files/hintmp3';
 
            $file_name = time()."-".$hintmp3->getClientOriginalName();
 
            $dbUrl = $uploadPath."/".$file_name;
            $hintmp3->move($uploadPath,$dbUrl);
        
-            $data['hintmp3']= $dbUrl;
-           
+            $data['hintmp3']= $file_name;
             
      
         }
 
         if ($questionmp3=$request->file('questionmp3')) {
-           $uploadPath = 'assets/question/audio';
+           $uploadPath = 'assets/files/questionmp3';
 
            $file_name = time()."-".$questionmp3->getClientOriginalName();
            $dbUrl = $uploadPath."/".$file_name;
            $questionmp3->move($uploadPath,$dbUrl);
    
-            $data['questionmp3']= $dbUrl;
-             
+            $data['questionmp3']= $file_name;
          
         }
 
@@ -262,7 +258,7 @@ class QuestionController extends Controller
 
     public function add_set_ques()
     {
-      $users["img"] = DB::table('wordracesettings')->select('image')->get();
+      $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
       return view('admin.Question.wr_set_add', $users);
     }
 
@@ -276,7 +272,7 @@ class QuestionController extends Controller
 
       if ($image=$request->file('image')) {
  
-           $uploadPath = 'assets/img/levels/';
+           $uploadPath = 'assets/img/questionimage/thumb/';
            
            $file_name = time()."-".$image->getClientOriginalName();
            $dbUrl = $uploadPath."/".$file_name;
@@ -298,6 +294,8 @@ class QuestionController extends Controller
         else{
             $data2["image"] = $data["image_other"];
         }
+
+        dd($data2);
 
         if (!empty($data2["image"])) {
           DB::table('wordracesettings')->insert($data2);

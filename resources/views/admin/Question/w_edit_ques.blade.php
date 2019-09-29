@@ -57,7 +57,7 @@
 						                		<div class="isotope-item document col-sm-6 col-md-4 col-lg-3">
 							                        <div class="thumbnail">
 							                            <div class="thumb-preview">
-							                                <a class="thumb-image nrthumb" data-image="<?php echo $value->image ?>"href="#"><img src="{{url($value->image)}}" class="img-responsive" height="150px;" alt="" /></a>
+							                                <a class="thumb-image nrthumb" data-image="<?php echo $value; ?>"href="#"><img src="{{ url('assets/img/questionimage/thumb/'.$value) }}" class="img-responsive" height="150px;" alt="" /></a>
 							                            </div>
 							                        </div>
 							                    </div>
@@ -75,6 +75,8 @@
 						    </div>
 						</div>
 					</div>
+
+					
 
 	                <div class="form-group">
 	                    <label class="col-sm-3 control-label">Level<span class="required">*</span></label>
@@ -135,10 +137,12 @@
 	                            <input type="file" name="image"  class="mainimage form-control input-lg" accept="image/*" id="QuestionImage"/></div>
 	                        <div class="col-sm-2"><button type="button" class="nrmodal" data-toggle="modal" data-target="#myModal">Select From Gallery</button></div>
 	                        <div class="col-sm-2 imgdiv">
-	                               <img src="{{url($data->image)}}" class="img-responsive" height="150px;" alt="" />                        
+	                               <img src="{{url('assets/img/questionimage/thumb/'.$data->image)}}" class="img-responsive" height="150px;" alt="" />                        
 	                        </div>
 	                    </div>
 	                </div>
+
+
 
 
                 <footer class="panel-footer">
@@ -165,7 +169,7 @@
 	            var imggg = $(this).attr('data-image');
 	          
 	            var inputid = $(".modal-body").attr('data-inputid');
-	            var webrooturl = "/softseven/public/";
+	            var webrooturl = "/softseven/public/assets/img/questionimage/thumb/";
 	            var imgurl = webrooturl + imggg;
 	         
 	            $("#" + inputid).parent().parent().find('.image_other').val(imggg);
@@ -175,7 +179,6 @@
 	            $("#myModal").modal('hide');
 
 	        });
-
 
 	    });
 	</script>

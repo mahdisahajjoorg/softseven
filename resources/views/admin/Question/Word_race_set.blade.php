@@ -74,7 +74,7 @@
 
                     <td style="position: relative;"> <span class="w_level"  style="background-color:<?php echo $info->color;?>"></span> </td>
 
-                    <td><img height="120px" src="{{ url('assets/img/levels/'.$info->image) }}"></td>
+                    <td><img height="120px" src="{{ url('assets/img/questionimage/thumb/'.$info->image) }}"></td>
 
                     <td>
                     <a href="{{route('question.edit_settings_form',['id'=>$info->id])}}" class="btn btn-primary">Edit</a>
