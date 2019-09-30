@@ -53,9 +53,9 @@
             <label class="col-sm-3 control-label">Game<span class="required">*</span></label>
             <div class="col-sm-9">
                 <select class="form-control" name="firstname_status">
-                    <option value="1" {{ $user->status==1?'selected':'' }}>Yes</option>
-                    <option value="0" {{ $user->status==0?'selected':'' }}>No</option>
-                    <option value="2" {{ $user->status==2?'selected':'' }}>Unknown</option>
+                    <option value="1" {{ $user->is_approved==1?'selected':'' }}>Yes</option>
+                    <option value="0" {{ $user->is_approved==0?'selected':'' }}>No</option>
+                    <option value="2" {{ $user->is_approved==2?'selected':'' }}>Unknown</option>
                 </select>
             </div>
         </div>

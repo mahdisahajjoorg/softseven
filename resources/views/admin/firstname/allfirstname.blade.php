@@ -98,7 +98,7 @@
          <tr>
             <td> <?php echo $con['id']; ?></td>
             <td><?php echo $con['firstname']; ?></td>
-            <td><span class="btn btn-<?php echo $con['status']==1?'success':'danger'; ?>"><?php echo $con['status']==1?'Yes':'No'; ?></span></td>
+            <td><span class="btn btn-<?php echo $con['is_approved']==1?'success':'danger'; ?>"><?php echo $con['status']==1?'Yes':'No'; ?></span></td>
             <td>
                 <a href="{{route('firstname_list.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
 
