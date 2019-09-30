@@ -271,22 +271,14 @@
                         
                     </li>
 					<li class="nav-parent">
-<<<<<<< HEAD
-                    <a href="{{route('ques_w.notice')}}">Notice</a>
-=======
-                    <a href="{{ route('notice.create') }}">Notice</a>                                                                                                                                                                                                                                 
-
->>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
                     </li>
 					
 					 <li class="nav-parent">
-                    <a href="{{ route('firstname_list') }}">Current First Name List</a>                                                                                                                                                                                                                                 
-
+                    <a href="{{ route('firstname_list') }}">Current First Name List</a>
                     </li>
 
                    <li class="nav-parent">
-                   <a href="">Unique First Name List</a>                                                                                                                                                                                                                                 
-
+                   <a href="">Unique First Name List</a>
                     </li>
                             <li class="nav-parent">
                    <a href="">Settings</a>                                                                                                                                                                                                                                 
