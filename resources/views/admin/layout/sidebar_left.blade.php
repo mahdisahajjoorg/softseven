@@ -96,9 +96,9 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>Super Contest Questions</span></a>
                         <ul class="nav nav-children">
                             <li>
-                            <a href="">Add Question</a>                                                                                                                                             
+                            <a href="{{ route('supercontest.create') }}">Add Question</a>                                                                                                                                             
                             <li>
-                            <a href="">All Questions</a>                                                                                                                                                                        
+                            <a href="{{ route('supercontest.index') }}">All Questions</a>                                                                                                                                                                        
                          </ul>
                     </li>
                     <li class="nav-parent">
