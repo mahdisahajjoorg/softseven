@@ -127,6 +127,11 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //supercontest
     Route::resource('supercontest', 'SuperContestController');
     Route::post('supercontest/delete', 'SuperContestController@deleteSuper')->name('supercontest_delete');
+
+
+    //Settings
+    Route::get('setting', 'SettingsController@edit')->name('setting');
+    Route::get('setting/update/{id}', 'SettingsController@update')->name('setting.update');
 }); 
 
 //End by sajol mahmud

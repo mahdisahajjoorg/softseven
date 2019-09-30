@@ -36,6 +36,12 @@
         </h2>
     </header>
     <div class="panel-body">
+        @if(Session::get('success'))
+       <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ Session::get('success') }}
+        </div>
+        @endif
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
             <thead>
                 <tr>

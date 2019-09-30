@@ -150,7 +150,7 @@ class SuperContestController extends Controller
         $supercontestproblem->save();
         }
 
-        return redirect()->route('supercontest.index')->with("success","Data Added Successfully");
+        return redirect()->route('supercontest.index')->with("success","Data Updated Successfully");
     }
 
     /**

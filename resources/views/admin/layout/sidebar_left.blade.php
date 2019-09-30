@@ -286,7 +286,7 @@
 
                     </li>
                             <li class="nav-parent">
-                   <a href="">Settings</a>                                                                                                                                                                                                                                 
+                   <a href="{{ route('setting') }}">Settings</a>                                                                                                                                                                                                                                 
                     </li>
 
                 </ul>
