@@ -231,7 +231,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Accepted Students</a>                                                                                                                                                                                                     
+                    <a href="{{route('student.approved_students')}}">Accepted Students</a>                                                                                                                                                                                                     
 
                     </li>
                     <li class="nav-parent">
@@ -243,7 +243,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Send Mail to Students</a>                                                                                                                                                                                                     
+                    <a href="{{route('student.send_mail_student')}}">Send Mail to Students</a>                                                                                                                                                                                                     
 
                     </li>
                     <li class="nav-parent">
@@ -264,23 +264,19 @@
                     <a href="{{route('certificate.index')}}">Certificates</a>                                                                                                                                                                                                                                 
                                 </li>
                             <li>
-                    <a href="">Certificates Show</a>                                                                                                                                                                                                                                 
+                    <a href="{{route('score.index')}}">Certificates Show</a>                                                                                                                                                                                                                                 
                             
                            </li>
                         </ul>
                         
                     </li>
 					<li class="nav-parent">
-<<<<<<< HEAD
-                    <a href="{{route('ques_w.notice')}}">Notice</a>
-=======
-                    <a href="{{ route('notice.create') }}">Notice</a>                                                                                                                                                                                                                                 
 
->>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
+                    <a href="{{route('ques_w.notice')}}">Notice</a>                                                                                                                                                                                                                                
+
                     </li>
 					
 					 <li class="nav-parent">
-                    <a href="{{ route('firstname_list') }}">Current First Name List</a>                                                                                                                                                                                                                                 
 
                     </li>
 

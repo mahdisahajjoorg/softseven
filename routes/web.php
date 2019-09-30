@@ -88,6 +88,15 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Scores
     Route::get('/scores','ScoreController@index')->name('score.index');
+    Route::get('/scores-award/{c_id}/{s_id}','ScoreController@scores_award')->name('score.scores_award');
+    Route::get('/view-pdf/scores-award/{c_id}/{s_id}','ScoreController@score_award_pdf')->name('score.score_award_pdf');
+    
+    //Accepted students
+    Route::get('/approved-students','StudentController@approved_students')->name('student.approved_students');
+    Route::get('/reject-student/{id}','StudentController@reject_student')->name('student.reject_student');
+
+    //Send mail to students
+    Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
 });
 
 
