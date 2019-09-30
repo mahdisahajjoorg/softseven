@@ -303,4 +303,35 @@ class SchoolController extends Controller
             return redirect()->route('school.school_expired')->with('success_message',$month.' months payment confirmed');
         } 
     }
+
+
+
+    //sajol
+    //
+    public function sendmail(){
+
+        $allSchool = \App\School::all();
+        $data = [
+            'allSchool'=>$allSchool,
+        ];
+        return view('admin.schools.sendmail', $data);
+    }
+
+    public function send_mail(Request $request){
+        $school_ids = $request->school;
+        $subject    = $request->subject;
+        $mail_body  = $request->mail_body;
+        foreach ($school_ids as $school_id) {
+            $to_email = School::where('id',$school_id)->first();
+            $from_email = Admin_user::where('type',1)->first()->email;
+                    
+                    $data = ['mail_body'=>$mail_body];
+                    Mail::send('email.mail_school',$data,function($message) use ($from_email,$to_email, $subject){
+                    $message->to($to_email->school_email, $to_email->school_name)
+                            ->subject($subject);
+                    $message->from($from_email,'Admin');         
+                });
+        }
+            return redirect()->route('school.sendmail')->with('success','Mail Sent!');
+    }
 }

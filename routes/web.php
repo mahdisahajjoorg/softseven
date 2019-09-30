@@ -45,6 +45,12 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/school-expired','SchoolController@school_expired')->name('school.school_expired');
     Route::get('/edit-expire-month/{id}/{month}','SchoolController@edit_expire_month')->name('school.edit_expire_month');
 
+    //school by sajol
+    Route::get('schools/sendmail', 'SchoolController@sendmail')->name('school.sendmail');
+    Route::get('schools/send_mail', 'SchoolController@send_mail')->name('school.send_mail');
+
+
+    
     //Game Level
     Route::get('/game-level','GameLevelController@index')->name('game.index');
     Route::get('/add-game-level','GameLevelController@add_game_level_form')->name('game.add_game_level_form');

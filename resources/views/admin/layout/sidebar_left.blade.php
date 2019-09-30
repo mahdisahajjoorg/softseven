@@ -247,7 +247,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Send Mail to Schools</a>                                                                                                                                                                                                     
+                    <a href="{{ route('school.sendmail') }}">Send Mail to Schools</a>                                                                                                                                                                                                     
 
                     </li>
 
