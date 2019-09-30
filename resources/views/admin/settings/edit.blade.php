@@ -30,13 +30,20 @@
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-        <h2 class="panel-title">Add Speeling Grade</h2>
+        <h2 class="panel-title">Softseven Phone Number</h2>
     </header>
 
-    <form action="{{ route('firstname_list.update', $user->id) }}" method="POST">
+    <form action="{{ route('setting.update', $setting[0]->id) }}" method="POST">
         @csrf
-       
+        @method('GET')
     <div class="panel-body">
+        @if(Session::get('success'))
+       <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{ Session::get('success') }}
+        </div>
+        @endif
+        
                 @if ($errors->any())
                                 <div class="alert alert-danger">
                                     <ul>
@@ -49,19 +56,13 @@
         <div class="validation-message">
             <ul></ul>
         </div>
+
         <div class="form-group">
-            <label class="col-sm-3 control-label">Game<span class="required">*</span></label>
+            <label class="col-sm-3 control-label">Phone <span class="text-danger">*</span></label>
             <div class="col-sm-9">
-                <select class="form-control" name="firstname_status">
-                    <option value="1" {{ $user->is_approved==1?'selected':'' }}>Yes</option>
-                    <option value="0" {{ $user->is_approved==0?'selected':'' }}>No</option>
-                    <option value="2" {{ $user->is_approved==2?'selected':'' }}>Unknown</option>
-                </select>
+                <input type="text" class="form-control" name="phone" value="{{ $setting[0]->phone_number }}">
             </div>
         </div>
-
-
-
     </div>
     <footer class="panel-footer">
         <div class="row">
@@ -76,5 +77,41 @@
 @endsection
 
 @section('css_js_down')
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    function deleteSpellingBee(id){
+    swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover this info!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+    })
+.then((willDelete) => {
+  if (willDelete) {
+    var url = 'spelling_bee/destroy/'+id;
+    $.ajax({
+            type: "GET",
+            url: url,
+            data: {id:id},
+            dataType: "json",
+            cache: false,
+            success:
+            function (data) {
+                if(data==1){
+                    swal("Employee deleted successfully!", {
+                        icon: "success",
+                        }).then(function(){
+                            window.location.href = '{{route('employee.index')}}';                                                  
+                        });
+                }
+            }
+                });
+    
+  } else {
+    swal("The employee is not deleted!");
+  }
+});
+  }
+</script>
 @endsection

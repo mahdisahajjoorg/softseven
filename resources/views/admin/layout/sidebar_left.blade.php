@@ -96,9 +96,9 @@
                         <a><i class="fa fa-copy" aria-hidden="true"></i><span>Super Contest Questions</span></a>
                         <ul class="nav nav-children">
                             <li>
-                            <a href="">Add Question</a>                                                                                                                                             
+                            <a href="{{ route('supercontest.create') }}">Add Question</a>                                                                                                                                             
                             <li>
-                            <a href="">All Questions</a>                                                                                                                                                                        
+                            <a href="{{ route('supercontest.index') }}">All Questions</a>                                                                                                                                                                        
                          </ul>
                     </li>
                     <li class="nav-parent">
@@ -247,7 +247,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Send Mail to Schools</a>                                                                                                                                                                                                     
+                    <a href="{{ route('school.sendmail') }}">Send Mail to Schools</a>                                                                                                                                                                                                     
 
                     </li>
 
@@ -272,7 +272,8 @@
                     </li>
 					<li class="nav-parent">
 
-                    <a href="{{route('ques_w.notice')}}">Notice</a>                                                                                                                                                                                                                                
+
+                    <a href="{{route('ques_w.notice')}}">Notice</a>
 
                     </li>
 					
@@ -285,7 +286,7 @@
 
                     </li>
                             <li class="nav-parent">
-                   <a href="">Settings</a>                                                                                                                                                                                                                                 
+                   <a href="{{ route('setting') }}">Settings</a>                                                                                                                                                                                                                                 
                     </li>
 
                 </ul>

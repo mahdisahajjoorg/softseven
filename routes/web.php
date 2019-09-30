@@ -45,6 +45,12 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/school-expired','SchoolController@school_expired')->name('school.school_expired');
     Route::get('/edit-expire-month/{id}/{month}','SchoolController@edit_expire_month')->name('school.edit_expire_month');
 
+    //school by sajol
+    Route::get('schools/sendmail', 'SchoolController@sendmail')->name('school.sendmail');
+    Route::get('schools/send_mail', 'SchoolController@send_mail')->name('school.send_mail');
+
+
+    
     //Game Level
     Route::get('/game-level','GameLevelController@index')->name('game.index');
     Route::get('/add-game-level','GameLevelController@add_game_level_form')->name('game.add_game_level_form');
@@ -131,6 +137,16 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
     Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
     Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
+
+
+    //supercontest
+    Route::resource('supercontest', 'SuperContestController');
+    Route::post('supercontest/delete', 'SuperContestController@deleteSuper')->name('supercontest_delete');
+
+
+    //Settings
+    Route::get('setting', 'SettingsController@edit')->name('setting');
+    Route::get('setting/update/{id}', 'SettingsController@update')->name('setting.update');
 }); 
 
 //End by sajol mahmud
@@ -210,9 +226,6 @@ Route::group(['middleware'=>['authMiddleware']],function(){
      Route::post('users/notice_store','Notice@store')->name('question.add_notice_submit');
      Route::get('users/allnotice','Notice@show')->name('ques_w.show_notice');
      Route::get('users/notice_del','Notice@del')->name('ques_w.notice_del');
-
-     //Firstname
-     Route::get('firstname/firstnamelist','FirstnameController@index')->name('ques_w.first_name');
 
     //end by rakesh
     });

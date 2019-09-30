@@ -7,19 +7,19 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
    public function firstNameList(){
-   	 $alluser = \App\Admin_user::all();
+   	 $alluser = \App\Student::get();
 
    	 return view('admin.firstname.allfirstname')->with('alluser',$alluser);
    }
 
    public function firstNameEdit($id){
-	$user = \App\Admin_user::find($id);
+	$user = \App\Student::find($id);
    	 return view('admin.firstname.editfirstname')->with('user',$user);
    }
 
    public function firstNameUpdate(Request $request, $id){
    	
-   	$user = \App\Admin_user::find($id);
+   	$user = \App\Student::find($id);
    	$user->status = $request->firstname_status;
    	$user->save();
 
