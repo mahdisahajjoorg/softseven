@@ -30,7 +30,7 @@
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-        <h2 class="panel-title">Add Speeling Grade</h2>
+        <h2 class="panel-title">Softseven Phone Number</h2>
     </header>
 
     <form action="{{ route('setting.update', $setting[0]->id) }}" method="POST">
