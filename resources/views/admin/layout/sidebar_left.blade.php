@@ -258,7 +258,7 @@
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                    <a href="">Certificate Add</a>                                                                                                                                                                                                     
+                    <a href="{{route('certificate.add_certificate_form')}}">Certificate Add</a>                                                                                                                                                                                                     
                            </li>
                             <li>
                     <a href="{{route('certificate.index')}}">Certificates</a>                                                                                                                                                                                                                                 
@@ -271,6 +271,9 @@
                         
                     </li>
 					<li class="nav-parent">
+
+                    <a href="{{route('ques_w.notice')}}">Notice</a>
+
                     </li>
 					
 					 <li class="nav-parent">

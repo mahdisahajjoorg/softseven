@@ -26,27 +26,12 @@ class CertificateController extends Controller
     }
 
     public function edit_certificate_form_submit(Request $request){
-       dd($request->file('image'));
         $validateData = $request->validate([
             'title'=>'required',
             'type'=>'required'
         ]);
         $certificate = Certificate::where('id',$request->cert_id)->first();
         if($request->type==1){
-            $certificate->title = $request->title;
-            $certificate->type = $request->type;
-            $certificate->jampbage = $request->jumpbage;
-            if($request->file('image')){
-                $file = $request->file('image');
-                $certificate->image_file_name = $file->getClientOriginalName();
-                $filename = time()."-".$file->getClientOriginalName();
-                $file->move('/assets/upload/certificates/',$filename);
-            }
-            if($certificate->update()){
-                return redirect()->route('certificate.index')->with('success_message','Certificate updated successfully!');
-            }
-        }
-        else if($request->type==2){
             $certificate->title = $request->title;
             $certificate->type = $request->type;
             $certificate->addition = $request->addition;
@@ -56,11 +41,75 @@ class CertificateController extends Controller
             $certificate->wordrace = $request->wordrace;
             if($request->file('image')){
                 $file = $request->file('image');
-                $certificate->image_file_name = $file->getClientOriginalName();
                 $filename = time()."-".$file->getClientOriginalName();
-                $file->move('/assets/upload/certificates/',$filename);
+                $certificate->image_file_name = $filename;
+                $file->move('assets/upload/certificates/',$filename);
+            }
+            if($certificate->save()){
+                return redirect()->route('certificate.index')->with('success_message','Certificate added successfully!');
+            }
+            
+        }
+        else if($request->type==2){
+            $certificate->title = $request->title;
+            $certificate->type = $request->type;
+            $certificate->jampbage = $request->jumpbage;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = time()."-".$file->getClientOriginalName();
+                $certificate->image_file_name = $filename;
+                $file->move('assets/upload/certificates/',$filename);
             }
             if($certificate->update()){
+                return redirect()->route('certificate.index')->with('success_message','Certificate updated successfully!');
+            }
+        }
+    }
+
+    public function add_certificate_form(){
+        return view('admin.certificate.add_certificate');
+    }
+
+    public function add_certificate_form_submit(Request $request){
+        $validateData = $request->validate([
+            'title'=>'required',
+            'type'=>'required',
+            'image'=> 'required | mimes:jpeg,jpg,png,gif'
+        ]);
+        
+        $certificate = new Certificate();
+        if($request->type==1){
+            $certificate->title = $request->title;
+            $certificate->type = $request->type;
+            $certificate->addition = $request->addition;
+            $certificate->multiplication = $request->multiplication;
+            $certificate->subtraction = $request->subtraction;
+            $certificate->division = $request->division;
+            $certificate->wordrace = $request->wordrace;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = time()."-".$file->getClientOriginalName();
+                $certificate->image_file_name = $filename;
+                $file->move('assets/upload/certificates/',$filename);
+            }
+            if($certificate->save()){
+                return redirect()->route('certificate.index')->with('success_message','Certificate added successfully!');
+            }
+            
+        }
+        else if($request->type==2){
+            
+            $certificate->title = $request->title;
+            $certificate->type = $request->type;
+            $certificate->jampbage = $request->jumpbage;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $filename = time()."-".$file->getClientOriginalName();
+                $certificate->image_file_name = $filename;
+                $file->move('assets/upload/certificates/',$filename);
+            }
+            if($certificate->save()){
+                
                 return redirect()->route('certificate.index')->with('success_message','Certificate updated successfully!');
             }
         }
