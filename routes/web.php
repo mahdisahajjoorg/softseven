@@ -106,6 +106,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Send mail to students
     Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
+    Route::post('/send-mail-student/data','StudentController@student_list_for_send_mail')->name('student.send_mail_student.data');
     Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
 });
 
@@ -238,6 +239,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
      //All firstname
     Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/data', 'UserController@firstNameListData')->name('firstname_list_data');
     Route::get('firstname/searchlist/{id}', 'UserController@searchlist');
     Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit');
     Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');

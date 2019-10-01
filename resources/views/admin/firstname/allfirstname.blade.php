@@ -1,13 +1,13 @@
 @extends('master')
 
-@section('title','Mathrace : Firstname')
+@section('title','Approved Students')
 
 @section('css_js_up')
 @endsection
 
 @section('main_content')
 <header class="page-header">
-    <h2>Firstname</h2>
+    <h2>Students</h2>
 
     <div class="right-wrapper pull-right">
         <ol class="breadcrumbs">
@@ -16,7 +16,7 @@
                     <i class="fa fa-home"></i>
                 </a>
             </li>
-            <li><span>Questions</span></li>
+            <li><span>School</span></li>
             <li><span>Index</span></li>
         </ol>
 
@@ -25,174 +25,123 @@
 </header>
 
 <section class="panel">
+@if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
 
+        <h2 class="panel-title"><span >Students Firstname List</span>
+            <span style="float:right; padding-right:10%;">
 
+                
+            </span>
+            <span class="clr"></span></h2>
     </header>
     <div class="panel-body">
-<div class="row">
-<div class="col-md-4"></div>
-<div class="col-md-4">
-       <div class="dropdown">
-             <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">A---Z  <span class="caret"></span></button>
-                 <ul class="dropdown-menu">
-                     <li class="alp-drop"><a href="#" alphattr="a" class="alphabate">A</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="b" class="alphabate">B</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="c" class="alphabate">C</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="d" class="alphabate">D</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="e" class="alphabate">E</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="f" class="alphabate">F</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="g" class="alphabate">G</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="h" class="alphabate">H</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="i" class="alphabate">I</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="j" class="alphabate">J</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="k" class="alphabate">K</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="l" class="alphabate">L</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="m" class="alphabate">M</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="n" class="alphabate">N</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="o" class="alphabate">O</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="p" class="alphabate">P</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="q" class="alphabate">Q</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="r" class="alphabate">R</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="s" class="alphabate">S</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="t" class="alphabate">T</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="u" class="alphabate">U</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="v" class="alphabate">V</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="w" class="alphabate">W</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="x" class="alphabate">X</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="y" class="alphabate">Y</a></li>
-                     <li class="alp-drop"><a href="#" alphattr="z" class="alphabate">Z</a></li>
-                 </ul>
-       </div>
-</div>
-<div class="col-md-4"></div>
-</div>
-        @if(Session::get('success'))
-       <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{ Session::get('success') }}
-        </div>
-        @endif
-       <div class="row">
-      <br>
-      <br>
-      <br>
-       </div>
-       <div id="result-div">
-        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+        <table class="table table-bordered table-striped mb-none" id="approve_student">
             <thead>
                 <tr>
-                    <th>Id</th>
+                 <th>Id</th>
                     <th>Firstname</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th >Status</th>
+                    <th >Action</th>
                 </tr>
             </thead>
 
-        <tbody>
-
-            <?php foreach ($alluser as $con) {?>
-            <tr>
-                <td><?php echo $con->id; ?></td>
-                <td><?php if ($con->firstname_status ==1) {
-                    echo $con->firstname;
-                   } ?>
-                </td>
-                <td><?php if ($con->firstname_status ==1) { ?>
-                    <button class="btn btn-success">YES</button>
-                <?php }
-               elseif ($con->firstname_status ==0) { ?>
-                    <button class="btn btn-warning">NO</button>
-                <?php }else{ ?>
-                     <button class="btn btn-danger">UNKNOWN</button>
-                <?php } ?>
-                </td>
-                <td><a href="{{url('firstname/firstnamelist/edit/')}}<?php echo '/'; echo $con->id; ?>" class="btn btn-primary">Edit</a></td>
-                
-            </tr>
-            <?php } ?>
-         </tbody>
         </table>
+         <button class="btn btn-primary pr_submit"> Submit</button>
     </div>
-</div>
 </section>
+<script>
+jQuery(document).ready(function(){ 
+    jQuery('body').delegate('.delete','click',function(){
+          
+                    var $thisLayoutBtn = jQuery(this);
+                    var $href = jQuery(this).attr('href');
+                    var makeChange = true;
+
+                    
+                    if(makeChange){
+                        swal({
+                            title: "Are you sure?",
+                            text: "This data will be deleted",
+                            type: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "No",
+                            closeOnConfirm: false,
+                            closeOnCancel: true
+                          },
+                          function(isConfirm){
+                              if (isConfirm) {
+                                   window.location.href = $href;
+                              } else {
+                                  
+                              }
+                        });
+                    }
+                    
+                    return false;
+                });
+});
+</script>
+     
 @endsection
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        //Buttons examples
-        var table = $('#datatable-default').DataTable({
-            lengthChange: true,
-            lengthMenu: [10,25,50,100],          
-        });       
-    } );
-
-</script>
-
-
-
 @section('css_js_down')
-<script>
- $(document).ready(function(){
-   $('.alphabate').click(function(){
-    var alp = $(this).attr('alphattr');
-    console.log(alp)
-     $.ajax({
-           url: 'searchlist/'+alp,
-           dataType: "html",
-           success: function (response) {
-            console.log(response)
-                 $("#result-div").html('');
-                 $("#result-div").append(response);
-                    },
-            error: function (request) {
-              }
+<script type="text/javascript">
+    var oTable;
+
+    $(document).ready(function() {
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{!!route('firstname_list_data')!!}",
+            "columns": [
+                {data: 'id',  name: 'id'},
+                {data: 'firstname',  name: 'firstname'},
+                {data: 'is_approved',  name: 'is_approved'},
+                {data: 'action',  name: 'action'},
+            ]
+        });
     });
 
+
+
+$('.pr_submit').on('click',function(){
+var mainArray=[];
+$("input[type=radio]:checked").each(function() {
+        var obj={};
+        var value = $(this).val();
+        var name = $(this).attr('name');
+        obj[name] = value;
+        mainArray.push(obj);
 });
-});
-</script>
 
-
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
-    function deleteSpellingBee(id){
-    swal({
-    title: "Are you sure?",
-    text: "Once deleted, you will not be able to recover this info!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-    })
-.then((willDelete) => {
-  if (willDelete) {
-    $.ajax({
-            type: "GET",
-            url: "{{route('spelling_bee.delete_grade')}}",
-            data: {id:id},
-            dataType: "json",
-            cache: false,
-            success:
-            function (data) {
-                if(data==1){
-                    swal("Grade deleted successfully!", {
-                        icon: "success",
-                        }).then(function(){
-                            window.location.href = '{{route('allgrade.index')}}';                                                  
-                        });
+$.ajax({
+            type: "POST",
+            url: '{{ route('change_student_status') }}',
+            data: {"_token": "{{ csrf_token() }}",'data':mainArray},
+            dataType: "html",
+            success: function (response) {
+                if(response == 'done'){
+                    location.reload();
                 }
+            },
+            error: function (request) {
             }
-                });
-    
-  } else {
-    swal("The employee is not deleted!");
-  }
-});
-  }
+        });
+
+})
+
 </script>
 @endsection

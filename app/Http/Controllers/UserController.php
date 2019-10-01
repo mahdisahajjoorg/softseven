@@ -72,6 +72,29 @@ class UserController extends Controller
     }
 
 
+    public function firstNameListData(){
+             return Datatables::of(Student::query())
+
+             ->editColumn('is_approved', function(Student $st) {
+               if($st->is_approved ==1){
+                  $btn = '<button class="btn btn-success">YES</button>';
+               } elseif($st->is_approved ==0){
+                  $btn = '<button class="btn btn-warning">No</button>';
+               }else{
+                  $btn = '<button class="btn btn-danger">UNKNOWN</button>';
+               }
+
+               return $btn;
+                })
+             ->editColumn('action', function(Student $st) {
+                  $yes = $st->is_approved==1?'checked':'';
+                  $no = $st->is_approved==0?'checked':'';
+                  return '<a href="'.url('firstname/firstnamelist/edit/'.$st->id).'" class="btn btn-primary">Edit</a>';
+                })
+             ->escapeColumns([])->make(true);
+    }
+
+
 
    public function firstNameEdit($id){
 	   $users["user"] = DB::table('students')->where('id', $id)->first();
