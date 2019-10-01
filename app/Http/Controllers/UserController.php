@@ -102,7 +102,7 @@ class UserController extends Controller
                if($st->is_approved ==1){
                   $btn = '<button class="btn btn-success">YES</button>';
                }else{
-                  $btn = '<button class="btn btn-danger">No</button>';
+                  $btn = '<button class="btn btn-danger">UNKNOWN</button>';
                }
 
                return $btn;
