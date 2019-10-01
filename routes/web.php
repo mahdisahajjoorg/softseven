@@ -45,6 +45,12 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/school-expired','SchoolController@school_expired')->name('school.school_expired');
     Route::get('/edit-expire-month/{id}/{month}','SchoolController@edit_expire_month')->name('school.edit_expire_month');
 
+    //school by sajol
+    Route::get('schools/sendmail', 'SchoolController@sendmail')->name('school.sendmail');
+    Route::get('schools/send_mail', 'SchoolController@send_mail')->name('school.send_mail');
+
+
+    
     //Game Level
     Route::get('/game-level','GameLevelController@index')->name('game.index');
     Route::get('/add-game-level','GameLevelController@add_game_level_form')->name('game.add_game_level_form');
@@ -88,6 +94,19 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Scores
     Route::get('/scores','ScoreController@index')->name('score.index');
+    Route::get('/scores-award/{c_id}/{s_id}','ScoreController@scores_award')->name('score.scores_award');
+    Route::get('/view-pdf/scores-award/{c_id}/{s_id}','ScoreController@score_award_pdf')->name('score.score_award_pdf');
+    
+    //Accepted students
+    Route::get('/approved-students','StudentController@approved_students')->name('student.approved_students');
+
+    Route::get('/approved-students/list','StudentController@approved_students_list')->name('student.approved_students.list');
+
+    Route::get('/reject-student/{id}','StudentController@reject_student')->name('student.reject_student');
+
+    //Send mail to students
+    Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
+    Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
 });
 
 
@@ -120,6 +139,12 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //supercontest
     Route::resource('supercontest', 'SuperContestController');
+    Route::post('supercontest/delete', 'SuperContestController@deleteSuper')->name('supercontest_delete');
+
+
+    //Settings
+    Route::get('setting', 'SettingsController@edit')->name('setting');
+    Route::get('setting/update/{id}', 'SettingsController@update')->name('setting.update');
 }); 
 
 //End by sajol mahmud

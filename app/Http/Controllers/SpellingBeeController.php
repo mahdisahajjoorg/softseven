@@ -39,7 +39,7 @@ class SpellingBeeController extends Controller
     public function store(Request $request)
     {
     $request->validate([
-            'grade' => 'required',
+            'type' => 'required',
         ]);
         $grade = new \App\Allgrade;
 
