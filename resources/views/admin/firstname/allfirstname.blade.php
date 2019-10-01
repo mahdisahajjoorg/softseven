@@ -82,6 +82,7 @@
       <br>
       <br>
        </div>
+       <div id="result-div">
         <table class="table table-bordered table-striped mb-none" id="datatable-default">
             <thead>
                 <tr>
@@ -92,32 +93,72 @@
                 </tr>
             </thead>
 
- <tbody>
+        <tbody>
 
             <?php foreach ($alluser as $con) {?>
-         <tr>
-            <td> <?php echo $con['id']; ?></td>
-            <td><?php echo $con['firstname']; ?></td>
-            <td><span class="btn btn-<?php echo $con['is_approved']==1?'success':'danger'; ?>"><?php echo $con['status']==1?'Yes':'No'; ?></span></td>
-            <td>
-                <a href="{{route('firstname_list.edit',['id'=>$con->id])}}" class="btn btn-primary">Edit</a>
-
-            </td>
-
-         </tr>
-
-
-
-<?php }?>
-
-
-</tbody>
-</table>
+            <tr>
+                <td><?php echo $con->id; ?></td>
+                <td><?php if ($con->firstname_status ==1) {
+                    echo $con->firstname;
+                   } ?>
+                </td>
+                <td><?php if ($con->firstname_status ==1) { ?>
+                    <button class="btn btn-success">YES</button>
+                <?php }
+               elseif ($con->firstname_status ==0) { ?>
+                    <button class="btn btn-warning">NO</button>
+                <?php }else{ ?>
+                     <button class="btn btn-danger">UNKNOWN</button>
+                <?php } ?>
+                </td>
+                <td><a href="{{url('firstname/firstnamelist/edit/')}}<?php echo '/'; echo $con->id; ?>" class="btn btn-primary">Edit</a></td>
+                
+            </tr>
+            <?php } ?>
+         </tbody>
+        </table>
+    </div>
 </div>
 </section>
 @endsection
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Buttons examples
+        var table = $('#datatable-default').DataTable({
+            lengthChange: true,
+            lengthMenu: [10,25,50,100],          
+        });       
+    } );
+
+</script>
+
+
+
 @section('css_js_down')
+<script>
+ $(document).ready(function(){
+   $('.alphabate').click(function(){
+    var alp = $(this).attr('alphattr');
+    console.log(alp)
+     $.ajax({
+           url: 'searchlist/'+alp,
+           dataType: "html",
+           success: function (response) {
+            console.log(response)
+                 $("#result-div").html('');
+                 $("#result-div").append(response);
+                    },
+            error: function (request) {
+              }
+    });
+
+});
+});
+</script>
+
+
+
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     function deleteSpellingBee(id){

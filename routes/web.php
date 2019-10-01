@@ -137,6 +137,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
 
+
     //All firstname
     Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
     Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
@@ -234,6 +235,13 @@ Route::group(['middleware'=>['authMiddleware']],function(){
      Route::post('users/notice_store','Notice@store')->name('question.add_notice_submit');
      Route::get('users/allnotice','Notice@show')->name('ques_w.show_notice');
      Route::get('users/notice_del','Notice@del')->name('ques_w.notice_del');
+
+     //All firstname
+    Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/searchlist/{id}', 'UserController@searchlist');
+    Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit');
+    Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
+    
 
     //end by rakesh
     });

@@ -279,6 +279,8 @@
 					
 					 <li class="nav-parent">
 
+                    <a href="{{ route('firstname_list') }}">Current First Name List</a>
+
                     </li>
 
                    <li class="nav-parent">
