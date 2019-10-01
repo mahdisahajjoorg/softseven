@@ -282,12 +282,12 @@
                     </li>
 
                    <li class="nav-parent">
-                   <a href="">Unique First Name List</a>                                                                                                                                                                                                                                 
+                   <a href="{{ route('unique_firstname_list') }}">Unique First Name List</a>          
+                    </li>
 
-                    </li>
-                            <li class="nav-parent">
-                   <a href="{{ route('setting') }}">Settings</a>                                                                                                                                                                                                                                 
-                    </li>
+                <li class="nav-parent">
+                   <a href="{{ route('setting') }}">Settings</a>                                            
+                </li>
 
                 </ul>
 

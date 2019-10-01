@@ -94,8 +94,7 @@
                         </fieldset>                     
                     </div>
                 </div>
-                <div class="row"></div><div id="p_scents" class="col-md-10"></div></div>
-                <div class="row"></div><div id="p_scents" class="col-md-10"></div></div>
+
 
 
                 <div class="row"></div>

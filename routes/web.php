@@ -142,6 +142,10 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
     Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
 
+    //unique firstname
+    Route::get('firstname/uniquefirstnamelist', 'UserController@uniqueFirstName')->name('unique_firstname_list');
+    Route::get('firstname/uniquefirstnamelist/all', 'UserController@uniqueFirstNameList')->name('unique_firstname_list_get');
+    Route::post('change_student_status', 'UserController@change_student_status')->name('change_student_status');
 
     //supercontest
     Route::resource('supercontest', 'SuperContestController');

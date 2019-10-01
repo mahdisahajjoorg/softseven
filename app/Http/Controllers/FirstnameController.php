@@ -10,4 +10,8 @@ class FirstnameController extends Controller
     {
     	# code...
     }
+
+    public function uniqueFirstName(){
+    	
+    }
 }
