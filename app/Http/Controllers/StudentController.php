@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Student;
 use App\Score;
-
+use Yajra\Datatables\Datatables;
 class StudentController extends Controller
 {
     public function unapproved_students(){
@@ -41,9 +41,27 @@ class StudentController extends Controller
     }
 
     public function approved_students(){
-        ini_set('memory_limit', '512M');
-        $approved_students = Student::where('is_approved',1)->get();
-        return view('admin.students.approved_students',['approved_students'=>$approved_students]);
+
+
+        return view('admin.students.approved_students');
+    }
+
+    public function approved_students_list(){
+             return Datatables::of(Student::query()->where('is_approved',1))
+             ->editColumn('is_approved', function(Student $st) {
+                    return '<a href='.route('student.reject_student',['id'=>$st->id]).'>Reject</a>';
+                })
+             ->editColumn('firstname', function(Student $st) {
+                    return $st->firstname .' '.$st->firstname;
+                })
+             ->editColumn('city', function(Student $st) {
+                    $place='';
+                  if(isset($st->state) && !empty($st->state)) $place=$st->state;
+                     else $place=$st->country;
+
+                   return $st->city.', '.$place;
+                })
+             ->escapeColumns([])->make(true);
     }
 
     public function reject_student($id){
@@ -61,8 +79,26 @@ class StudentController extends Controller
     }
 
     public function send_mail_student(){
-        ini_set('memory_limit', '512M');
+
         $students = Student::select('id','firstname')->get();
         return view('admin.students.mail_student',['students'=>$students]);
+    }
+
+    public function sendMailStudent(Request $request){
+        $student_ids = $request->student;
+        $subject    = $request->subject;
+        $mail_body  = $request->body;
+        foreach ($student_ids as $student_id) {
+            $to_email = Student::where('id',$student_id)->first();
+            $from_email = Admin_user::where('type',1)->first()->email;
+                    
+                    $data = ['mail_body'=>$mail_body];
+                    Mail::send('email.mail_student',$data,function($message) use ($from_email,$to_email, $subject){
+                    $message->to($to_email->school_email, $to_email->school_name)
+                            ->subject($subject);
+                    $message->from($from_email,'Admin');         
+                });
+        }
+            return redirect()->route('school.sendmail')->with('success','Mail Sent!');
     }
 }

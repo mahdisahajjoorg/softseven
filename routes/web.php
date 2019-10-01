@@ -99,10 +99,14 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     
     //Accepted students
     Route::get('/approved-students','StudentController@approved_students')->name('student.approved_students');
+
+    Route::get('/approved-students/list','StudentController@approved_students_list')->name('student.approved_students.list');
+
     Route::get('/reject-student/{id}','StudentController@reject_student')->name('student.reject_student');
 
     //Send mail to students
     Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
+    Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
 });
 
 

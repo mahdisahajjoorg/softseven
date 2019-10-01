@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-12">
-    <form method="post" action="{{route('school.edit_school_form_submit')}}" id="summary-form" class="form-horizontal">
+    <form method="post" action="{{route('student.send_mail')}}" id="summary-form" class="form-horizontal">
 			@csrf
 
         <section class="panel">

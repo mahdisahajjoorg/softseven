@@ -46,7 +46,7 @@
             <span class="clr"></span></h2>
     </header>
     <div class="panel-body">
-        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+        <table class="table table-bordered table-striped mb-none" id="approve_student">
             <thead>
                 <tr>
                  <th>Id</th>
@@ -60,34 +60,7 @@
                     
                 </tr>
             </thead>
-            <tbody>
-                
-                <?php  foreach($approved_students as $st){?>
-                <tr>
-                <td><?php echo $st->id;?></td>
-                    <td><?php echo $st->firstname.' '.$st->lastname;?></td>
-                    <td><?php echo $st->screen_name;?></td>
-                    <td><?php echo $st->school_code;?></td>
-                   
-                    <td><?php 
-                    $place='';
-                  if(isset($st->state) && !empty($st->state)) $place=$st->state;
-                     else $place=$st->country;
 
-                   echo $st->city.', '.$place;?></td>
-                    <td><?php 
-                    
-                        if(isset($st->is_approved) && $st->is_approved==1)
-                          { ?>
-                          <a href="{{route('student.reject_student',['id'=>$st->id])}}">Reject</a>
-                          <?php } ?>
-                        </td>
-                    
-                </tr>
-                <?php } ?>
-                   
-                
-            </tbody>
         </table>
     </div>
 </section>
@@ -129,4 +102,24 @@ jQuery(document).ready(function(){
 @endsection
 
 @section('css_js_down')
+<script type="text/javascript">
+    var oTable;
+
+    $(document).ready(function() {
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{!!route('student.approved_students.list')!!}",
+            "columns": [
+                {data: 'id',  name: 'id'},
+                {data: 'firstname',  name: 'firstname'},
+                {data: 'screen_name',  name: 'screen_name'},
+                {data: 'school_code',  name: 'school_code'},
+                {data: 'city',  name: 'city'},
+                {data: 'is_approved',  name: 'Reject'},
+            ]
+        });
+    });
+</script>
 @endsection
