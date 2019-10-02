@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin_user;
-
+use Session;
 class EmployeeController extends Controller
 {
+
     public function index(){
         $employees = Admin_user::where('type',4)->get();
         return view('admin.employees.index',['employees'=>$employees]);

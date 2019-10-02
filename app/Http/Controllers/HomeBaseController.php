@@ -5,10 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Admin_user;
-
+use Session;
 class HomeBaseController extends Controller
 {
+    public function __construct(){
+
+
+    }
     public function login_form(){
+        if(session('user_id')){
+            return redirect()->route('employee.index');
+        }
         return view('login');
     }
 
@@ -22,7 +29,9 @@ class HomeBaseController extends Controller
         $check_username = Admin_user::where('email',$email)->first() ;
         if($check_username!=null){
             if(Hash::check($password,$check_username->password)){
-                session()->put('user_id',$check_username->id);
+                Session::put('user_id',$check_username->id);
+
+
                 return redirect()->route('school.index');
             }
             else{
