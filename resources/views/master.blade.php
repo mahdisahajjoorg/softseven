@@ -13,12 +13,11 @@
         <link rel="stylesheet" href="{{asset('assets/css/assets/vendor/font-awesome/css/font-awesome.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/vendor/magnific-popup/magnific-popup.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/vendor/bootstrap-datepicker/css/datepicker3.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/assets/vendor/select2/select2.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/stylesheets/theme.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/stylesheets/skins/default.css')}}">
         <link rel="stylesheet" href="{{asset('assets/css/assets/stylesheets/theme-custom.css')}}">
-        <link rel="stylesheet" href="{{asset('assets/css/assets/stylesheets/select2.css')}}">
+
         <link rel="stylesheet" href="{{asset('assets/css/sweet-alert.css')}}">
 
         <script src="{{asset('assets/js/assets/vendor/modernizr/modernizr.js')}}"></script>
@@ -29,7 +28,7 @@
         <script src="{{asset('assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
         <script src="{{asset('assets/js/assets/vendor/magnific-popup/magnific-popup.js')}}"></script>
         <script src="{{asset('assets/js/assets/vendor/jquery-placeholder/jquery.placeholder.js')}}"></script>
-        <script src="{{asset('assets/js/assets/vendor/select2/select2.js')}}"></script>
+
         <script src="{{asset('assets/js/assets/vendor/jquery-datatables/media/js/jquery.dataTables.js')}}"></script>
         <script src="{{asset('assets/js/assets/vendor/jquery-datatables/extras/TableTools/js/dataTables.tableTools.min.js')}}"></script>
         <script src="{{asset('assets/js/assets/vendor/jquery-datatables-bs3/assets/js/datatables.js')}}"></script>
@@ -37,11 +36,13 @@
         <script src="{{asset('assets/js/assets/javascripts/theme.js')}}"></script>
         <script src="{{asset('assets/js/assets/javascripts/theme.custom.js')}}"></script>
         <script src="{{asset('assets/js/assets/javascripts/theme.init.js')}}"></script>
-        <script src="{{asset('assets/js/assets/javascripts/select2.js')}}"></script>
+
         <script src="{{asset('assets/js/sweet-alert.js')}}"></script>
         <script src="{{asset('assets/js/assets/javascripts/tables/examples.datatables.default.js')}}"></script>
         <script src="{{asset('assets/js/assets/javascripts/tables/examples.datatables.row.with.details.js')}}"></script>
         <script src="{{asset('assets/js/assets/javascripts/tables/examples.datatables.tabletools.js')}}"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
         <style type="text/css">
             table .btn{padding: 1px 12px;}
         </style>

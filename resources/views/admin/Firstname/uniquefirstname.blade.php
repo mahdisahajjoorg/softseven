@@ -105,7 +105,7 @@ jQuery(document).ready(function(){
             "responsive": true,
             "processing": true,
             "serverSide": true,
-            "ajax": "{!!route('firstname_list_data')!!}",
+            "ajax": "{!!route('unique_firstname_list_get')!!}",
             "columns": [
                 {data: 'id',  name: 'id'},
                 {data: 'firstname',  name: 'firstname'},

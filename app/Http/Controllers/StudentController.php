@@ -84,6 +84,16 @@ class StudentController extends Controller
         return view('admin.students.mail_student',['students'=>$students]);
     }
 
+    public function student_list_for_send_mail(Request $request){
+        $students = Student::select('id','firstname')->where('firstname','like','%'.$request->q.'%d')->get();
+        // return view('admin.students.mail_student',['students'=>$students]);
+        $html = [];
+        foreach ($students as $value) {
+            $html[] = ['id'=>$value->id, 'text'=>$value->firstname];
+        }
+        echo  json_encode($html);
+    }
+
     public function sendMailStudent(Request $request){
         $student_ids = $request->student;
         $subject    = $request->subject;

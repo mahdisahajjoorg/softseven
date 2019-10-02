@@ -28,11 +28,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Select Student</label>
                     <div class="col-md-6">
-                    <select name="student[]" class="form-control input-lg  populate select2-offscreen" required="required" multiple="multiple" data-plugin-selecttwo="data-plugin-selectTwo" id="SchoolSchoolId" tabindex="-1">
-                        @foreach($students as $s)
-                        <option value="{{$s->id}}">{{$s->firstname}}</option>
-                        @endforeach
-                    </select>
+                   <select class="itemName form-control" style="width:500px" name="student[]" multiple></select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -64,5 +60,23 @@
 @endsection
 
 @section('css_js_down')
+<script type="text/javascript">
+
+      $('.itemName').select2({
+        placeholder: 'Select a Student',
+        ajax: {
+          url: '{{ route('student.send_mail_student.data') }}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+
+            return {
+              results: data
+            };
+          },
+          cache: true
+        }
+      });
+</script>
 
 @endsection
