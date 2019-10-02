@@ -34,7 +34,7 @@
                     <label class="col-md-3 control-label">Select School</label>
                     <div class="col-md-6">
 
-                         <select name="school[]" class="form-control input-lg  populate select2-offscreen" required="required" multiple="multiple" data-plugin-selecttwo="data-plugin-selectTwo" id="SchoolSchoolId" tabindex="-1">
+                         <select name="school[]" class="form-control input-lg  populate select2-offscreen" required="required" multiple="multiple"  id="SchoolSchoolId" tabindex="-1">
                             @foreach($allSchool as $school)
                              <option value="{{ $school->id }}">{{ $school->school_name }}</option>
                              @endforeach
@@ -90,5 +90,12 @@
         });
 
     });
+
+
+
+      $('#SchoolSchoolId').select2({
+        placeholder: 'Select a School',
+
+      });
 </script>
 @endsection
