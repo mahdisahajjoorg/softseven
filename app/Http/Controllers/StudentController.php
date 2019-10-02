@@ -85,13 +85,13 @@ class StudentController extends Controller
     }
 
     public function student_list_for_send_mail(Request $request){
-        $students = Student::select('id','firstname')->offset($request->start)->limit($request->limit)->get();
+        $students = Student::select('id','firstname')->where('firstname','like','%'.$request->q.'%d')->get();
         // return view('admin.students.mail_student',['students'=>$students]);
-        $html = '';
+        $html = [];
         foreach ($students as $value) {
-            $html .= '<option value="'.$value->id.'">'.$value->firstname.'</option>';
+            $html[] = ['id'=>$value->id, 'text'=>$value->firstname];
         }
-        echo $html;
+        echo  json_encode($html);
     }
 
     public function sendMailStudent(Request $request){

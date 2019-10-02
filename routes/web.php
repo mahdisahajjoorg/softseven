@@ -106,7 +106,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Send mail to students
     Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
-    Route::post('/send-mail-student/data','StudentController@student_list_for_send_mail')->name('student.send_mail_student.data');
+    Route::get('/send-mail-student/data','StudentController@student_list_for_send_mail')->name('student.send_mail_student.data');
     Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
 });
 
@@ -157,6 +157,9 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //Settings
     Route::get('setting', 'SettingsController@edit')->name('setting');
     Route::get('setting/update/{id}', 'SettingsController@update')->name('setting.update');
+
+    //statistics 
+    Route::resource('statistic', 'StatisticsController');
 }); 
 
 //End by sajol mahmud

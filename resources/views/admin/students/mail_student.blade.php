@@ -28,9 +28,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Select Student</label>
                     <div class="col-md-6">
-                    <select name="student[]" class="form-control input-lg  populate select2-offscreen" required="required" multiple="multiple" data-plugin-selecttwo="data-plugin-selectTwo" id="SchoolSchoolId" tabindex="-1">
-                    
-                    </select>
+                   <select class="itemName form-control" style="width:500px" name="student[]" multiple></select>
                     </div>
                 </div>
                 <div class="form-group">
@@ -63,45 +61,22 @@
 
 @section('css_js_down')
 <script type="text/javascript">
-    var limit = 200;
-    var start = 0;
-    var action = 'inactive';
-    function load_more_data(limit, start){
-        $.ajax({
-            url: '{{ route('student.send_mail_student.data') }}',
-            type: 'POST',
-            data: {"_token": "{{ csrf_token() }}",limit: limit, start:start},
-            cache:false,
-        })
-        .done(function(data) {
-            $('#SchoolSchoolId').append(data);
-        })
-        .fail(function() {
-            console.log("error");
-        })
-        .always(function() {
-            console.log("complete");
-        });
-        
-    }
 
+      $('.itemName').select2({
+        placeholder: 'Select a Student',
+        ajax: {
+          url: '{{ route('student.send_mail_student.data') }}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
 
-    if(action == 'inactive'){
-        action == 'active';
-        load_more_data(limit, start);
-    }
-
-    $(window).scroll(function() {
-        
-        if($('#SchoolSchoolId').scrollTop() + $().height() > $().height() && action == 'inactive'){
-            action = 'active';
-            start = start+limit;
-            setTimeout(function(){
-                load_more_data(limit, start);
-            }, 1000);
+            return {
+              results: data
+            };
+          },
+          cache: true
         }
-    });
-    
-
+      });
 </script>
+
 @endsection

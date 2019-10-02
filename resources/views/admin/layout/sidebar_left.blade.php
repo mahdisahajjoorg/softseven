@@ -239,7 +239,7 @@
 
                     </li>
                     <li class="nav-parent">
-                    <a href="">Database statistics</a>                                                                                                                                                                                                     
+                    <a href="{{ route('statistic.index') }}">Database statistics</a>                                                                                                                                                                                                     
 
                     </li>
                     <li class="nav-parent">
