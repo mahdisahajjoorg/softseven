@@ -123,12 +123,12 @@ $(function() {
                          <div class="form-group">
                             <label for="usr">Options:</label>
                             <select class="form-control" id="options" name="options">
-                                <option value="today">Today</option>
-                                <option value="thismonth">This Month</option>            
-                                <option value="thisyear">This Year</option>            
-                                <option value="lastmonth">Last Month</option>            
-                                <option value="lastyear">Last Year</option>            
-                                <option value="alltime">All Time</option>            
+                                <?php foreach($options as $o=>$option) { ?>
+                                <?php if($opt==$option){?>
+                                    <option data-id="<?php echo $option; ?>" value="<?php echo $o; ?>" selected> <?php echo $option; ?></option>                                                                                                              
+                                <?php } else{ ?>
+                                    <option data-id="<?php echo $option; ?>" value="<?php echo $o; ?>"> <?php echo $option; ?></option>                                                                          
+                                <?php }}?>       
                             </select>
                         </div>
                         <div class="form-group">
