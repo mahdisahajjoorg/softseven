@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\webpg;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Supercontest;
 use App\Usa_state;
 use App\School;
