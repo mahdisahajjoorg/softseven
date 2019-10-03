@@ -18,9 +18,11 @@ Route::get('/','HomeBaseController@login_form')->name('home_base.login_form');
 Route::post('/login-submit','HomeBaseController@login_form_submit')->name('home_base.login_form_submit');
 
 //Webpg
+Route::group(['namespace'=>'webpg'],function(){
 Route::get('/super-contest','OuterSuperContestController@index')->name('outer_super.index');
 Route::post('super-contest-post','OuterSuperContestController@super_contest_post')->name('outer_super.super_contest_post');
 
+});
 
 
 Route::group(['middleware'=>['authMiddleware']],function(){
