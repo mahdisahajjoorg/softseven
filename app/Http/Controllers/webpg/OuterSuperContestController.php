@@ -88,10 +88,15 @@ class OuterSuperContestController extends Controller
           $schools = School::all();
           $options = array('today' => 'Today', 'thismonth' => 'This Month','thisyear' => 'This Year','lastmonth' => 'Last Month', 'lastyear' => 'Last Year', 'alltime' => 'All Time');        
           $opt = $request->options;
+          $sc = $request->school;
+          $st  = $request->state;
+          $gm = $request->game;
+          $gm_type = $request->game_type;
           return view('webpg.super_contest.index',['games'=>$games
           ,'gamecontest'=>$gamecontest
           ,'states'=>$states,'schools'=>$schools
-          ,'schoolcodes'=>$schoolcodes,'opt'=>$opt,'options'=>$options]);          
+          ,'schoolcodes'=>$schoolcodes,'opt'=>$opt
+          ,'options'=>$options,'sc'=>$sc,'st'=>$st,'gm'=>$gm,'gm_type'=>$gm_type]);          
     
        }
 
