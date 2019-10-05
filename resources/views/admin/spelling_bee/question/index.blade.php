@@ -44,8 +44,8 @@
        <div class="row">
 
        <div class="col-sm-12 text-right">
-        <a href="{{ route('questions.create') }}" class="btn btn-primary">Add Spelling Qustion</a>
-
+        <a href="{{ route('questions.create') }}" class="btn btn-primary">Add Spelling Question</a>
+         
        </div>
 
       <br>
