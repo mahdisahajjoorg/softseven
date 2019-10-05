@@ -14,11 +14,11 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/','HomeBaseController@login_form')->name('home_base.login_form');
+Route::get('/admin','HomeBaseController@login_form')->name('home_base.login_form');
 Route::post('/login-submit','HomeBaseController@login_form_submit')->name('home_base.login_form_submit');
 
 //Softseven home
-Route::get('/softseven-home','SoftsevenHomeController@index')->name('softseven_home.index');
+Route::get('/','SoftsevenHomeController@index')->name('softseven_home.index');
 
 //Webpg
 Route::group(['namespace'=>'webpg'],function(){
