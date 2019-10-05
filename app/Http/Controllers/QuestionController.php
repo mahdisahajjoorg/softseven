@@ -295,8 +295,6 @@ class QuestionController extends Controller
             $data2["image"] = $data["image_other"];
         }
 
-        dd($data2);
-
         if (!empty($data2["image"])) {
           DB::table('wordracesettings')->insert($data2);
           return redirect()->route('question.set_add')->with('success_message','Question added successfully!');
