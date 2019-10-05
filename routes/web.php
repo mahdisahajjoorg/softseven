@@ -17,6 +17,9 @@
 Route::get('/','HomeBaseController@login_form')->name('home_base.login_form');
 Route::post('/login-submit','HomeBaseController@login_form_submit')->name('home_base.login_form_submit');
 
+//Softseven home
+Route::get('/softseven-home','SoftsevenHomeController@index')->name('softseven_home.index');
+
 //Webpg
 Route::group(['namespace'=>'webpg'],function(){
 Route::get('/super-contest','OuterSuperContestController@index')->name('outer_super.index');
