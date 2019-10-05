@@ -44,7 +44,7 @@
        <div class="row">
 
        <div class="col-sm-12 text-right">
-        <a href="{{ route('all_week.create') }}" class="btn btn-primary">Add Grade</a>
+        <a href="{{ route('all_week.create') }}" class="btn btn-primary">Add Week</a>
 
        </div>
 

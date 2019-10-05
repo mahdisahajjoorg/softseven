@@ -10,12 +10,12 @@ class GameLevelController extends Controller
 {
     public function index(){
         $game_levels = Game_level::with('game')->get();
-        return view('admin.game_levels.index',['game_levels'=>$game_levels]);
+        return view('admin.Game_levels.index',['game_levels'=>$game_levels]);
     }
 
     public function add_game_level_form(){
         $games = Game::all();
-        return view('admin.game_levels.add_game_level',['games'=>$games]);
+        return view('admin.Game_levels.add_game_level',['games'=>$games]);
     }
 
     public function add_game_level_form_submit(Request $request){

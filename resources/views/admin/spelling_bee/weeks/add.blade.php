@@ -80,19 +80,15 @@
                     <label class="col-sm-3 control-label">Status</label>
                     <div class="col-sm-9">
 
-                    <!-- <div class="radio pull-left">
+                    <div class="pull-left" style="margin-top: 9px;">
                     <label>   &nbsp; &nbsp;<input type="radio" value="1" id="y" name="status">Yes</label>
                     &nbsp; &nbsp;
                     &nbsp;
                     &nbsp;
                     </div>
-                    <div class="radio">
+                    <div style="margin-top:9px;">
                     <label><input type="radio" value="0" id="n" name="status">No</label>
-                    </div> -->
-                    <fieldset><legend>Status</legend>
-                        	<input type="radio" name="status" id="GeloleveStatus1" required="required" value="1"> Yes
-                        	 <input type="radio" name="status" id="GeloleveStatus0" required="required" value="0"> No
-                        </fieldset>
+                    </div>
                         
                     </div>
                 </div>
