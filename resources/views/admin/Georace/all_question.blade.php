@@ -18,62 +18,7 @@
     padding: 0;
 }
 </style>
-
-              
-<script>
-// Navigation
-    (function ($) {
-
-        'use strict';
-
-        var $items = $('.nav-main li.nav-parent');
-
-        function expand(li) {
-
-            li.children('ul.nav-children').slideDown('fast', function () {
-                li.addClass('nav-expanded');
-                $(this).css('display', '');
-                ensureVisible(li);
-            });
-        }
-
-        function collapse(li) {
-            li.children('ul.nav-children').slideUp('fast', function () {
-                $(this).css('display', '');
-                li.removeClass('nav-expanded');
-            });
-        }
-
-        function ensureVisible(li) {
-            var scroller = li.offsetParent();
-            if (!scroller.get(0)) {
-                return false;
-            }
-
-            var top = li.position().top;
-            if (top < 0) {
-                scroller.animate({
-                    scrollTop: scroller.scrollTop() + top
-                }, 'fast');
-            }
-        }
-
-        $items.find('> a').on('click', function () {
-
-            var prev = $(this).closest('ul.nav').find('> li.nav-expanded'),
-                    next = $(this).closest('li');
-
-            if (prev.get(0) !== next.get(0)) {
-                collapse(prev);
-                expand(next);
-            } else {
-                collapse(prev);
-            }
-        });
-
-    }).apply(this, [jQuery]);
-
-	</script>                
+                
 <section class="content-body" style="margin: -4%;" role="main">
 	<header class="page-header">
 	    <h2>Questions</h2>
@@ -112,7 +57,7 @@
         <div class="row">
            <div class="col-sm-12 text-right">
            <a href="{{route('question.add_all_geo_question')}}" class="btn btn-primary">Add Geo Question</a>                  
-           </div>
+
           <br>
           <br>
           <br>

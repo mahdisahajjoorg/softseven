@@ -25,6 +25,12 @@
 </header>
 
 <section class="panel">
+	@if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
@@ -34,14 +40,15 @@
         <h2 class="panel-title">Wordrace Question Add</h2>
 
     </header>
-    @if(Session::get('success_message'))
-        <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{Session::get('success_message')}}
-        </div>
-    @endif
-
-    @if ($errors->any())
+    
+    <div class="panel-body">
+    	@if(Session::get('errors_message'))
+            <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{Session::get('errors_message')}}
+            </div>
+        @endif
+    	@if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -50,6 +57,8 @@
             </ul>
         </div>
     @endif
+    </div>
+
     <form id="summary-form" class="form-horizontal"  method="post" action="{{route('question.add_question_form_submit')}}" enctype="multipart/form-data">	
      @csrf
 
@@ -177,11 +186,8 @@
 			            var imggg = $(this).attr('data-image');
 			          
 			            var inputid = $(".modal-body").attr('data-inputid');
-<<<<<<< HEAD
 			            var webrooturl ="{{url('/')}}/assets/img/questionimage/thumb/";
-=======
 			            var webrooturl ="{{url('')}}/assets/img/questionimage/thumb/";
->>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
 			            var imgurl = webrooturl + imggg;
 			         
 			            $("#" + inputid).parent().parent().find('.image_other').val(imggg);
