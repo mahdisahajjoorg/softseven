@@ -15,7 +15,10 @@ class GrandTotalController extends Controller
 
     public function index()
     {
+        $games = array('addition' => 'Addition', 'multiplication' => 'Multiplication','division' => 'Division','subtraction' => 'Subtraction', 'wordrace' => 'WordRace', 'georace' => 'GeoRace', 'money' => 'Money', 'time' => 'Time');
+
         $data = [
+            'games'=>$games,
             'states'=>\App\Usa_state::all(),
             'schools'=>\App\School::all(),
 
@@ -24,11 +27,11 @@ class GrandTotalController extends Controller
     }
 
     public function grandtotal_per_students_list(Request $request){
-      $game_type =$request->game_type;
+      $game_type =isset($request->game_type)?$request->game_type:'';
 
-      $options =$request->options;
-      $state =$request->state;
-      $school =$request->school;
+      $options =isset($request->options)?$request->options:'';
+      $state =isset($request->state)?$request->state:'';
+      $school =isset($request->school)?$request->school:'';
       $query = GeoraceScore::query();
       if($options == 'today'){
         $query = $query->whereYear('created',Carbon::now()->year)
@@ -54,6 +57,16 @@ class GrandTotalController extends Controller
         $query = $query->whereYear('created',Carbon::now()->subYear()->year);
 
       }
+
+      if($game_type){
+        $query = $query->where('game_name', $game_type);
+      }
+      if($state){
+        $query = $query->where('state', $state);
+      }
+      if($school){
+        $query = $query->where('school_id', $school);
+      }
              return Datatables::of($query)
              ->editColumn('city', function(GeoraceScore $gr) {
                     return $gr->city.', '.$gr->state;
@@ -67,6 +80,17 @@ class GrandTotalController extends Controller
              ->escapeColumns([])
              ->make(true);
 
+    }
+
+
+    public function get_school_by_state(Request $request){
+        $state = $request->state;
+        $all_schools = \App\School::where('state', $state)->get();
+        $html = '';
+        foreach ($all_schools as $value) {
+            $html .= '<option value="'.$value->id.'">'.$value->school_name.'</option>';
+        }
+        return $html;
     }
 
     /**
