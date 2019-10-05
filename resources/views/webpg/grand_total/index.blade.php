@@ -102,13 +102,9 @@ $(function() {
                         <div class="form-group">
                             <label for="usr">Game Type:</label>
                             <select class="form-control" id="game_type" name="game_type">
-                       
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="usr">Game Name:</label>
-                          <select class="form-control" id="game_name" name="game">
-                       
+                                @foreach($games as $key=>$game)
+                                 <option value="{{ $key }}">{{ $game }}</option>
+                                @endforeach
                             </select>
                         </div>
                          <div class="form-group">
@@ -136,7 +132,9 @@ $(function() {
                             <label for="usr">School:</label>
                           <select class="form-control" id="school" name="school">
                                <option value="">All Schools</option>
-
+                               @foreach($schools as $school)
+                                <option value="{{ $school->id }}">{{ $school->school_name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -170,23 +168,29 @@ $(document).ready(function () {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#level', 'change', function (e) {
+    $('body').delegate('#game_type', 'change', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#game', 'change', function (e) {
+    $('body').delegate('#state', 'change', function (e) {
         e.preventDefault();
-        var game = $(this).val();
-        console.log(game);
-        
+        var state = $('#state').val();
+        $('#school').html('');
+         $.ajax({
+                url: "get_school_by_state",
+                type: "post",
+                data: {'_token':'{{ csrf_token() }}',state} ,
+                success: function (response) {
+                        $('#school').html(response);
+                   // You will get response from your PHP page (what you echo or print)
+                }
+
+            });
         $("#grandtotal").submit();
     });
-
-
-    $('#example').dataTable({
-        "order": [[4, "desc"]],
-        "paging": true,
-        "lengthMenu": [[100, 1000, 10000], [100, 1000, 10000]]
+    $('body').delegate('#school', 'change', function (e) {
+        e.preventDefault();
+        $("#grandtotal").submit();
     });
 });
 </script>

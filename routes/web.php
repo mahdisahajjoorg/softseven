@@ -31,6 +31,7 @@ Route::post('super-contest-post','OuterSuperContestController@super_contest_post
 Route::group(['namespace'=>'webpg'],function(){
 Route::resource('grandtotal_per_students', 'GrandTotalController');
 Route::get('grandtotal_per_students_list', 'GrandTotalController@grandtotal_per_students_list')->name('grandtotal_per_students_list');
+Route::post('get_school_by_state', 'GrandTotalController@get_school_by_state')->name('get_school_by_state');
 
 });
 
