@@ -15,6 +15,7 @@ class OuterSuperContestController extends Controller
 {
     public function index(){
         $games = array('addition' => 'Addition', 'multiplication' => 'Multiplication','division' => 'Division','subtraction' => 'Subtraction', 'wordrace' => 'WordRace', 'georace' => 'GeoRace', 'money' => 'Money', 'time' => 'Time');
+        $options = array('today' => 'Today', 'thismonth' => 'This Month','thisyear' => 'This Year','lastmonth' => 'Last Month', 'lastyear' => 'Last Year', 'alltime' => 'All Time');        
         $gamecontest = Supercontest::where('status',1)->get();
         $states = Usa_state::all();
         $schools = School::all();
@@ -27,14 +28,14 @@ class OuterSuperContestController extends Controller
         ->get();
         return view('webpg.super_contest.index',['games'=>$games
         ,'gamecontest'=>$gamecontest
-        ,'states'=>$states,'schools'=>$schools,'schoolcodes'=>$schoolcodes]);
+        ,'states'=>$states,'schools'=>$schools
+        ,'schoolcodes'=>$schoolcodes,'options'=>$options]);
     }
 
     public function super_contest_post(Request $request){
        if($request->game_type=='multiplication'){
-        if ($request->options == 'today') {
               
-            $cond='';
+         $cond='1';
           $y = date('Y') - 1;
           $lastmonth = date('m') - 1;
           
@@ -50,7 +51,7 @@ class OuterSuperContestController extends Controller
           }
   
           if ($request->options == 'today') {
-                $cond .=" AND  created  ='". '2019-08-16' ."'";   
+                $cond .=" AND created  ='". '2019-08-16' ."'";   
          } else if ($request->options == 'thismonth') {
              
           $month = date('m');
@@ -74,17 +75,29 @@ class OuterSuperContestController extends Controller
           
           }  
             
-            
           $schoolcodes = DB::table('todayscores')
           ->select('*', DB::raw('max(score) as maxscore'))
           ->whereRaw($cond)
           ->where('game_name','multiplication')
           ->groupBy('student_id')
           ->orderBy('maxscore','desc')
-          ->get(); 
-          dd($schoolcodes);
+          ->get();
+          $games = array('addition' => 'Addition', 'multiplication' => 'Multiplication','division' => 'Division','subtraction' => 'Subtraction', 'wordrace' => 'WordRace', 'georace' => 'GeoRace', 'money' => 'Money', 'time' => 'Time');
+          $gamecontest = Supercontest::where('status',1)->get();
+          $states = Usa_state::all();
+          $schools = School::all();
+          $options = array('today' => 'Today', 'thismonth' => 'This Month','thisyear' => 'This Year','lastmonth' => 'Last Month', 'lastyear' => 'Last Year', 'alltime' => 'All Time');        
+          $opt = $request->options;
+          $sc = $request->school;
+          $st  = $request->state;
+          $gm = $request->game;
+          $gm_type = $request->game_type;
+          return view('webpg.super_contest.index',['games'=>$games
+          ,'gamecontest'=>$gamecontest
+          ,'states'=>$states,'schools'=>$schools
+          ,'schoolcodes'=>$schoolcodes,'opt'=>$opt
+          ,'options'=>$options,'sc'=>$sc,'st'=>$st,'gm'=>$gm,'gm_type'=>$gm_type]);          
     
-      }
        }
 
 

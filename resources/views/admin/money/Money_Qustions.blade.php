@@ -7,8 +7,8 @@
 
 @section('main_content')
 
-<section class="content-body" role="main" style="    margin: -40px;">
-                                          <header class="page-header">
+<section class="content-body" role="main" style="margin: -40px;">
+     <header class="page-header">
     <h2>Questions</h2>
 
     <div class="right-wrapper pull-right">
@@ -49,7 +49,6 @@
       <br>
       <br>
       <br>
-       </div>
         <table class="table table-bordered table-striped mb-none" id="datatable-buttons">
             <thead>
                 <tr>

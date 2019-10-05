@@ -103,41 +103,74 @@ $(function() {
                         <div class="form-group">
                             <label for="usr">Game Type:</label>
                             <select class="form-control" id="game" name="game_type">
+                            <?php if(isset($gm_type)){ 
+                               foreach($games as $k => $game) { 
+                                        if($gm_type==$k){
+                                    ?>
+                                    <option  value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
+                                    <?php }else{ ?>
+                                    <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
+                                     <?php }}} else{?>
                                 <?php foreach ($games as $k => $game) { ?>
                                 <?php if($k=="multiplication"){ ?>
-                                    <option data-id="<?php echo $game; ?>" value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
+                                    <option  value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
                                 <?php } else{ ?>
-                                    <option data-id="<?php echo $game; ?>" value="<?php echo $k; ?>"> <?php echo $game; ?></option>
-                                        <?php }} ?>
+                                    <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
+                                        <?php }}} ?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">Game Name:</label>
                           <select class="form-control" id="level" name="game">
                                 <option value="">All Games</option>
-                                        <?php foreach ($gamecontest as $k => $games) { ?>
+                                <?php if(isset($gm)){ 
+                               foreach($gamecontest as $games) { 
+                                        if($gm==$games->id){
+                                          
+                                    ?>
+                                    <option value="<?php echo $games->id; ?>" selected><?php echo $games->name_problem ?></option>                                                                       
+                                    <?php }else{ ?>
+                                        <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>
+                                     <?php }}} else{?>
+                                        <?php foreach ($gamecontest as $games) { ?>
                                     <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>
-                                        <?php } ?>
+                                        <?php }} ?>
                             </select>
                         </div>
                          <div class="form-group">
                             <label for="usr">Options:</label>
                             <select class="form-control" id="options" name="options">
-                                <option value="today">Today</option>
-                                <option value="thismonth">This Month</option>            
-                                <option value="thisyear">This Year</option>            
-                                <option value="lastmonth">Last Month</option>            
-                                <option value="lastyear">Last Year</option>            
-                                <option value="alltime">All Time</option>            
+                           <?php if(isset($opt)){ 
+                               foreach($options as $o=>$option) { 
+                                        if($opt==$o){
+                                    ?>
+                                            <option  value="<?php echo $o; ?>" selected> <?php echo $option; ?></option>                                                                                                                                                  
+                                    <?php }else{ ?>
+                                        <option  value="<?php echo $o; ?>"> <?php echo $option; ?></option>                                                                                                                                                                                      
+                                     <?php }}} else{?>
+                                <?php foreach($options as $o=>$option) { ?>
+                                    
+                                    <option  value="<?php echo $o; ?>"> <?php echo $option; ?></option>                                                                                                              
+                              <?php }} ?>       
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">State:</label>
                           <select class="form-control" id="level" name="state">
                                <option value="">All State</option>
-                               @foreach($states as $state)
-                                <option value="{{$state->id}}">{{$state->name}}</option>
-                               @endforeach
+                               <option value="">All Games</option>
+                                <?php if(isset($st)){ 
+                               foreach($states as $state) { 
+                                        if($st==$state->id){
+                                          
+                                    ?>
+                                    <option value="<?php echo $state->id; ?>" selected><?php echo $state->name ?></option>                                                                       
+                                    <?php }else{ ?>
+                                        <option value="<?php echo $state->id; ?>"><?php echo $state->name ?></option>
+                                     <?php }}} else{?>
+                                        <?php foreach ($states as $state) { ?>
+                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name_problem ?></option>
+                                        <?php }} ?>
                             </select>
                         </div>
                         <div class="form-group">

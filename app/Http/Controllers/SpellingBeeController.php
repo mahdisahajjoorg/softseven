@@ -39,14 +39,14 @@ class SpellingBeeController extends Controller
     public function store(Request $request)
     {
     $request->validate([
-            'type' => 'required',
+            'grade' => 'required',
         ]);
         $grade = new \App\Allgrade;
 
         $grade->grade = $request->grade;
         $grade->save();
 
-        return redirect()->route('allgrade.index')->with("success","Data Updated Successfully");
+        return redirect()->route('allgrade.index')->with("success","Data Added Successfully");
     }
 
     /**

@@ -135,24 +135,27 @@ class QuestionController extends Controller
         $data2["answer4"] = $data["answer4"];
         $data2["questionmp3"] = $data["questionmp3"];
         $data2["hintmp3"] = $data["hintmp3"];
-       
 
-        if (!empty($data["image"])) {
-        	$data2["image"] = $data["image"];
-        }
-        else{
-        	$data2["image"] = $data["image_other"];
-        }
+        if ( $data2["answer1"] != $data2["answer2"] && $data2["answer1"] !=$data2["answer3"] && $data2["answer1"] != $data2["answer4"] ) {
+          if (!empty($data["image"])) {
+          $data2["image"] = $data["image"];
+          }
+          else{
+            $data2["image"] = $data["image_other"];
+          }
 
-        $data2["created"] = date("Y-m-d");
-        $data2["modified"] = date("Y-m-d");
+          $data2["created"] = date("Y-m-d");
+          $data2["modified"] = date("Y-m-d");
 
-        if (!empty($data2["image"])) {
-          DB::table('questions')->insert($data2);
-          return redirect()->route('question.add_question_form')->with('success_message','Question added successfully!');
-        }
-        else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
+          if (!empty($data2["image"])) {
+            DB::table('questions')->insert($data2);
+            return redirect()->route('question.add_question_form')->with('success_message','Question added successfully!');
+          }
+          else{
+            return Redirect::back()->with('errors_message', 'You must select one Image');
+          }
+        }else{
+            return Redirect::back()->with('errors_message', 'Error! Correct Answer cant be duplicated');
         }
 
     }
@@ -228,25 +231,30 @@ class QuestionController extends Controller
         $data2["answer4"] = $data["answer4"];
         $data2["questionmp3"] = $data["questionmp3"];
         $data2["hintmp3"] = $data["hintmp3"];
-       
 
-        if (!empty($data["image"])) {
+        if ( $data2["answer1"] != $data2["answer2"] && $data2["answer1"] !=$data2["answer3"] && $data2["answer1"] != $data2["answer4"] ){
+          if (!empty($data["image"])) {
             $data2["image"] = $data["image"];
+          }
+          else{
+              $data2["image"] = $data["image_other"];
+          }
+
+          $data2["created"] = date("Y-m-d");
+          $data2["modified"] = date("Y-m-d");
+
+          if (!empty($data2["image"])) {
+            DB::table('questions')->where('id',$data["id"])->update($data2);
+            return redirect()->route('question.question')->with('success_message','Question Updated successfully!');
+          }
+          else{
+            return Redirect::back()->with('success_message', 'You must select one Image');
+          }
         }
         else{
-            $data2["image"] = $data["image_other"];
+            return Redirect::back()->with('success_message', 'Error! Correct Answer cant be duplicated');
         }
-
-        $data2["created"] = date("Y-m-d");
-        $data2["modified"] = date("Y-m-d");
-
-        if (!empty($data2["image"])) {
-          DB::table('questions')->where('id',$data["id"])->update($data2);
-          return redirect()->route('question.question')->with('success_message','Question Updated successfully!');
-        }
-        else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
-        }
+       
         
     }
 
@@ -294,8 +302,6 @@ class QuestionController extends Controller
         else{
             $data2["image"] = $data["image_other"];
         }
-
-        dd($data2);
 
         if (!empty($data2["image"])) {
           DB::table('wordracesettings')->insert($data2);

@@ -57,7 +57,7 @@
         <div class="row">
            <div class="col-sm-12 text-right">
            <a href="{{route('question.add_time_question_two')}}" class="btn btn-primary">Add Time Question</a>                  
-           </div>
+   
           <br>
           <br>
           <br>
