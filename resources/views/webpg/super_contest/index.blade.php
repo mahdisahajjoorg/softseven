@@ -42,7 +42,7 @@ min-width: 125px !important;
                         <a href="jumpbadge.php">Jump Badges</a>
                     </li>-->
                    <li>
-                        <a href="grandtotal_per_students.php">Grand Totals</a>
+                        <a href="{{ route('grandtotal_per_students.index') }}">Grand Totals</a>
                     </li>
                     <li>
                         <a href="{{route('outer_super.index')}}" class="active">Super Contest</a>

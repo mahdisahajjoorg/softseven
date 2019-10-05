@@ -84,13 +84,14 @@
 	                    <label class="col-sm-3 control-label">contest Name<span class="required">*</span></label>
 	                    <div class="col-sm-9">
 	                        <select name="contest" class="form-control input-lg" required="required" id="QuestionContest">
-	                        <option value="<?php echo $last->id; ?>"><?php echo $last->money_contest_name; ?></option>
+	                        <option value="<?php echo isset($last)?$last->id:''; ?>"><?php echo isset($last)?$last->money_contest_name:''; ?></option>
 	                        </select> 
 	                    </div>
 	                </div>
-	                <input type="hidden" name="money_contest_name" value="<?php echo $last->money_contest_name; ?>">
-	                <input type="hidden" name="money_cat_id" value="<?php echo $last->money_cat_id; ?>">
-	                <input type="hidden" name="money_cat_name" value="<?php  echo $last->money_cat_name; ?>">
+	                <input type="hidden" name="money_contest_name" value="<?php echo isset($last)?$last->money_contest_name:''; ?>">
+	                <input type="hidden" name="money_cat_id" value="<?php echo isset($last)?$last->money_cat_id:''; ?>">
+	                <input type="hidden" name="money_cat_name" value="<?php echo isset($last)?$last->money_cat_name:''; ?>">
+
 	                <div class="form-group">
 	                    <label class="col-sm-3 control-label">Correct Answer</label>
 	                    <div class="col-sm-9">
