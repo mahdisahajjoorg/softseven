@@ -33,7 +33,7 @@ min-width: 125px !important;
                         <a href="index.php">Student List</a>
                     </li>
                     <li>
-                        <a href="grandtotal.php">Top Schools</a>
+                        <a href="{{ route('top_schools.index') }}">Top Schools</a>
                     </li>
                     <!--<li>
                         <a href="highsore.php">High Scores</a>

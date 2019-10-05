@@ -33,7 +33,7 @@ min-width: 125px !important;
                         <a href="index.php">Student List</a>
                     </li>
                     <li>
-                        <a href="{{ route('top_schools.index') }}">Top Schools</a>
+                        <a href="{{ route('top_schools.index') }}" class="active">Top Schools</a>
                     </li>
                     <!--<li>
                         <a href="highsore.php">High Scores</a>
@@ -42,7 +42,7 @@ min-width: 125px !important;
                         <a href="jumpbadge.php">Jump Badges</a>
                     </li>-->
                    <li>
-                        <a href="{{ route('grandtotal_per_students.index') }}"  class="active">Grand Totals</a>
+                        <a href="{{ route('grandtotal_per_students.index') }}"  >Grand Totals</a>
                     </li>
                     <li>
                         <a href="{{route('outer_super.index')}}">Super Contest</a>
@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		            <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -118,27 +118,7 @@ $(function() {
                                 <option value="alltime" selected>All Time</option>            
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="usr">State:</label>
-                          <select class="form-control" id="state" name="state">
-                               <option value="">All State</option>
-                               @foreach($states as $state)
-                                <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                @endforeach
-                          
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="usr">School:</label>
-                          <select class="form-control" id="school" name="school">
-                               <option value="">All Schools</option>
-                               @foreach($schools as $school)
-                                <option value="{{ $school->id }}">{{ $school->school_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
 
-                        <!--<button type="submit" name="data[submit]" class="btn btn-default">Submit</button>-->
 
                 </div>
                 </form>
@@ -172,26 +152,7 @@ $(document).ready(function () {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#state', 'change', function (e) {
-        e.preventDefault();
-        var state = $('#state').val();
-        $('#school').html('');
-         $.ajax({
-                url: "get_school_by_state",
-                type: "post",
-                data: {'_token':'{{ csrf_token() }}',state} ,
-                success: function (response) {
-                        $('#school').html(response);
-                   // You will get response from your PHP page (what you echo or print)
-                }
 
-            });
-        $("#grandtotal").submit();
-    });
-    $('body').delegate('#school', 'change', function (e) {
-        e.preventDefault();
-        $("#grandtotal").submit();
-    });
 });
 </script>
 
@@ -205,7 +166,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('grandtotal_per_students_list') }}",
+              "url": "{{ route('top_school_list') }}",
             },
             "columns": [
                 {data: 'score',  name: 'score'},
@@ -223,10 +184,8 @@ $(document).on('submit','#grandtotal',function(e){
     $("#table_content").html('');
     e.preventDefault();
         var game_type = $('#game_type').val();
-        var game_name = $('#game_nameoptions').val();
         var options = $('#options').val();
-        var state = $('#state').val();
-        var school = $('#school').val();
+
 
 $("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
 
@@ -236,9 +195,9 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('grandtotal_per_students_list')!!}",
+                "url":"{!!route('top_school_list')!!}",
                 "data":{
-                    game_type, game_name, options, state, school
+                    game_type, options
                 }
             },
             "columns": [
