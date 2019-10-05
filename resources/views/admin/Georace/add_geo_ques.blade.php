@@ -41,6 +41,13 @@
 	</header>
 
 <section class="panel">
+                @if(Session::get('success_message'))
+                    <div class="alert alert-success">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{Session::get('success_message')}}
+                    </div>
+                @endif
+
             <header class="panel-heading">
                 <div class="panel-actions">
                     <a href="#" class="fa fa-caret-down"></a>
@@ -49,12 +56,14 @@
                 <h2 class="panel-title">Super Contest Question Add (GeoRace)</h2>
             </header>
             <div class="panel-body">
-            	@if(Session::get('success_message'))
-			        <div class="alert alert-success">
-			        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-			            {{Session::get('success_message')}}
-			        </div>
-			    @endif
+
+                @if(Session::get('errors_message'))
+                    <div class="alert alert-danger">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        {{Session::get('errors_message')}}
+                    </div>
+                @endif
+            	
 			    @if ($errors->any())
 		            <div class="alert alert-danger">
 		                <ul>

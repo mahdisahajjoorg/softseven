@@ -119,44 +119,50 @@ class GeoRaceController extends Controller
         $data2["answer2"] = $data["answer2"];
         $data2["answer3"] = $data["answer3"];
         $data2["answer4"] = $data["answer4"];
-        $data2["hint"] = $data["hint"];
-        $data2["georace_contest_id"] = $data["contest"];
-        $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
-     
-        $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
-        $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
-        $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
-        $data2["created_date"] = date("Y/m/d"); 
 
-        if ($image=$request->file('image')) {
- 
-           $uploadPath = 'assets/img/questionimage/thumb/';
-           
-           $file_name = time()."-".$image->getClientOriginalName();
-           $dbUrl = $uploadPath."/".$file_name;
-       
-           $image->move($uploadPath,$dbUrl);
-      
-            $data['image']= $file_name;
+        if ( $data2["answer1"] != $data2["answer2"] && $data2["answer1"] !=$data2["answer3"] && $data2["answer1"] != $data2["answer4"] ) {
+            $data2["hint"] = $data["hint"];
+            $data2["georace_contest_id"] = $data["contest"];
+            $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
          
-        }
+            $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
+            $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
+            $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
+            $data2["created_date"] = date("Y/m/d"); 
+
+            if ($image=$request->file('image')) {
+     
+               $uploadPath = 'assets/img/questionimage/thumb/';
+               
+               $file_name = time()."-".$image->getClientOriginalName();
+               $dbUrl = $uploadPath."/".$file_name;
+           
+               $image->move($uploadPath,$dbUrl);
+          
+                $data['image']= $file_name;
+             
+            }
 
 
-        if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
-        }
-        else{
-            $data2["image"] = $data["image_other"];
-        }
+            if (!empty($data["image"])) {
+                $data2["image"] = $data["image"];
+            }
+            else{
+                $data2["image"] = $data["image_other"];
+            }
 
 
-        if (!empty($data2["image"])) {
-            DB::table('georace_questions')->insert($data2);
-          return redirect()->route('question.all_geo_q_view')->with('success_message','Question Inserted successfully!');
+            if (!empty($data2["image"])) {
+                DB::table('georace_questions')->insert($data2);
+              return redirect()->route('question.all_geo_q_view')->with('success_message','Question Inserted successfully!');
+            }
+            else{
+              return Redirect::back()->with('errors_message', 'You must select one Image');
+            }
+        }else{
+            return Redirect::back()->with('errors_message', 'Error! Correct Answer cant be duplicated');
         }
-        else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
-        }
+        
     }
 
     public function geo_edit($id)
@@ -187,42 +193,45 @@ class GeoRaceController extends Controller
         $data2["answer4"] = $data["answer4"];
         $data2["hint"] = $data["hint"];
 
-        $data2["georace_contest_id"] = $data["contest"];
-        $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
-     
-        $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
-        $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
-        $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
-
-        if ($image=$request->file('image')) {
- 
-           $uploadPath = 'assets/img/questionimage/thumb/';
-           
-           $file_name = time()."-".$image->getClientOriginalName();
-           $dbUrl = $uploadPath."/".$file_name;
-       
-           $image->move($uploadPath,$dbUrl);
-      
-            $data['image']= $file_name;
+        if ( $data2["answer1"] != $data2["answer2"] && $data2["answer1"] !=$data2["answer3"] && $data2["answer1"] != $data2["answer4"] ) {
+            $data2["georace_contest_id"] = $data["contest"];
+            $ck = DB::table('georace_contests')->where('id', $data["contest"] )->get();
          
-        }
+            $data2["georace_cat_id"] = $ck[0]->georace_cat_id;
+            $data2["georace_cat_name"] = $ck[0]->georace_cat_name;
+            $data2["georace_contest_name"] = $ck[0]->georace_contest_name;
+
+            if ($image=$request->file('image')) {
+     
+               $uploadPath = 'assets/img/questionimage/thumb/';
+               
+               $file_name = time()."-".$image->getClientOriginalName();
+               $dbUrl = $uploadPath."/".$file_name;
+           
+               $image->move($uploadPath,$dbUrl);
+          
+                $data['image']= $file_name;
+             
+            }
 
 
-        if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
-        }
-        else{
-            $data2["image"] = $data["image_other"];
-        }
+            if (!empty($data["image"])) {
+                $data2["image"] = $data["image"];
+            }
+            else{
+                $data2["image"] = $data["image_other"];
+            }
 
-        if (!empty($data2["image"])) {
-            DB::table('georace_questions')->where('id',$data["id"])->update($data2);
-            return redirect()->route('question.all_geo_q_view')->with('success_message','Question Updated successfully!');
+            if (!empty($data2["image"])) {
+                DB::table('georace_questions')->where('id',$data["id"])->update($data2);
+                return redirect()->route('question.all_geo_q_view')->with('success_message','Question Updated successfully!');
+            }
+            else{
+                return Redirect::back()->with('errors_message', 'You must select one Image');
+            }
+        }else{
+            return Redirect::back()->with('errors_message', 'Error! Correct Answer cant be duplicated');
         }
-        else{
-            return Redirect::back()->with('success_message', 'You must select one Image');
-        }
-        
     }
 
     public function del_geo_ques(Request $request)

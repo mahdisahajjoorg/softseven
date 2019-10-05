@@ -22,6 +22,22 @@
                
 <section class="content-body" style="margin: -4%;" role="main">
     <header class="page-header">
+        @if(Session::get('success_message'))
+        <div class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            {{Session::get('success_message')}}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <h2>Questions</h2>
 
         <div class="right-wrapper pull-right">
@@ -40,25 +56,15 @@
     </header>
 
 <section class="panel">
-    @if(Session::get('success_message'))
-        <div class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{Session::get('success_message')}}
-        </div>
-    @endif
     <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-
-        
     </header>
     <div class="panel-body">
-        <div class="row">
-           <div class="col-sm-12 text-right">
            <a href="{{route('question.add_time_level_tt')}}" class="btn btn-primary">Add Time Level</a>                  
-           </div>
+   
           <br>
           <br>
           <br>

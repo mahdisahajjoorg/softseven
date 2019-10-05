@@ -19,61 +19,7 @@
 }
 </style>
 
-              
-<script>
-// Navigation
-    (function ($) {
-
-        'use strict';
-
-        var $items = $('.nav-main li.nav-parent');
-
-        function expand(li) {
-
-            li.children('ul.nav-children').slideDown('fast', function () {
-                li.addClass('nav-expanded');
-                $(this).css('display', '');
-                ensureVisible(li);
-            });
-        }
-
-        function collapse(li) {
-            li.children('ul.nav-children').slideUp('fast', function () {
-                $(this).css('display', '');
-                li.removeClass('nav-expanded');
-            });
-        }
-
-        function ensureVisible(li) {
-            var scroller = li.offsetParent();
-            if (!scroller.get(0)) {
-                return false;
-            }
-
-            var top = li.position().top;
-            if (top < 0) {
-                scroller.animate({
-                    scrollTop: scroller.scrollTop() + top
-                }, 'fast');
-            }
-        }
-
-        $items.find('> a').on('click', function () {
-
-            var prev = $(this).closest('ul.nav').find('> li.nav-expanded'),
-                    next = $(this).closest('li');
-
-            if (prev.get(0) !== next.get(0)) {
-                collapse(prev);
-                expand(next);
-            } else {
-                collapse(prev);
-            }
-        });
-
-    }).apply(this, [jQuery]);
-
-	</script>                
+                      
 <section class="content-body" style="margin: -4%;" role="main">
 	<header class="page-header">
         @if(Session::get('success_message'))
@@ -115,11 +61,9 @@
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-
-        
     </header>
     <div class="panel-body">
-                <table class="table table-bordered table-striped mb-none" id="datatable-buttons">
+        <table class="table table-bordered table-striped mb-none" id="datatable-buttons">
             <thead>
                 <tr>
                     <th>Questions</th>
