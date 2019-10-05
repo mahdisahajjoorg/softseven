@@ -25,6 +25,15 @@ Route::post('super-contest-post','OuterSuperContestController@super_contest_post
 });
 
 
+Route::group(['namespace'=>'webpg'],function(){
+Route::resource('grandtotal_per_students', 'GrandTotalController');
+Route::get('grandtotal_per_students_list', 'GrandTotalController@grandtotal_per_students_list')->name('grandtotal_per_students_list');
+
+});
+
+//Webpg end
+
+
 Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/logout','HomeBaseController@logout')->name('home_base.logout');
 

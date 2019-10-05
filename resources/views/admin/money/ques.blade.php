@@ -47,7 +47,7 @@
             <select class="browser-default custom-select" id="mySelect"  onchange="myFunction()">
                 <option selected  value="all">all</option>
                 @foreach($contest_name as $cont_name)
-                <option value="<?php echo $cont_name->id; ?>"><?php echo $cont_name->money_contest_name; ?></option>
+                <option value="<?php echo isset($cont_name)?$cont_name->id:''; ?>"><?php echo isset($cont_name)?$cont_name->money_contest_name:''; ?></option>
                 @endforeach
             </select>
                

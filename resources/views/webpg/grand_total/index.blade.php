@@ -42,10 +42,10 @@ min-width: 125px !important;
                         <a href="jumpbadge.php">Jump Badges</a>
                     </li>-->
                    <li>
-                        <a href="{{ route('grandtotal_per_students.index') }}">Grand Totals</a>
+                        <a href="{{ route('grandtotal_per_students.index') }}"  class="active">Grand Totals</a>
                     </li>
                     <li>
-                        <a href="{{route('outer_super.index')}}" class="active">Super Contest</a>
+                        <a href="{{route('outer_super.index')}}">Super Contest</a>
                     </li>
 					 <li>
                         <a href="mobilescores.php">Mobile Scores</a>
@@ -98,26 +98,17 @@ $(function() {
             <div class="row">
 
                 <div class="col-md-2">
-                    <form action="{{route('outer_super.super_contest_post')}}" method="post" id='grandtotal'>
-                        @csrf
+                        <form id="grandtotal">
                         <div class="form-group">
                             <label for="usr">Game Type:</label>
-                            <select class="form-control" id="game" name="game_type">
-                                <?php foreach ($games as $k => $game) { ?>
-                                <?php if($k=="multiplication"){ ?>
-                                    <option data-id="<?php echo $game; ?>" value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
-                                <?php } else{ ?>
-                                    <option data-id="<?php echo $game; ?>" value="<?php echo $k; ?>"> <?php echo $game; ?></option>
-                                        <?php }} ?>
+                            <select class="form-control" id="game_type" name="game_type">
+                       
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">Game Name:</label>
-                          <select class="form-control" id="level" name="game">
-                                <option value="">All Games</option>
-                                        <?php foreach ($gamecontest as $k => $games) { ?>
-                                    <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>
-                                        <?php } ?>
+                          <select class="form-control" id="game_name" name="game">
+                       
                             </select>
                         </div>
                          <div class="form-group">
@@ -128,79 +119,37 @@ $(function() {
                                 <option value="thisyear">This Year</option>            
                                 <option value="lastmonth">Last Month</option>            
                                 <option value="lastyear">Last Year</option>            
-                                <option value="alltime">All Time</option>            
+                                <option value="alltime" selected>All Time</option>            
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">State:</label>
-                          <select class="form-control" id="level" name="state">
+                          <select class="form-control" id="state" name="state">
                                <option value="">All State</option>
                                @foreach($states as $state)
-                                <option value="{{$state->id}}">{{$state->name}}</option>
-                               @endforeach
+                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                @endforeach
+                          
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">School:</label>
-                          <select class="form-control" id="level" name="school">
+                          <select class="form-control" id="school" name="school">
                                <option value="">All Schools</option>
-                               @foreach($schools as $school)
-                                <option value="{{$school->school_code}}">{{$school->school_name}}</option>
-                               @endforeach
+
                             </select>
                         </div>
 
                         <!--<button type="submit" name="data[submit]" class="btn btn-default">Submit</button>-->
-                    </form>
-                </div>
 
+                </div>
+                </form>
                 <div class="col-md-9">
                     <div class="row">
 
                     </div>
                     <br>
-                    <table id="example" class="display" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Screen Name</th>
-                                    <th>School Name</th>
-                                    <th>Add City,State</th>
-                                    <th>High Score</th>
-                                    
-                                </tr>
-                            </thead>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Screen Name</th>
-                                    <th>School Name</th>
-                                    <th>Add City,State</th>
-                                    <th>High Score</th>
-                                </tr>
-                            </tfoot>
-
-                            <tbody>
-                                
-                               
-                                
-                                <?php // print_r($schoolcodes);exit;
-                                foreach ($schoolcodes as $k => $v) { 
-                                   
-                                       if($v->maxscore != 0) {
-                                   ?>
-                                    <tr>
-                                        <td><?php echo $k + 1; ?></td>
-                                        <td><?php echo $v->screen_name; ?></td>
-                                        <td><?php echo $v->school_name; ?></td>
-                                        <td><?php echo $v->city;?> , <?php if($v->state){echo $v->state;}else{echo $v->country;}?></td>
-                                        <td><?php echo $v->maxscore; ?></td>
-                                       
-                                    </tr>
-                                <?php } } ?>
-                            </tbody>
-                        </table>
+                    <div id="table_content"></div>
                 </div>
 
             </div>
@@ -211,6 +160,9 @@ $(function() {
 
 @section('css_js_down')
 <script type="text/javascript">
+
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+
 
 $(document).ready(function () {
 
@@ -236,6 +188,66 @@ $(document).ready(function () {
         "paging": true,
         "lengthMenu": [[100, 1000, 10000], [100, 1000, 10000]]
     });
+});
+</script>
+
+<script type="text/javascript">
+    var oTable;
+
+    $(document).ready(function() {
+
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+              "url": "{{ route('grandtotal_per_students_list') }}",
+            },
+            "columns": [
+                {data: 'score',  name: 'score'},
+                {data: 'student_name',  name: 'student_name'},
+
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'city',  name: 'city'},
+                {data: 'grand_total',  name: 'grandtotal'},
+            ]
+        });
+
+
+
+$(document).on('submit','#grandtotal',function(e){
+    $("#table_content").html('');
+    e.preventDefault();
+        var game_type = $('#game_type').val();
+        var game_name = $('#game_nameoptions').val();
+        var options = $('#options').val();
+        var state = $('#state').val();
+        var school = $('#school').val();
+
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+
+                "url":"{!!route('grandtotal_per_students_list')!!}",
+                "data":{
+                    game_type, game_name, options, state, school
+                }
+            },
+            "columns": [
+                {data: 'score',  name: 'score'},
+                {data: 'student_name',  name: 'student_name'},
+
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'city',  name: 'city'},
+                {data: 'grand_total',  name: 'grandtotal'},
+            ]
+        });
+
+   });
 });
 </script>
 @endsection
