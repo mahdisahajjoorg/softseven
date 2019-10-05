@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Datatables;
+use \App\Student;
 use DB;
 use Response,File;
 use Redirect;
+
 
 class UserController extends Controller
 {
@@ -69,6 +72,29 @@ class UserController extends Controller
     }
 
 
+    public function firstNameListData(){
+             return Datatables::of(Student::query())
+
+             ->editColumn('is_approved', function(Student $st) {
+               if($st->is_approved ==1){
+                  $btn = '<button class="btn btn-success">YES</button>';
+               } elseif($st->is_approved ==0){
+                  $btn = '<button class="btn btn-warning">No</button>';
+               }else{
+                  $btn = '<button class="btn btn-danger">UNKNOWN</button>';
+               }
+
+               return $btn;
+                })
+             ->editColumn('action', function(Student $st) {
+                  $yes = $st->is_approved==1?'checked':'';
+                  $no = $st->is_approved==0?'checked':'';
+                  return '<a href="'.url('firstname/firstnamelist/edit/'.$st->id).'" class="btn btn-primary">Edit</a>';
+                })
+             ->escapeColumns([])->make(true);
+    }
+
+
 
    public function firstNameEdit($id){
 	   $users["user"] = DB::table('students')->where('id', $id)->first();
@@ -84,5 +110,42 @@ class UserController extends Controller
     DB::table('students')->where('id',$id)->update($data2); 
 
    	return redirect()->route('firstname_list')->with('success','Data Updated Successfully');
+   }
+
+   public function uniqueFirstName(){
+      return view('admin.firstname.uniquefirstname');
+   }
+
+   public function uniqueFirstNameList(){
+
+
+             return Datatables::of(Student::query()->where('is_approved',1)->groupBy('firstname'))
+
+             ->editColumn('is_approved', function(Student $st) {
+               if($st->is_approved ==1){
+                  $btn = '<button class="btn btn-success">YES</button>';
+               }else{
+                  $btn = '<button class="btn btn-danger">UNKNOWN</button>';
+               }
+
+               return $btn;
+                })
+             ->editColumn('action', function(Student $st) {
+                  $yes = $st->is_approved==1?'checked':'';
+                  $no = $st->is_approved==0?'checked':'';
+                  return '<input type="radio" name="'.$st->id.'" value="1" '.$yes.'> Yes   <input type="radio" name="'.$st->id.'" value="0" '.$no.'> No';
+                })
+             ->escapeColumns([])->make(true);
+   }
+
+   public function change_student_status(Request $request){
+
+         foreach ($request->data as $key => $value) {
+           $student = \App\Student::find(key($value));
+           $student->is_approved = $value[key($value)];
+           $student->save();
+         }
+
+         echo "done";
    }
 }

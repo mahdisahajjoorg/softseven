@@ -16,6 +16,15 @@
 // });
 Route::get('/','HomeBaseController@login_form')->name('home_base.login_form');
 Route::post('/login-submit','HomeBaseController@login_form_submit')->name('home_base.login_form_submit');
+
+//Webpg
+Route::group(['namespace'=>'webpg'],function(){
+Route::get('/super-contest','OuterSuperContestController@index')->name('outer_super.index');
+Route::post('super-contest-post','OuterSuperContestController@super_contest_post')->name('outer_super.super_contest_post');
+
+});
+
+
 Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/logout','HomeBaseController@logout')->name('home_base.logout');
 
@@ -106,6 +115,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Send mail to students
     Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
+    Route::get('/send-mail-student/data','StudentController@student_list_for_send_mail')->name('student.send_mail_student.data');
     Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
 });
 
@@ -137,6 +147,17 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('questions/update/{id}','SpellingBeeController@questionUpdate')->name('questions.update');
     Route::get('questions/delete','SpellingBeeController@questionDelete')->name('questions.delete');
 
+
+    //All firstname
+    Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit')->name('firstname_list.edit');
+    Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
+
+    //unique firstname
+    Route::get('firstname/uniquefirstnamelist', 'UserController@uniqueFirstName')->name('unique_firstname_list');
+    Route::get('firstname/uniquefirstnamelist/all', 'UserController@uniqueFirstNameList')->name('unique_firstname_list_get');
+    Route::post('change_student_status', 'UserController@change_student_status')->name('change_student_status');
+
     //supercontest
     Route::resource('supercontest', 'SuperContestController');
     Route::post('supercontest/delete', 'SuperContestController@deleteSuper')->name('supercontest_delete');
@@ -145,6 +166,9 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //Settings
     Route::get('setting', 'SettingsController@edit')->name('setting');
     Route::get('setting/update/{id}', 'SettingsController@update')->name('setting.update');
+
+    //statistics 
+    Route::resource('statistic', 'StatisticsController');
 }); 
 
 //End by sajol mahmud
@@ -227,6 +251,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
      //All firstname
     Route::get('firstname/firstnamelist', 'UserController@firstNameList')->name('firstname_list');
+    Route::get('firstname/firstnamelist/data', 'UserController@firstNameListData')->name('firstname_list_data');
     Route::get('firstname/searchlist/{id}', 'UserController@searchlist');
     Route::get('firstname/firstnamelist/edit/{id}', 'UserController@firstNameEdit');
     Route::post('firstname/firstnamelist/update/{id}', 'UserController@firstNameUpdate')->name('firstname_list.update');
