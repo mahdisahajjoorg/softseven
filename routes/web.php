@@ -27,6 +27,11 @@ Route::post('super-contest-post','OuterSuperContestController@super_contest_post
 
 });
 
+//Contact softseven
+Route::group(['namespace'=>'webpg'],function(){
+Route::get('/contact-softseven','ContactSoftsevenController@contact_softseven_form')->name('contact.contact_softseven_form');    
+Route::post('/contact-softseven','ContactSoftsevenController@contact_softseven_form_submit')->name('contact.contact_softseven_form_submit');    
+});
 
 Route::group(['namespace'=>'webpg'],function(){
 Route::resource('grandtotal_per_students', 'GrandTotalController');
