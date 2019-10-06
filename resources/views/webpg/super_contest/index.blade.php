@@ -102,80 +102,51 @@ $(function() {
                         @csrf
                         <div class="form-group">
                             <label for="usr">Game Type:</label>
-                            <select class="form-control" id="game" name="game_type">
-                            <?php if(isset($gm_type)){ 
-                               foreach($games as $k => $game) { 
-                                        if($gm_type==$k){
-                                    ?>
-                                    <option  value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
-                                    <?php }else{ ?>
-                                    <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
-                                     <?php }}} else{?>
-                                <?php foreach ($games as $k => $game) { ?>
-                                <?php if($k=="multiplication"){ ?>
-                                    <option  value="<?php echo $k; ?>" selected> <?php echo $game; ?></option>                                    
-                                <?php } else{ ?>
-                                    <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
-                                        <?php }}} ?>
+                            <select class="form-control" id="game_type" name="game_type">
+                                <option value="" selected>All</option>
+                            <?php 
+                               foreach($games as $k => $game) {      
+                            ?>
+
+                                <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
+                            <?php }?>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">Game Name:</label>
-                          <select class="form-control" id="level" name="game">
-                                <option value="">All Games</option>
-                                <?php if(isset($gm)){ 
-                               foreach($gamecontest as $games) { 
-                                        if($gm==$games->id){
-                                          
+                          <select class="form-control" id="game_name" name="game">
+                                <option value="" selected>All Games</option>
+                                <?php
+                               foreach($gamecontest as $games) {  
                                     ?>
-                                    <option value="<?php echo $games->id; ?>" selected><?php echo $games->name_problem ?></option>                                                                       
-                                    <?php }else{ ?>
-                                        <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>
-                                     <?php }}} else{?>
-                                        <?php foreach ($gamecontest as $games) { ?>
-                                    <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>
-                                        <?php }} ?>
+                                    <option value="<?php echo $games->id; ?>"><?php echo $games->name_problem ?></option>                               
+                                        <?php }?>
                             </select>
                         </div>
                          <div class="form-group">
                             <label for="usr">Options:</label>
                             <select class="form-control" id="options" name="options">
-                           <?php if(isset($opt)){ 
-                               foreach($options as $o=>$option) { 
-                                        if($opt==$o){
-                                    ?>
-                                            <option  value="<?php echo $o; ?>" selected> <?php echo $option; ?></option>                                                                                                                                                  
-                                    <?php }else{ ?>
-                                        <option  value="<?php echo $o; ?>"> <?php echo $option; ?></option>                                                                                                                                                                                      
-                                     <?php }}} else{?>
-                                <?php foreach($options as $o=>$option) { ?>
-                                    
-                                    <option  value="<?php echo $o; ?>"> <?php echo $option; ?></option>                                                                                                              
-                              <?php }} ?>       
+                                <option value="today">Today</option>
+                                <option value="thismonth">This Month</option>            
+                                <option value="thisyear">This Year</option>            
+                                <option value="lastmonth">Last Month</option>            
+                                <option value="lastyear">Last Year</option>            
+                                <option value="alltime" selected>All Time</option>            
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">State:</label>
-                          <select class="form-control" id="level" name="state">
-                               <option value="">All State</option>
-                               <option value="">All Games</option>
-                                <?php if(isset($st)){ 
-                               foreach($states as $state) { 
-                                        if($st==$state->id){
-                                          
-                                    ?>
-                                    <option value="<?php echo $state->id; ?>" selected><?php echo $state->name ?></option>                                                                       
-                                    <?php }else{ ?>
-                                        <option value="<?php echo $state->id; ?>"><?php echo $state->name ?></option>
-                                     <?php }}} else{?>
-                                        <?php foreach ($states as $state) { ?>
-                                    <option value="<?php echo $state->id; ?>"><?php echo $state->name_problem ?></option>
-                                        <?php }} ?>
+                          <select class="form-control" id="states" name="state">
+                               <option value="" selected>All State</option>
+                       
+                               @foreach($states as $state)
+                                    <option value="{{ $state->id }}" >{{ $state->name }}</option>   
+                                @endforeach                                   
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="usr">School:</label>
-                          <select class="form-control" id="level" name="school">
+                          <select class="form-control" id="school" name="school">
                                <option value="">All Schools</option>
                                @foreach($schools as $school)
                                 <option value="{{$school->school_code}}">{{$school->school_name}}</option>
@@ -192,48 +163,7 @@ $(function() {
 
                     </div>
                     <br>
-                    <table id="example" class="display" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Screen Name</th>
-                                    <th>School Name</th>
-                                    <th>Add City,State</th>
-                                    <th>High Score</th>
-                                    
-                                </tr>
-                            </thead>
-
-                            <tfoot>
-                                <tr>
-                                    <th>Rank</th>
-                                    <th>Screen Name</th>
-                                    <th>School Name</th>
-                                    <th>Add City,State</th>
-                                    <th>High Score</th>
-                                </tr>
-                            </tfoot>
-
-                            <tbody>
-                                
-                               
-                                
-                                <?php // print_r($schoolcodes);exit;
-                                foreach ($schoolcodes as $k => $v) { 
-                                   
-                                       if($v->maxscore != 0) {
-                                   ?>
-                                    <tr>
-                                        <td><?php echo $k + 1; ?></td>
-                                        <td><?php echo $v->screen_name; ?></td>
-                                        <td><?php echo $v->school_name; ?></td>
-                                        <td><?php echo $v->city;?> , <?php if($v->state){echo $v->state;}else{echo $v->country;}?></td>
-                                        <td><?php echo $v->maxscore; ?></td>
-                                       
-                                    </tr>
-                                <?php } } ?>
-                            </tbody>
-                        </table>
+                    <div id="table_content"></div>
                 </div>
 
             </div>
@@ -242,8 +172,12 @@ $(function() {
         <!-- /.container -->
 @endsection
 
+
 @section('css_js_down')
 <script type="text/javascript">
+
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+
 
 $(document).ready(function () {
 
@@ -251,24 +185,94 @@ $(document).ready(function () {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#level', 'change', function (e) {
+    $('body').delegate('#game_type', 'change', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#game', 'change', function (e) {
+    $('body').delegate('#states', 'change', function (e) {
         e.preventDefault();
-        var game = $(this).val();
-        console.log(game);
-        
+        var state = $('#state').val();
+        $('#school').html('');
+         $.ajax({
+                url: "get_school_by_state",
+                type: "post",
+                data: {'_token':'{{ csrf_token() }}',state} ,
+                success: function (response) {
+                        $('#school').html(response);
+                   // You will get response from your PHP page (what you echo or print)
+                }
+
+            });
         $("#grandtotal").submit();
     });
-
-
-    $('#example').dataTable({
-        "order": [[4, "desc"]],
-        "paging": true,
-        "lengthMenu": [[100, 1000, 10000], [100, 1000, 10000]]
+    $('body').delegate('#school', 'change', function (e) {
+        e.preventDefault();
+        $("#grandtotal").submit();
     });
+    $('body').delegate('#game_name', 'change', function (e) {
+        e.preventDefault();
+        $("#grandtotal").submit();
+    });
+});
+</script>
+
+<script type="text/javascript">
+    var oTable;
+
+    $(document).ready(function() {
+
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+              "url": "{{ route('super_contest_data') }}",
+            },
+            "columns": [
+                {data: 'score',  name: 'score'},
+                {data: 'student_name',  name: 'student_name'},
+
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'city',  name: 'city'},
+                {data: 'grand_total',  name: 'grandtotal'},
+            ]
+        });
+
+
+
+$(document).on('submit','#grandtotal',function(e){
+    $("#table_content").html('');
+    e.preventDefault();
+        var game_type = $('#game_type').val();
+        var game_name = $('#game_name').val();
+        var options = $('#options').val();
+        var state = $('#states').val();
+        var school = $('#school').val();
+
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+
+                "url":"{!!route('super_contest_data')!!}",
+                "data":{
+                    game_type, game_name, options, state, school
+                }
+            },
+            "columns": [
+                {data: 'score',  name: 'score'},
+                {data: 'student_name',  name: 'student_name'},
+
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'city',  name: 'city'},
+                {data: 'grand_total',  name: 'grandtotal'},
+            ]
+        });
+
+   });
 });
 </script>
 @endsection
