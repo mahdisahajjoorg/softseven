@@ -38,6 +38,15 @@ Route::resource('grandtotal_per_students', 'GrandTotalController');
 Route::get('grandtotal_per_students_list', 'GrandTotalController@grandtotal_per_students_list')->name('grandtotal_per_students_list');
 Route::post('get_school_by_state', 'GrandTotalController@get_school_by_state')->name('get_school_by_state');
 
+
+//top schools
+Route::resource('top_schools', 'TopSchoolsController');
+Route::get('top_school_list', 'TopSchoolsController@top_school_list')->name('top_school_list');
+
+//School list
+Route::resource('total_schools', 'SchoolListController');
+Route::get('total_school_list', 'SchoolListController@total_school_list')->name('total_school_list');
+
 });
 
 //Webpg end

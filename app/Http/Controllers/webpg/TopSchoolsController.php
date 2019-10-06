@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Supercontest;
 use App\GeoraceScore;
+use App\Score;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
 
-class GrandTotalController extends Controller
+class TopSchoolsController extends Controller
 {
-    protected $root = 'webpg.grand_total.';
+    protected $root = 'webpg.topschools.';
 
     public function index()
     {
@@ -19,20 +20,16 @@ class GrandTotalController extends Controller
 
         $data = [
             'games'=>$games,
-            'states'=>\App\Usa_state::all(),
-            'schools'=>\App\School::all(),
 
         ];
         return view($this->root.'index', $data);
     }
 
-    public function grandtotal_per_students_list(Request $request){
+    public function top_school_list(Request $request){
       $game_type =isset($request->game_type)?$request->game_type:'';
 
       $options =isset($request->options)?$request->options:'';
-      $state =isset($request->state)?$request->state:'';
-      $school =isset($request->school)?$request->school:'';
-      $query = GeoraceScore::query();
+      $query = Score::query();
       if($options == 'today'){
         $query = $query->whereYear('created',Carbon::now()->year)
                                    ->whereMonth('created', Carbon::now()->month)
@@ -61,37 +58,22 @@ class GrandTotalController extends Controller
       if($game_type){
         $query = $query->where('game_name', $game_type);
       }
-      if($state){
-        $query = $query->where('state', $state);
-      }
-      if($school){
-        $query = $query->where('school_id', $school);
-      }
+
              return Datatables::of($query->groupBy('school_code'))
-             ->editColumn('city', function(GeoraceScore $gr) {
+             ->editColumn('city', function(Score $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(GeoraceScore $gr) {
+             ->editColumn('student_name', function(Score $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
-                     return $st->firstname.' '.$st->firstname;
+                     return $st['firstname'] .' '. $st['firstname'];
                 })
-             ->editColumn('grand_total', function(GeoraceScore $gr) {
-                    return \App\Score::where('school_code', $gr->school_code)->groupBy('school_code')->sum('score');
+             ->editColumn('grand_total', function(Score $gr) {
+                    
+                    return Score::where('school_code', $gr->school_code)->sum('score');
                 })
              ->escapeColumns([])
              ->make(true);
 
-    }
-
-
-    public function get_school_by_state(Request $request){
-        $state = $request->state;
-        $all_schools = \App\School::where('state', $state)->get();
-        $html = '';
-        foreach ($all_schools as $value) {
-            $html .= '<option value="'.$value->id.'">'.$value->school_name.'</option>';
-        }
-        return $html;
     }
 
     /**

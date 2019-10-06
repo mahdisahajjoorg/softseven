@@ -30,10 +30,10 @@ min-width: 125px !important;
             <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul  class="nav navbar-nav menu">
                     <li>
-                        <a href="index.php">Student List</a>
+                        <a href="{{ route('total_schools.index') }}" class="active">Student List</a>
                     </li>
                     <li>
-                        <a href="{{ route('top_schools.index') }}">Top Schools</a>
+                        <a href="{{ route('top_schools.index') }}" >Top Schools</a>
                     </li>
                     <!--<li>
                         <a href="highsore.php">High Scores</a>
@@ -42,7 +42,7 @@ min-width: 125px !important;
                         <a href="jumpbadge.php">Jump Badges</a>
                     </li>-->
                    <li>
-                        <a href="{{ route('grandtotal_per_students.index') }}"  class="active">Grand Totals</a>
+                        <a href="{{ route('grandtotal_per_students.index') }}"  >Grand Totals</a>
                     </li>
                     <li>
                         <a href="{{route('outer_super.index')}}">Super Contest</a>
@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		            <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -100,47 +100,21 @@ $(function() {
                 <div class="col-md-2">
                         <form id="grandtotal">
                         <div class="form-group">
-                            <label for="usr">Game Type:</label>
-                            <select class="form-control" id="game_type" name="game_type">
-                                @foreach($games as $key=>$game)
-                                 <option value="{{ $key }}">{{ $game }}</option>
+                            <label for="usr">School Code:</label>
+                            <select class="form-control" id="school_code" name="school_code">
+                                @foreach($schools as $school)
+                                 <option value="{{ $school->id }}">{{ $school->school_code }}</option>
                                 @endforeach
                             </select>
                         </div>
                          <div class="form-group">
-                            <label for="usr">Options:</label>
-                            <select class="form-control" id="options" name="options">
-                                <option value="today">Today</option>
-                                <option value="thismonth">This Month</option>            
-                                <option value="thisyear">This Year</option>            
-                                <option value="lastmonth">Last Month</option>            
-                                <option value="lastyear">Last Year</option>            
-                                <option value="alltime" selected>All Time</option>            
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="usr">State:</label>
-                          <select class="form-control" id="state" name="state">
-                               <option value="">All State</option>
-                               @foreach($states as $state)
-                                <option value="{{ $state->id }}">{{ $state->name }}</option>
-                                @endforeach
-                          
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="usr">School:</label>
-                          <select class="form-control" id="school" name="school">
-                               <option value="">All Schools</option>
-                               @foreach($schools as $school)
-                                <option value="{{ $school->id }}">{{ $school->school_name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="usr">Password:</label>
+                            <input type="password" name="password" id="password">
                         </div>
 
-                        <!--<button type="submit" name="data[submit]" class="btn btn-default">Submit</button>-->
-
+                 <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
                 </div>
+               
                 </form>
                 <div class="col-md-9">
                     <div class="row">
@@ -159,39 +133,16 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
 
 
 $(document).ready(function () {
 
-    $('body').delegate('#options', 'change', function (e) {
+    $('body').delegate('#submit_btn', 'click', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
-    $('body').delegate('#game_type', 'change', function (e) {
-        e.preventDefault();
-        $("#grandtotal").submit();
-    });
-    $('body').delegate('#state', 'change', function (e) {
-        e.preventDefault();
-        var state = $('#state').val();
-        $('#school').html('');
-         $.ajax({
-                url: "get_school_by_state",
-                type: "post",
-                data: {'_token':'{{ csrf_token() }}',state} ,
-                success: function (response) {
-                        $('#school').html(response);
-                   // You will get response from your PHP page (what you echo or print)
-                }
 
-            });
-        $("#grandtotal").submit();
-    });
-    $('body').delegate('#school', 'change', function (e) {
-        e.preventDefault();
-        $("#grandtotal").submit();
-    });
 });
 </script>
 
@@ -205,7 +156,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('grandtotal_per_students_list') }}",
+              "url": "{{ route('total_school_list') }}",
             },
             "columns": [
                 {data: 'score',  name: 'score'},
@@ -222,11 +173,9 @@ $(document).ready(function () {
 $(document).on('submit','#grandtotal',function(e){
     $("#table_content").html('');
     e.preventDefault();
-        var game_type = $('#game_type').val();
-        var game_name = $('#game_nameoptions').val();
-        var options = $('#options').val();
-        var state = $('#state').val();
-        var school = $('#school').val();
+        var school_code = $('#school_code').val();
+        var password = $('#password').val();
+
 
 $("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
 
@@ -236,9 +185,9 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('grandtotal_per_students_list')!!}",
+                "url":"{!!route('total_school_list')!!}",
                 "data":{
-                    game_type, game_name, options, state, school
+                    school_code, password
                 }
             },
             "columns": [
@@ -253,5 +202,9 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
 
    });
 });
+
+
+
+
 </script>
 @endsection
