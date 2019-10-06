@@ -48,6 +48,23 @@ Route::get('top_school_list', 'TopSchoolsController@top_school_list')->name('top
 Route::resource('total_schools', 'SchoolListController');
 Route::get('total_school_list', 'SchoolListController@total_school_list')->name('total_school_list');
 
+
+//Mobile Scores
+Route::resource('mobilescores', 'MoblieScoreController');
+Route::get('mobilescores_list', 'MoblieScoreController@mobilescores_list')->name('mobilescores_list');
+
+
+//Extention Page
+Route::resource('extensionpage', 'ExtensionPageController');
+Route::get('extenstion_list', 'ExtensionPageController@extenstion_list')->name('extenstion_list');
+
+
+//Extention Page
+Route::resource('schoolchampions', 'SchoolChampionController');
+Route::get('schoolchampions_list', 'SchoolChampionController@schoolchampions_list')->name('schoolchampions_list');
+
+
+
 });
 
 //Webpg end

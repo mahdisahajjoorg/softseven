@@ -45,10 +45,10 @@ min-width: 125px !important;
                         <a href="{{ route('grandtotal_per_students.index') }}">Grand Totals</a>
                     </li>
                     <li>
-                        <a href="{{route('outer_super.index')}}" class="active">Super Contest</a>
+                        <a href="{{route('outer_super.index')}}">Super Contest</a>
                     </li>
 					 <li>
-                        <a href="{{ route('mobilescores.index') }}">Mobile Scores</a>
+                        <a href="{{ route('mobilescores.index') }}"  class="active">Mobile Scores</a>
                     </li>
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
@@ -105,7 +105,7 @@ $(function() {
                             <select class="form-control" id="game_type" name="game_type">
                                 <option value="" selected>All</option>
                             <?php 
-                               foreach($games as $k => $game) {      
+                               foreach($games as $k => $game) {
                             ?>
 
                                 <option  value="<?php echo $k; ?>"> <?php echo $game; ?></option>
@@ -176,7 +176,7 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Highest Score</th></tr></thead></table>');
 
 
 $(document).ready(function () {
@@ -226,7 +226,7 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('super_contest_data') }}",
+              "url": "{{ route('mobilescores_list') }}",
             },
             "columns": [
                 {data: 'score',  name: 'score'},
@@ -234,7 +234,7 @@ $(document).ready(function () {
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},
-                {data: 'grand_total',  name: 'grandtotal'},
+                {data: 'highestscore',  name: 'highestscore'},
             ]
         });
 
@@ -249,7 +249,7 @@ $(document).on('submit','#grandtotal',function(e){
         var state = $('#states').val();
         var school = $('#school').val();
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Grand Total</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>City, State</th><th>Highest Score</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
             "responsive": true,
@@ -257,7 +257,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('super_contest_data')!!}",
+                "url":"{!!route('mobilescores_list')!!}",
                 "data":{
                     game_type, game_name, options, state, school
                 }
@@ -268,7 +268,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},
-                {data: 'grand_total',  name: 'grandtotal'},
+                {data: 'highestscore',  name: 'highestscore'},
             ]
         });
 

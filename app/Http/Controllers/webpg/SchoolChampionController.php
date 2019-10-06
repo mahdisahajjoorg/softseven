@@ -12,10 +12,10 @@ use Carbon\Carbon;
 use \App\School;
 use \App\Student;
 use Illuminate\Support\Facades\Hash;
-
-class SchoolListController extends Controller
+use App\Certificate;
+class SchoolChampionController extends Controller
 {
-    protected $root = 'webpg.school_list.';
+    protected $root = 'webpg.school_champion.';
 
     public function index()
     {
@@ -27,24 +27,33 @@ class SchoolListController extends Controller
         return view($this->root.'index', $data);
     }
 
-    public function total_school_list(Request $request){
+    public function schoolchampions_list(Request $request){
       $school_code =isset($request->school_code)?$request->school_code:'';
       $pass_check = '';
-      $password =isset($request->password)?$request->password:'';
 
-      $school_code = School::where('school_code', $school_code)->where('mainpassword', $password)->first();
+      $school_id = -1;
+      $school_codes = School::where('school_code', $school_code)->first();
+
+
+      $query = '';
       $student_ids = [];
-      if ($school_code != NULL) {
-      $student_idss = Score::where('school_id', $school_code->id)->groupBy('student_id')->whereYear('created', Carbon::now()->year)->get();
-        foreach ($student_idss as $value) {
-            $student_ids[] = $value->student_id;
+      if ($school_codes != NULL) {
+          $school_id = $school_codes->id;
         }
-      }
-      
-             return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC')->get())
-             ->editColumn('action', function() {
-                    return "<a class='btn btn-info'>Edit</a>";
+      $query = Score::query()->where('school_id', $school_id)->groupBy('student_id')->whereIn('game_name',['addition','multiplication','subtraction','division','visual','auditory'])->where('score','!=','')->get();
+
+             return Datatables::of($query)
+             ->editColumn('addition', function(Score $sc) {
+                   return ($sc->game_name == 'addition')?$sc->screen_name:'...';
+                      
                 })
+             ->editColumn('multiplication', function(Score $sc) {
+                  return ($sc->game_name == 'multiplication')?$sc->screen_name:'...';
+                })             
+             ->editColumn('wordrace', function(Score $sc) {
+                   return ($sc->game_name == 'wordrace')?$sc->screen_name:'...';
+                })
+
 
              ->escapeColumns([])
              ->make(true);

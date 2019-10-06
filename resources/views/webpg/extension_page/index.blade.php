@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		              <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -109,7 +109,7 @@ $(function() {
                         </div>
                          <div class="form-group">
                             <label for="usr">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password">
                         </div>
 
                  <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
@@ -133,8 +133,7 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
-
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Name</th><th>Screen Name</th><th >City</th><th>Score</th><th>Jump badge</th><th>Game Name</th><th>Score Certificate</th><th>Jump badge Certificate</th></tr></thead></table>');
 
 $(document).ready(function () {
 
@@ -147,10 +146,7 @@ $(document).ready(function () {
 </script>
 
 <script type="text/javascript">
-    var oTable;
-
-    $(document).ready(function() {
-
+ 
         oTable = $('#approve_student').DataTable({
             "language": {
               "emptyTable": "There is no school with this schoolcode and password"
@@ -159,15 +155,17 @@ $(document).ready(function () {
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('total_school_list') }}",
+              "url": "{{ route('extenstion_list') }}",
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
-
+                {data: 'name',  name: 'name'},
                 {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'city',  name: 'city'},
+                {data: 'score',  name: 'score'},
+                {data: 'jump_badge',  name: 'jump_badge'},
+                {data: 'game_name',  name: 'game_name'},
+                {data: 'score_certificate',  name: 'score_certificate'},
+                {data: 'jumpbadge_certificate',  name: 'jumpbadge_certificate'},
             ]
         });
 
@@ -180,7 +178,7 @@ $(document).on('submit','#grandtotal',function(e){
         var password = $('#password').val();
 
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Name</th><th>Screen Name</th><th >City</th><th>Score</th><th>Jump badge</th><th>Game Name</th><th>Score Certificate</th><th>Jump badge Certificate</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
             "language": {
@@ -191,23 +189,25 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('total_school_list')!!}",
+                "url":"{!!route('extenstion_list')!!}",
                 "data":{
                     school_code, password
                 }
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
-
+                {data: 'name',  name: 'name'},
                 {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'city',  name: 'city'},
+                {data: 'score',  name: 'score'},
+                {data: 'jump_badge',  name: 'jump_badge'},
+                {data: 'game_name',  name: 'game_name'},
+                {data: 'score_certificate',  name: 'score_certificate'},
+                {data: 'jumpbadge_certificate',  name: 'jumpbadge_certificate'},
             ]
         });
 
    });
-});
+
 
 
 
