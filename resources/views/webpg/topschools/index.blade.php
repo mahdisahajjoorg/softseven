@@ -30,7 +30,7 @@ min-width: 125px !important;
             <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul  class="nav navbar-nav menu">
                     <li>
-                        <a href="index.php">Student List</a>
+                        <a href="{{ route('total_schools.index') }}">Student List</a>
                     </li>
                     <li>
                         <a href="{{ route('top_schools.index') }}" class="active">Top Schools</a>

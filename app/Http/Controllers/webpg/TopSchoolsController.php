@@ -65,7 +65,7 @@ class TopSchoolsController extends Controller
                 })
              ->editColumn('student_name', function(Score $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
-                     return $st['firstname'] .' '. $st['firstname'];
+                     return $st['firstname'] .' '. $st['lastname'];
                 })
              ->editColumn('grand_total', function(Score $gr) {
                     
