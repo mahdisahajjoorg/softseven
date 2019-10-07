@@ -59,9 +59,21 @@ Route::resource('extensionpage', 'ExtensionPageController');
 Route::get('extenstion_list', 'ExtensionPageController@extenstion_list')->name('extenstion_list');
 
 
-//Extention Page
+//School champion 
 Route::resource('schoolchampions', 'SchoolChampionController');
 Route::get('schoolchampions_list', 'SchoolChampionController@schoolchampions_list')->name('schoolchampions_list');
+
+//Todays Champion
+Route::resource('todayschampions', 'TodaysChampionController');
+Route::get('todayschampions_list', 'TodaysChampionController@todayschampions_list')->name('todayschampions_list');
+
+//Softseven Champion
+Route::resource('softsevenchampions', 'SoftsevenChampionController');
+Route::get('softsevenchampions_list', 'SoftsevenChampionController@softsevenchampions_list')->name('softsevenchampions_list');
+
+//Softseven Champion
+Route::resource('goldstar', 'GoldstarController');
+Route::get('goldstar_list', 'GoldstarController@goldstar_list')->name('goldstar_list');
 
 
 
