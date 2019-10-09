@@ -12,39 +12,31 @@ use Carbon\Carbon;
 use \App\School;
 use \App\Student;
 use Illuminate\Support\Facades\Hash;
+use App\Certificate;
 
-class SchoolListController extends Controller
+class GoldstarController extends Controller
 {
-    protected $root = 'webpg.school_list.';
+    protected $root = 'webpg.goldstar.';
 
     public function index()
     {
 
-        $data = [
-            'schools'=> \App\School::all(),
-
-        ];
-        return view($this->root.'index', $data);
+        return view($this->root.'index');
     }
 
-    public function total_school_list(Request $request){
-      $school_code =isset($request->school_code)?$request->school_code:'';
-      $pass_check = '';
-      $password =isset($request->password)?$request->password:'';
+    public function goldstar_list(Request $request){
 
-      $school_code = School::where('school_code', $school_code)->where('mainpassword', $password)->first();
-      $student_ids = [];
-      if ($school_code != NULL) {
-      $student_idss = Score::where('school_id', $school_code->id)->groupBy('student_id')->whereYear('created', Carbon::now()->year)->get();
-        foreach ($student_idss as $value) {
-            $student_ids[] = $value->student_id;
-        }
-      }
-      
-             return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC')->get())
-             ->editColumn('action', function() {
-                    return "<a class='btn btn-info'>Edit</a>";
-                })
+
+      $query = Student::query();
+             return Datatables::of($query->where('supercontest_g_star','!=',0)->orderBy('supercontest_g_star', 'DESC'))
+              ->addIndexColumn()
+             // ->editColumn('date', function(Score $sc) {
+             //       return ($sc->created)?$sc->created:'...';
+                      
+             //    })
+             ->editColumn('goldstar', function(Student $sc) {
+                 return $sc->supercontest_g_star;
+                })             
 
              ->escapeColumns([])
              ->make(true);
@@ -52,17 +44,6 @@ class SchoolListController extends Controller
 
 
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *

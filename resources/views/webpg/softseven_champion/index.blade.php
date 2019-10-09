@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		              <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -100,19 +100,18 @@ $(function() {
                 <div class="col-md-2">
                         <form id="grandtotal">
                         <div class="form-group">
-                            <label for="usr">School Code:</label>
-                            <select class="form-control" id="school_code" name="school_code">
+                            <label for="usr">Game Type:</label>
+                            <select class="form-control" id="school" name="school_code">
+                                <option value="" selected>All</option>
                                 @foreach($schools as $school)
-                                 <option value="{{ $school->school_code }}">{{ $school->school_code }}</option>
+                                 <option value="{{ $school->id }}">{{ $school->school_name }}</option>
                                 @endforeach
+
+                    
                             </select>
                         </div>
-                         <div class="form-group">
-                            <label for="usr">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
 
-                 <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
+
                 </div>
                
                 </form>
@@ -133,41 +132,37 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
-
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Date</th><th>Addition</th><th >School Code</th><th>Multiplications</th></tr></thead></table>');
 
 $(document).ready(function () {
 
-    $('body').delegate('#submit_btn', 'click', function (e) {
+    $('body').delegate('#school', 'change', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
+
 
 });
 </script>
 
 <script type="text/javascript">
-    var oTable;
-
-    $(document).ready(function() {
-
+ 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('total_school_list') }}",
+              "url": "{{ route('softsevenchampions_list') }}",
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
+                {data: 'created', name: 'created' , orderable: false, searchable: false},
+                {data: 'addition',  name: 'addition'},
+                {data: 'school_code',  name: 'school_code'},
+                {data: 'multiplication',  name: 'multiplication'},
 
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
             ]
         });
 
@@ -176,38 +171,35 @@ $(document).ready(function () {
 $(document).on('submit','#grandtotal',function(e){
     $("#table_content").html('');
     e.preventDefault();
-        var school_code = $('#school_code').val();
-        var password = $('#password').val();
+        var school = $('#school').val();
 
-
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Date</th><th>Addition</th><th >School Code</th><th>Multiplications</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
+
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('total_school_list')!!}",
+                "url":"{!!route('softsevenchampions_list')!!}",
                 "data":{
-                    school_code, password
+                    school
                 }
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
-
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'created', name: 'created' , orderable: false, searchable: false},
+                {data: 'addition',  name: 'addition'},
+                {data: 'school_code',  name: 'school_code'},
+                {data: 'multiplication',  name: 'multiplication'},
             ]
         });
 
    });
-});
+
 
 
 

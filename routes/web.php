@@ -23,6 +23,7 @@ Route::get('/','SoftsevenHomeController@index')->name('softseven_home.index');
 //Webpg
 Route::group(['namespace'=>'webpg'],function(){
 Route::get('/super-contest','OuterSuperContestController@index')->name('outer_super.index');
+Route::get('supercontest/alldata','OuterSuperContestController@super_contest_data')->name('super_contest_data');
 Route::post('super-contest-post','OuterSuperContestController@super_contest_post')->name('outer_super.super_contest_post');
 
 });
@@ -46,6 +47,35 @@ Route::get('top_school_list', 'TopSchoolsController@top_school_list')->name('top
 //School list
 Route::resource('total_schools', 'SchoolListController');
 Route::get('total_school_list', 'SchoolListController@total_school_list')->name('total_school_list');
+
+
+//Mobile Scores
+Route::resource('mobilescores', 'MoblieScoreController');
+Route::get('mobilescores_list', 'MoblieScoreController@mobilescores_list')->name('mobilescores_list');
+
+
+//Extention Page
+Route::resource('extensionpage', 'ExtensionPageController');
+Route::get('extenstion_list', 'ExtensionPageController@extenstion_list')->name('extenstion_list');
+
+
+//School champion 
+Route::resource('schoolchampions', 'SchoolChampionController');
+Route::get('schoolchampions_list', 'SchoolChampionController@schoolchampions_list')->name('schoolchampions_list');
+
+//Todays Champion
+Route::resource('todayschampions', 'TodaysChampionController');
+Route::get('todayschampions_list', 'TodaysChampionController@todayschampions_list')->name('todayschampions_list');
+
+//Softseven Champion
+Route::resource('softsevenchampions', 'SoftsevenChampionController');
+Route::get('softsevenchampions_list', 'SoftsevenChampionController@softsevenchampions_list')->name('softsevenchampions_list');
+
+//Softseven Champion
+Route::resource('goldstar', 'GoldstarController');
+Route::get('goldstar_list', 'GoldstarController@goldstar_list')->name('goldstar_list');
+
+
 
 });
 

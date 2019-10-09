@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		              <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -107,12 +107,7 @@ $(function() {
                                 @endforeach
                             </select>
                         </div>
-                         <div class="form-group">
-                            <label for="usr">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
 
-                 <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
                 </div>
                
                 </form>
@@ -133,12 +128,11 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
-
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Date</th><th>Addition</th><th >Multiplication</th><th>WordRace</th></tr></thead></table>');
 
 $(document).ready(function () {
 
-    $('body').delegate('#submit_btn', 'click', function (e) {
+    $('body').delegate('#school_code', 'change', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
@@ -147,27 +141,23 @@ $(document).ready(function () {
 </script>
 
 <script type="text/javascript">
-    var oTable;
-
-    $(document).ready(function() {
-
+ 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('total_school_list') }}",
+              "url": "{{ route('schoolchampions_list') }}",
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
+                {data: 'created',  name: 'created'},
+                {data: 'addition',  name: 'addition'},
+                {data: 'multiplication',  name: 'multiplication'},
+                {data: 'wordrace',  name: 'wordrace'},
 
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
             ]
         });
 
@@ -180,34 +170,33 @@ $(document).on('submit','#grandtotal',function(e){
         var password = $('#password').val();
 
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Date</th><th>Addition</th><th >Multiplication</th><th>WordRace</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('total_school_list')!!}",
+                "url":"{!!route('schoolchampions_list')!!}",
                 "data":{
                     school_code, password
                 }
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
+                {data: 'created',  name: 'created'},
+                {data: 'addition',  name: 'addition'},
+                {data: 'multiplication',  name: 'multiplication'},
+                {data: 'wordrace',  name: 'wordrace'},
 
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
             ]
         });
 
    });
-});
+
 
 
 

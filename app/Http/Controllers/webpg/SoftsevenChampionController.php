@@ -12,10 +12,11 @@ use Carbon\Carbon;
 use \App\School;
 use \App\Student;
 use Illuminate\Support\Facades\Hash;
+use App\Certificate;
 
-class SchoolListController extends Controller
+class SoftsevenChampionController extends Controller
 {
-    protected $root = 'webpg.school_list.';
+    protected $root = 'webpg.softseven_champion.';
 
     public function index()
     {
@@ -27,24 +28,25 @@ class SchoolListController extends Controller
         return view($this->root.'index', $data);
     }
 
-    public function total_school_list(Request $request){
-      $school_code =isset($request->school_code)?$request->school_code:'';
-      $pass_check = '';
-      $password =isset($request->password)?$request->password:'';
+    public function softsevenchampions_list(Request $request){
+      $school =isset($request->school)?$request->school:'';
 
-      $school_code = School::where('school_code', $school_code)->where('mainpassword', $password)->first();
-      $student_ids = [];
-      if ($school_code != NULL) {
-      $student_idss = Score::where('school_id', $school_code->id)->groupBy('student_id')->whereYear('created', Carbon::now()->year)->get();
-        foreach ($student_idss as $value) {
-            $student_ids[] = $value->student_id;
-        }
+      $query = Score::query();
+
+      if($school){
+      $query = Score::query()->where('school_id',$school);
       }
-      
-             return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC')->get())
-             ->editColumn('action', function() {
-                    return "<a class='btn btn-info'>Edit</a>";
+
+
+             return Datatables::of($query->orderBy('score', 'DESC')->limit(100))
+              ->addIndexColumn()
+             ->editColumn('addition', function(Score $sc) {
+                   return ($sc->game_name == 'addition')?$sc->screen_name:'...';
+                      
                 })
+             ->editColumn('multiplication', function(Score $sc) {
+                 return ($sc->game_name == 'multiplication')?$sc->screen_name:'...';
+                })             
 
              ->escapeColumns([])
              ->make(true);
@@ -52,17 +54,6 @@ class SchoolListController extends Controller
 
 
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *

@@ -53,7 +53,7 @@ min-width: 125px !important;
                     <li>
                         <a href="addschool.php">Contact SoftSeven</a>
                     </li>
-		              <li>
+		    <li>
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                 </ul>
@@ -101,18 +101,27 @@ $(function() {
                         <form id="grandtotal">
                         <div class="form-group">
                             <label for="usr">School Code:</label>
-                            <select class="form-control" id="school_code" name="school_code">
-                                @foreach($schools as $school)
-                                 <option value="{{ $school->school_code }}">{{ $school->school_code }}</option>
-                                @endforeach
+                            <select class="form-control" id="game_type" name="school_code">
+                                <option value="" selected>All</option>
+                                 <option value="addition">Addition</option>
+                                 <option value="multiplication">Multiplication</option>
+                                 <option value="division">Division</option>
+                                 <option value="subtraction">Subtraction</option>
+                    
                             </select>
                         </div>
-                         <div class="form-group">
-                            <label for="usr">Password:</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                        <div class="form-group">
+                            <label for="option">School Code:</label>
+                            <select class="form-control" id="options" name="option">
+                              
+                                 <option value="" selected>All</option>
+                                 <option value="today">Today</option>
+                                 <option value="thismonth">This Month</option>
+                                 <option value="thisyear">This Year</option>
+                               
+                            </select>
                         </div>
 
-                 <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
                 </div>
                
                 </form>
@@ -133,12 +142,15 @@ $(function() {
 @section('css_js_down')
 <script type="text/javascript">
 
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
-
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>Add City, State</th><th>Hight Score</th></tr></thead></table>');
 
 $(document).ready(function () {
 
-    $('body').delegate('#submit_btn', 'click', function (e) {
+    $('body').delegate('#game_type', 'change', function (e) {
+        e.preventDefault();
+        $("#grandtotal").submit();
+    });
+    $('body').delegate('#options', 'change', function (e) {
         e.preventDefault();
         $("#grandtotal").submit();
     });
@@ -147,27 +159,24 @@ $(document).ready(function () {
 </script>
 
 <script type="text/javascript">
-    var oTable;
-
-    $(document).ready(function() {
-
+ 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
-              "url": "{{ route('total_school_list') }}",
+              "url": "{{ route('todayschampions_list') }}",
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                {data: 'student_name',  name: 'student_name'},
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'address',  name: 'address'},
+                {data: 'score',  name: 'score'},
 
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
             ]
         });
 
@@ -176,38 +185,37 @@ $(document).ready(function () {
 $(document).on('submit','#grandtotal',function(e){
     $("#table_content").html('');
     e.preventDefault();
-        var school_code = $('#school_code').val();
-        var password = $('#password').val();
+        var game_type = $('#game_type').val();
+        var options = $('#options').val();
 
-
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>Rank</th><th>Student Name</th><th >School Name</th><th>Add City, State</th><th>Hight Score</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
-            "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
-            },
+            // "language": {
+            //   "emptyTable": "There is no school with this schoolcode and password"
+            // },
+
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
 
-                "url":"{!!route('total_school_list')!!}",
+                "url":"{!!route('todayschampions_list')!!}",
                 "data":{
-                    school_code, password
+                    game_type, options
                 }
             },
             "columns": [
-                {data: 'firstname',  name: 'firstname'},
-                {data: 'lastname',  name: 'lastname'},
-
-                {data: 'screen_name',  name: 'screen_name'},
-                {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                {data: 'student_name',  name: 'student_name'},
+                {data: 'school_name',  name: 'school_name'},
+                {data: 'address',  name: 'address'},
+                {data: 'score',  name: 'score'},
             ]
         });
 
    });
-});
+
 
 
 

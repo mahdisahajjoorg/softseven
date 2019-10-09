@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Http\Controllers\webpg;
 
 use Illuminate\Http\Request;
@@ -10,11 +8,12 @@ use App\Usa_state;
 use App\School;
 use App\Todayscore;
 use App\Score;
+use App\Appscore;
 use DB;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
 
-class OuterSuperContestController extends Controller
+class MoblieScoreController extends Controller
 {
     public function index(){
         $games = array('addition' => 'Addition', 'multiplication' => 'Multiplication','division' => 'Division','subtraction' => 'Subtraction', 'wordrace' => 'WordRace', 'georace' => 'GeoRace', 'money' => 'Money', 'time' => 'Time');
@@ -30,20 +29,19 @@ class OuterSuperContestController extends Controller
         ->orderBy('maxscore','desc')
         ->get();
 
-        return view('webpg.super_contest.index',['games'=>$games
+        return view('webpg.mobile_score.index',['games'=>$games
         ,'gamecontest'=>$gamecontest
         ,'states'=>$states,'schools'=>$schools
         ,'schoolcodes'=>$schoolcodes,'options'=>$options]);
     }
 
-    public function super_contest_data(Request $request){
+    public function mobilescores_list(Request $request){
       $game_type =isset($request->game_type)?$request->game_type:'';
-
       $options =isset($request->options)?$request->options:'';
       $state =isset($request->state)?$request->state:'';
       $school =isset($request->school)?$request->school:'';
       $game_name =isset($request->game_name)?$request->game_name:'';
-      $query = Score::query();
+      $query = Appscore::query();
       if($options == 'today'){
         $query = $query->whereYear('created',Carbon::now()->year)
                                    ->whereMonth('created', Carbon::now()->month)
@@ -82,15 +80,15 @@ class OuterSuperContestController extends Controller
         $query = $query->where('game_level', $game_name);
       }
              return Datatables::of($query->groupBy('student_id'))
-             ->editColumn('city', function(Score $gr) {
+             ->editColumn('city', function(Appscore $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(Score $gr) {
+             ->editColumn('student_name', function(Appscore $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
                      return $st['firstname'].' '.$st['lastname'];
                 })
-             ->editColumn('grand_total', function(Score $gr) {
-                    return \App\Score::where('student_id', $gr->student_id)->groupBy('student_id')->sum('score');
+             ->editColumn('highestscore', function(Appscore $gr) {
+                    return \App\Appscore::where('student_id', $gr->student_id)->max('score');
                 })
              ->escapeColumns([])
              ->make(true);
