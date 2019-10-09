@@ -46,7 +46,7 @@
                         <a href="mobilescores.php">Mobile Scores</a>
                     </li>
                     <li>
-                        <a href="addschool.php">Contact SoftSeven</a>
+                        <a href="{{route('contact.contact_softseven_form')}}" class="active">Contact SoftSeven</a>
                     </li>
 					<li>
                         <a href="http://softseven.com">Home Page</a>
@@ -114,16 +114,32 @@ $(function() {
                     <form id="SchoolContactForm" action="{{route('contact.contact_softseven_form_submit')}}" method="post" class="form-horizontal">      
                        @csrf
                         <section class="panel">
+                        @if(Session::get('success_message'))
+                        <div class="alert alert-success">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {{ Session::get('success_message') }}
+                            </div>
+                            @endif
                             <header class="panel-heading">
+                            
                                 <div class="panel-actions">
                                     <a href="#" class="fa fa-caret-down"></a>
                                     <a href="#" class="fa fa-times"></a>
                                 </div>
-
+                               
                                 <h2 class="panel-title">School Add</h2>
 
                             </header>
                             <div class="panel-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif 
                                 <div class="validation-message">
                                     <ul></ul>
                                 </div>
@@ -139,25 +155,25 @@ $(function() {
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Contact Person<span class="required">*</span> </label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolContactPerson" class="form-control input-lg" type="text" maxlength="255" required="required" name="contact_person">
+                                        <input id="SchoolContactPerson" class="form-control input-lg" type="text" maxlength="255"  name="contact_person">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Contact Cell Phone <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolContactlPhone" class="form-control input-lg" type="text" maxlength="255" required="required" name="contact_person_phone">
+                                        <input id="SchoolContactlPhone" class="form-control input-lg" type="text" maxlength="255" name="contact_person_phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Name <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolName" class="form-control input-lg" type="text" maxlength="255" required="required" name="school_name">
+                                        <input id="SchoolName" class="form-control input-lg" type="text" maxlength="255" name="school_name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">City <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolCity" class="form-control input-lg" type="text" maxlength="255" required="required" name="city">
+                                        <input id="SchoolCity" class="form-control input-lg" type="text" maxlength="255"  name="city">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -188,26 +204,26 @@ $(function() {
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Address </label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolAddress" class="form-control input-lg" type="text" maxlength="255" required="required" name="address">
+                                        <input id="SchoolAddress" class="form-control input-lg" type="text" maxlength="255" name="address">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Principal</label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolPrincipal" class="form-control input-lg" type="text" maxlength="255" required="required" name="principal">
+                                        <input id="SchoolPrincipal" class="form-control input-lg" type="text" maxlength="255" name="principal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Phone<span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolPhone" class="form-control input-lg" type="text" maxlength="55" required="required" name="school_phone">
+                                        <input id="SchoolPhone" class="form-control input-lg" type="text" maxlength="55"  name="school_phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Email<span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolSchoolEmail" class="form-control input-lg" type="text" maxlength="255" required="required" name="school_email">
+                                        <input id="SchoolSchoolEmail" class="form-control input-lg" type="text" maxlength="255"  name="school_email">
                                     </div>
                                 </div>
 
