@@ -48,10 +48,10 @@ min-width: 125px !important;
                         <a href="{{route('outer_super.index')}}">Super Contest</a>
                     </li>
 					 <li>
-                        <a href="mobilescores.php">Mobile Scores</a>
+                        <a href="{{ route('mobilescores.index') }}">Mobile Scores</a>
                     </li>
                     <li>
-                        <a href="addschool.php">Contact SoftSeven</a>
+                        <a href="{{route('contact.contact_softseven_form')}}">Contact SoftSeven</a>
                     </li>
 		            <li>
                         <a href="http://softseven.com">Home Page</a>

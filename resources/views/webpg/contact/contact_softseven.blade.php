@@ -23,10 +23,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav menu">
                     <li>
-                        <a href="index.php">Student List</a>
+                        <a href="{{ route('total_schools.index') }}">Student List</a>
                     </li>
                     <li>
-                        <a href="grandtotal.php">Top Schools</a>
+                        <a href="{{ route('top_schools.index') }}">Top Schools</a>
                     </li>
                     <!--<li>
                         <a href="highsore.php">High Scores</a>
@@ -36,14 +36,14 @@
                     </li>-->
                     <li>
                         
-                        <a href="grandtotal_per_students.php">Grand Totals</a>
+                        <a href="{{ route('grandtotal_per_students.index') }}">Grand Totals</a>
                         <!--<a href="grandtotal.php">Grand Total</a>-->
                     </li>
                     <li>
-                        <a href="supercontest.php">Super Contest</a>
+                        <a href="{{route('outer_super.index')}}">Super Contest</a>
                     </li>
 					 <li>
-                        <a href="mobilescores.php">Mobile Scores</a>
+                        <a href="{{ route('mobilescores.index') }}">Mobile Scores</a>
                     </li>
                     <li>
                         <a href="{{route('contact.contact_softseven_form')}}" class="active">Contact SoftSeven</a>
@@ -52,20 +52,20 @@
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                     <li>
-                        <a href="extensionpage.php">Extension Page</a>
+                        <a href="{{route('extenstion_list')}}">Extension Page</a>
                     </li>
                     <li>
-                        <a href="schoolchampions.php">School Champions</a>
+                        <a href="{{route('schoolchampions_list')}}">School Champions</a>
                     </li>
 					<li>
-                        <a href="todayschoolchampions.php">Today School Champions</a>
+                        <a href="{{route('todayschampions_list')}}">Today School Champions</a>
                     </li>
                     <li>
-                        <a href="softsevenchampions.php">SoftSeven Champions</a>
+                        <a href="{{route('softsevenchampions_list')}}">SoftSeven Champions</a>
                     </li>
                     <li>
                         <!--<a href="softsevenchampionslevel.php">SoftSeven Champions by Level</a>-->
-                         <a href="goldstar.php">Gold Star</a>
+                         <a href="{{route('goldstar_list')}}">Gold Star</a>
                     </li>
    <!--                  <li>
 //                        <a href="awardpage.php">Award Page</a>

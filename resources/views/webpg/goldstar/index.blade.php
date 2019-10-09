@@ -24,25 +24,26 @@ min-width: 125px !important;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a style="color: red; font-size: 33px; line-height: 60px;" class="navbar-brand imgband" href="index.php">SuperContest - Multiplication - Einstein</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul  class="nav navbar-nav menu">
-                    <li>
-                        <a href="{{ route('total_schools.index') }}" class="active">Student List</a>
+                <li>
+                        <a href="{{ route('total_schools.index') }}">Student List</a>
                     </li>
                     <li>
-                        <a href="{{ route('top_schools.index') }}" >Top Schools</a>
+                        <a href="{{ route('top_schools.index') }}">Top Schools</a>
                     </li>
                     <!--<li>
                         <a href="highsore.php">High Scores</a>
                     </li>-->
-                   <!--<li>
+                    <!--<li>
                         <a href="jumpbadge.php">Jump Badges</a>
                     </li>-->
-                   <li>
-                        <a href="{{ route('grandtotal_per_students.index') }}"  >Grand Totals</a>
+                    <li>
+                        
+                        <a href="{{ route('grandtotal_per_students.index') }}">Grand Totals</a>
+                        <!--<a href="grandtotal.php">Grand Total</a>-->
                     </li>
                     <li>
                         <a href="{{route('outer_super.index')}}">Super Contest</a>
@@ -51,10 +52,26 @@ min-width: 125px !important;
                         <a href="{{ route('mobilescores.index') }}">Mobile Scores</a>
                     </li>
                     <li>
-                        <a href="addschool.php">Contact SoftSeven</a>
+                        <a href="{{route('contact.contact_softseven_form')}}">Contact SoftSeven</a>
                     </li>
-		    <li>
+					<li>
                         <a href="http://softseven.com">Home Page</a>
+                    </li>
+                    <li>
+                        <a href="{{route('extenstion_list')}}">Extension Page</a>
+                    </li>
+                    <li>
+                        <a href="{{route('schoolchampions_list')}}">School Champions</a>
+                    </li>
+					<li>
+                        <a href="{{route('todayschampions_list')}}">Today School Champions</a>
+                    </li>
+                    <li>
+                        <a href="{{route('softsevenchampions_list')}}">SoftSeven Champions</a>
+                    </li>
+                    <li>
+                        <!--<a href="softsevenchampionslevel.php">SoftSeven Champions by Level</a>-->
+                         <a href="{{route('goldstar_list')}}" class="active">Gold Star</a>
                     </li>
                 </ul>
             </div>
