@@ -317,3 +317,6 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     //end by rakesh
     });
     
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
