@@ -47,6 +47,8 @@ Route::get('top_school_list', 'TopSchoolsController@top_school_list')->name('top
 //School list
 Route::resource('total_schools', 'SchoolListController');
 Route::get('total_school_list', 'SchoolListController@total_school_list')->name('total_school_list');
+Route::get('get-student/{id}','SchoolListController@get_student')->name('school_list.get_student');
+Route::post('update-student','SchoolListController@update_student')->name('school_list.update_student');
 
 
 //Mobile Scores

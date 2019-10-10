@@ -43,8 +43,8 @@ class SchoolListController extends Controller
       
       
              return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC'))
-             ->editColumn('action', function() {
-                    return "<a class='btn btn-info'>Edit</a>";
+             ->editColumn('action', function(Student $st) {
+                    return "<a class='btn btn-info' href='javascript:;' onclick='updateStudent(".$st->id.")'>Edit</a>";
                 })
 
              ->escapeColumns([])
@@ -53,6 +53,27 @@ class SchoolListController extends Controller
 
         }else{
             return 1;
+        }
+    }
+
+    public function get_student($id){
+        $student = Student::where('id',$id)->first();
+        if($student!=null){
+        echo json_encode($student);
+        die();
+        }
+        
+    }
+
+    public function update_student(Request $request){
+        $student = Student::where('id',$request->id)->first();
+        if($student!=null){
+            $student->grade = $request->grade;
+            $student->is_approved = $request->status;
+            if($student->update()){
+                echo 1;
+                die();
+            }
         }
     }
 
