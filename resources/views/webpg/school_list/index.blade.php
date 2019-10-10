@@ -197,6 +197,12 @@ $(document).ready(function () {
             "serverSide": true,
             "ajax": {
               "url": "{{ route('total_school_list') }}",
+              "success":function(data){
+                   if(data == 1){
+                    $("#table_content").html('');
+                    $("#table_content").html('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert">×</a>Select your school code and give password to see your students of your school </div>');
+                   }
+                }
             },
             "columns": [
                 {data: 'firstname',  name: 'firstname'},
@@ -284,7 +290,7 @@ function updateStudentSubmit(id){
             if(result==1){
              $('#exampleModal').modal('hide');
              alert('Student updated successfully!');
-             location.href = "{{route('total_schools.index')}}";
+             oTable.draw();
             }
         }
         });
