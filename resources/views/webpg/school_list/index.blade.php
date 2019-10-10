@@ -210,8 +210,14 @@ $(document).ready(function () {
 
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
+
+                {data: 'action',  name: 'action', orderable: false, searchable: false},
+            ],
+
+
                 {data: 'action',  name: 'action'},
             ]
+
         });
 
 
@@ -245,7 +251,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
 
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'action',  name: 'action', orderable: false, searchable: false},
             ]
         });
 

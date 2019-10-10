@@ -189,9 +189,9 @@ $(document).ready(function () {
             },
             "columns": [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
+                {data: 'firstname',  name: 'students.firstname'},
                 {data: 'school_name',  name: 'school_name'},
-                {data: 'address',  name: 'address',orderable:false,searchable:false},
+                {data: 'city',  name: 'city'},
                 {data: 'score',  name: 'score'},
 
             ]
@@ -224,9 +224,9 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             },
             "columns": [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
+                {data: 'firstname',  name: 'students.firstname'},
                 {data: 'school_name',  name: 'school_name'},
-                {data: 'address',  name: 'address' ,orderable:false,searchable:false},
+                {data: 'city',  name: 'city'},
                 {data: 'score',  name: 'score'},
             ]
         });

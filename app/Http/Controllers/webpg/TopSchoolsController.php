@@ -9,7 +9,7 @@ use App\GeoraceScore;
 use App\Score;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
-
+use DB;
 class TopSchoolsController extends Controller
 {
     protected $root = 'webpg.topschools.';
@@ -59,11 +59,14 @@ class TopSchoolsController extends Controller
         $query = $query->where('game_name', $game_type);
       }
 
-             return Datatables::of($query->groupBy('school_code'))
+$query = $query->select(['scores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','scores.student_id','=', 'students.id');
+
+             return Datatables::of($query->groupBy('school_code')->with('student'))
+             ->addIndexColumn()
              ->editColumn('city', function(Score $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(Score $gr) {
+             ->editColumn('firstname', function(Score $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
                      return $st['firstname'] .' '. $st['lastname'];
                 })

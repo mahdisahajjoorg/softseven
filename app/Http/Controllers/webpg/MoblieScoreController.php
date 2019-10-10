@@ -79,11 +79,15 @@ class MoblieScoreController extends Controller
       if($game_name){
         $query = $query->where('game_level', $game_name);
       }
+
+$query = $query->select(['appscores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','appscores.student_id','=', 'students.id');
+
              return Datatables::of($query->groupBy('student_id'))
+             ->addIndexColumn()
              ->editColumn('city', function(Appscore $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(Appscore $gr) {
+             ->editColumn('firstname', function(Appscore $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
                      return $st['firstname'].' '.$st['lastname'];
                 })

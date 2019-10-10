@@ -81,7 +81,12 @@ class OuterSuperContestController extends Controller
       if($game_name){
         $query = $query->where('game_level', $game_name);
       }
+
+  $query = $query->select(['scores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','scores.student_id','=', 'students.id');
+
+
              return Datatables::of($query->groupBy('student_id'))
+             ->addIndexColumn()
              ->editColumn('city', function(Score $gr) {
                     return $gr->city.', '.$gr->state;
                 })

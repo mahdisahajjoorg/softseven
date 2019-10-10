@@ -13,6 +13,7 @@ use \App\School;
 use \App\Student;
 use Illuminate\Support\Facades\Hash;
 use App\Certificate;
+use DB;
 
 class TodaysChampionController extends Controller
 {
@@ -50,13 +51,15 @@ class TodaysChampionController extends Controller
         $query = $query->whereYear('created',Carbon::now()->year);
       }
 
+$query = $query->select(['scores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','scores.student_id','=', 'students.id');
+
              return Datatables::of($query->orderBy('score', 'DESC')->limit(100))
               ->addIndexColumn()
-             ->editColumn('student_name', function(Score $sc) {
+             ->editColumn('firstname', function(Score $sc) {
                    return $sc->student['firstname'] .' '. $sc->student['firstname'];
                       
                 })
-             ->editColumn('address', function(Score $sc) {
+             ->editColumn('city', function(Score $sc) {
                   return $sc->city.', '.$sc->state;
                 })             
 

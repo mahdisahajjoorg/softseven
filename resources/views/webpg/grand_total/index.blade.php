@@ -211,8 +211,8 @@ $(document).ready(function () {
               "url": "{{ route('grandtotal_per_students_list') }}",
             },
             "columns": [
-                {data: 'score',  name: 'score'},
-                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                {data: 'firstname',  name: 'students.firstname'},
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},
@@ -245,8 +245,8 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
                 }
             },
             "columns": [
-                {data: 'score',  name: 'score'},
-                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                {data: 'firstname',  name: 'students.firstname'},
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},

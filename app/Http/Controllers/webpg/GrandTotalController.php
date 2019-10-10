@@ -8,7 +8,7 @@ use App\Supercontest;
 use App\GeoraceScore;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
-
+use DB;
 class GrandTotalController extends Controller
 {
     protected $root = 'webpg.grand_total.';
@@ -67,11 +67,16 @@ class GrandTotalController extends Controller
       if($school){
         $query = $query->where('school_id', $school);
       }
+
+
+$query = $query->select(['georace_scores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','georace_scores.student_id','=', 'students.id');
+
              return Datatables::of($query->groupBy('school_code'))
+             ->addIndexColumn()
              ->editColumn('city', function(GeoraceScore $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(GeoraceScore $gr) {
+             ->editColumn('firstname', function(GeoraceScore $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
                      return $st->firstname.' '.$st->firstname;
                 })
