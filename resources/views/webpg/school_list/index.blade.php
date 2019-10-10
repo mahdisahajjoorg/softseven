@@ -144,6 +144,26 @@ $(function() {
             </div>
 
         </div>
+
+        <div class="bd-example">
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalLabel">All Scores</h4>
+        </div>
+        <div class="modal-body">
+           
+        </div>
+         
+      </div>
+    </div>
+  </div>
+
+</div>
         <!-- /.container -->
 @endsection
 
@@ -170,44 +190,44 @@ $(document).ready(function () {
 
         oTable = $('#approve_student').DataTable({
             "language": {
-              "emptyTable": "No Record Found!!!"
+              "emptyTable": "There is no school with this schoolcode and password"
             },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
               "url": "{{ route('total_school_list') }}",
-              "success":function(data){
-                   if(data == 1){
-                    $("#table_content").html('');
-                    $("#table_content").html('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert">×</a>Select your school code and give password to see your students of your school </div>');
-                   }
-                }
             },
             "columns": [
                 {data: 'firstname',  name: 'firstname'},
                 {data: 'lastname',  name: 'lastname'},
+
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
+
                 {data: 'action',  name: 'action', orderable: false, searchable: false},
             ],
 
+
+                {data: 'action',  name: 'action'},
+            ]
+
         });
 
-});
+
 
 $(document).on('submit','#grandtotal',function(e){
-
+    $("#table_content").html('');
     e.preventDefault();
         var school_code = $('#school_code').val();
         var password = $('#password').val();
 
-    $("#table_content").html('');
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th>Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
             "language": {
-              "emptyTable": "No Record Found!!!"
+              "emptyTable": "There is no school with this schoolcode and password"
             },
             "responsive": true,
             "processing": true,
@@ -217,11 +237,12 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
                 "url":"{!!route('total_school_list')!!}",
                 "data":{
                     school_code, password
-                },
+                }
             },
             "columns": [
                 {data: 'firstname',  name: 'firstname'},
                 {data: 'lastname',  name: 'lastname'},
+
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
                 {data: 'action',  name: 'action', orderable: false, searchable: false},
@@ -229,9 +250,51 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
         });
 
    });
+});
 
 
+function updateStudent(id){
+    var url = "{{route('school_list.get_student',':id')}}";
+    url = url.replace(':id',id);
+    $.ajax({
+        url:url,
+        dataType: "json",
+        success:function(result){
+            var status = result.is_approved;
+            form = '<label>Grade</label>';
+            form += '<input type="text" value="'+result.grade+'" id="grade" name="grade" class="form-control"><br>';
+            form += '<label>Status</label><br>';
+            if(status==1){
+                form +='<input type="radio" value="1" id="status" name="status" checked>Active ';
+                form +='<input id="status" type="radio" value="0" name="status"> Deactive ';
+            }else{
+                form +='<input type="radio" value="1" id="status" name="status" >Active ';
+                form +='<input id="status" type="radio" value="0" name="status" checked> Deactive ';
+            }
+            form +='<button type="button" id="update_student" onclick="updateStudentSubmit('+result.id+')" class="btn btn-default">Update</button><input type="hidden" id="school_id" value="'+result.id+'">';
+            $('.modal-body').html(form);
+            $('#exampleModal').modal('show');
+        }
+        });
+}
 
+function updateStudentSubmit(id){
+    var grade = $('#grade').val();
+    var status = $('input[name="status"]:checked').val();
+    $.ajax({
+        url:"{{route('school_list.update_student')}}",
+        type: "POST",
+        data: {id:id,status:status,grade:grade,"_token":"{{csrf_token()}}"},
+        dataType: "json",
+        success:function(result){
+            if(result==1){
+             $('#exampleModal').modal('hide');
+             alert('Student updated successfully!');
+             location.href = "{{route('total_schools.index')}}";
+            }
+        }
+        });
+}
 
 
 </script>

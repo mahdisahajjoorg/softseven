@@ -24,8 +24,8 @@ class OuterSuperContestController extends Controller
         $schools = School::all();
         $schoolcodes = DB::table('todayscores')
         ->select('*', DB::raw('max(score) as maxscore'))
-        ->where('created','=','2019-08-16')
-        ->where('game_name','multiplication')
+        // ->where('created','=',date('Y-m-d'))
+        // ->where('game_name','multiplication')
         ->groupBy('student_id')
         ->orderBy('maxscore','desc')
         ->get();
