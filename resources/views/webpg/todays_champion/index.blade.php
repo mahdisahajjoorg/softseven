@@ -58,20 +58,20 @@ min-width: 125px !important;
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                     <li>
-                        <a href="{{route('extenstion_list')}}">Extension Page</a>
+                        <a href="{{route('extensionpage.index')}}">Extension Page</a>
                     </li>
                     <li>
-                        <a href="{{route('schoolchampions_list')}}">School Champions</a>
+                        <a href="{{route('schoolchampions.index')}}">School Champions</a>
                     </li>
 					<li>
-                        <a href="{{route('todayschampions_list')}}" class="active">Today School Champions</a>
+                        <a href="{{route('todayschampions.index')}}">Today School Champions</a>
                     </li>
                     <li>
-                        <a href="{{route('softsevenchampions_list')}}">SoftSeven Champions</a>
+                        <a href="{{route('softsevenchampions.index')}}">SoftSeven Champions</a>
                     </li>
                     <li>
                         <!--<a href="softsevenchampionslevel.php">SoftSeven Champions by Level</a>-->
-                         <a href="{{route('goldstar_list')}}">Gold Star</a>
+                         <a href="{{route('goldstar.index')}}">Gold Star</a>
                     </li>
                 </ul>
             </div>
@@ -117,7 +117,7 @@ $(function() {
                 <div class="col-md-2">
                         <form id="grandtotal">
                         <div class="form-group">
-                            <label for="usr">School Code:</label>
+                            <label for="usr">Game Type:</label>
                             <select class="form-control" id="game_type" name="school_code">
                                 <option value="" selected>All</option>
                                  <option value="addition">Addition</option>
@@ -128,7 +128,7 @@ $(function() {
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="option">School Code:</label>
+                            <label for="option">Options:</label>
                             <select class="form-control" id="options" name="option">
                               
                                  <option value="" selected>All</option>

@@ -30,8 +30,6 @@ class HomeBaseController extends Controller
         if($check_username!=null){
             if(Hash::check($password,$check_username->password)){
                 Session::put('user_id',$check_username->id);
-
-
                 return redirect()->route('school.index');
             }
             else{
@@ -44,8 +42,8 @@ class HomeBaseController extends Controller
     }
 
     public function logout(){
-        session()->flash('user_id');
-        return redirect()->route('home_base.login_form');
+        session()->forget('user_id');
+        return redirect()->route('home_base.login_form')->with('error_message','You have been logged out seccessfully!');
     }
 
 }
