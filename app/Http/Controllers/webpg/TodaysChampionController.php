@@ -39,16 +39,16 @@ class TodaysChampionController extends Controller
       $query = Score::query()->where('game_name',$game_type);
       }
       if($options == 'today'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month)
-                                   ->whereDay('created',Carbon::now()->day);
+        $query = $query->whereYear('scores.created',Carbon::now()->year)
+                                   ->whereMonth('scores.created', Carbon::now()->month)
+                                   ->whereDay('scores.created',Carbon::now()->day);
       }
       if($options == 'thismonth'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month);
+        $query = $query->whereYear('scores.created',Carbon::now()->year)
+                                   ->whereMonth('scores.created', Carbon::now()->month);
       }
       if($options == 'thisyear'){
-        $query = $query->whereYear('created',Carbon::now()->year);
+        $query = $query->whereYear('scores.created',Carbon::now()->year);
       }
 
 $query = $query->select(['scores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','scores.student_id','=', 'students.id');

@@ -34,27 +34,27 @@ class GrandTotalController extends Controller
       $school =isset($request->school)?$request->school:'';
       $query = GeoraceScore::query();
       if($options == 'today'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month)
-                                   ->whereDay('created',Carbon::now()->day);
+        $query = $query->whereYear('georace_scores.created',Carbon::now()->year)
+                                   ->whereMonth('georace_scores.created', Carbon::now()->month)
+                                   ->whereDay('georace_scores.created',Carbon::now()->day);
       }
 
       if($options == 'thismonth'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month);
+        $query = $query->whereYear('georace_scores.created',Carbon::now()->year)
+                                   ->whereMonth('georace_scores.created', Carbon::now()->month);
       }
 
       if($options == 'thisyear'){
-        $query = $query->whereYear('created',Carbon::now()->year);
+        $query = $query->whereYear('georace_scores.created',Carbon::now()->year);
       }
 
       if($options == 'lastmonth'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->subMonth()->month);
+        $query = $query->whereYear('georace_scores.created',Carbon::now()->year)
+                                   ->whereMonth('georace_scores.created', Carbon::now()->subMonth()->month);
       }
 
       if($options == 'lastyear'){
-        $query = $query->whereYear('created',Carbon::now()->subYear()->year);
+        $query = $query->whereYear('georace_scores.created',Carbon::now()->subYear()->year);
 
       }
 
@@ -62,7 +62,7 @@ class GrandTotalController extends Controller
         $query = $query->where('game_name', $game_type);
       }
       if($state){
-        $query = $query->where('state', $state);
+        $query = $query->where('georace_scores.state', $state);
       }
       if($school){
         $query = $query->where('school_id', $school);

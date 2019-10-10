@@ -43,27 +43,27 @@ class MoblieScoreController extends Controller
       $game_name =isset($request->game_name)?$request->game_name:'';
       $query = Appscore::query();
       if($options == 'today'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month)
-                                   ->whereDay('created',Carbon::now()->day);
+        $query = $query->whereYear('appscores.created',Carbon::now()->year)
+                                   ->whereMonth('appscores.created', Carbon::now()->month)
+                                   ->whereDay('appscores.created',Carbon::now()->day);
       }
 
       if($options == 'thismonth'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->month);
+        $query = $query->whereYear('appscores.created',Carbon::now()->year)
+                                   ->whereMonth('appscores.created', Carbon::now()->month);
       }
 
       if($options == 'thisyear'){
-        $query = $query->whereYear('created',Carbon::now()->year);
+        $query = $query->whereYear('appscores.created',Carbon::now()->year);
       }
 
       if($options == 'lastmonth'){
-        $query = $query->whereYear('created',Carbon::now()->year)
-                                   ->whereMonth('created', Carbon::now()->subMonth()->month);
+        $query = $query->whereYear('appscores.created',Carbon::now()->year)
+                                   ->whereMonth('appscores.created', Carbon::now()->subMonth()->month);
       }
 
       if($options == 'lastyear'){
-        $query = $query->whereYear('created',Carbon::now()->subYear()->year);
+        $query = $query->whereYear('appscores.created',Carbon::now()->subYear()->year);
 
       }
 
@@ -71,7 +71,7 @@ class MoblieScoreController extends Controller
         $query = $query->where('game_name', $game_type);
       }
       if($state){
-        $query = $query->where('state', $state);
+        $query = $query->where('appscores.state', $state);
       }
       if($school){
         $query = $query->where('school_id', $school);
@@ -80,7 +80,7 @@ class MoblieScoreController extends Controller
         $query = $query->where('game_level', $game_name);
       }
 
-$query = $query->select(['appscores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->join('students','appscores.student_id','=', 'students.id');
+$query = $query->select(['appscores.*',DB::raw('CONCAT(students.firstname," - ",students.lastname) AS student_name')])->with(['student'])->leftJoin('students','appscores.student_id','=', 'students.id');
 
              return Datatables::of($query->groupBy('student_id'))
              ->addIndexColumn()
