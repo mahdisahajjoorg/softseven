@@ -24,7 +24,7 @@ min-width: 125px !important;
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a style="color: red; font-size: 33px; line-height: 60px;" class="navbar-brand imgband" href="index.php">SuperContest - Multiplication - Einstein</a>
+                <a style="color: red; font-size: 33px; line-height: 60px;" class="navbar-brand imgband" href="index.php">SuperContest - <span id="g_type" style="text-transform:capitalize">Multiplication</span> - <span id="g_name">Einstein</span></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div  class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -102,6 +102,7 @@ $(function() {
                         <div class="form-group">
                             <label for="usr">Game Type:</label>
                             <select class="form-control" id="game_type" name="game_type">
+                            <option value="">All</option>
                                 @foreach($games as $key=>$game)
                                  <option value="{{ $key }}">{{ $game }}</option>
                                 @endforeach
@@ -170,6 +171,8 @@ $(document).ready(function () {
     });
     $('body').delegate('#game_type', 'change', function (e) {
         e.preventDefault();
+        $('#g_type').text('');
+        $('#g_type').text($(this).val());
         $("#grandtotal").submit();
     });
     $('body').delegate('#state', 'change', function (e) {
