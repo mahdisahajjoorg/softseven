@@ -189,7 +189,7 @@ $(document).ready(function () {
                 {data: 'lastname',  name: 'lastname'},
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'action',  name: 'action', orderable: false, searchable: false},
             ],
 
         });
@@ -224,7 +224,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
                 {data: 'lastname',  name: 'lastname'},
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
-                {data: 'action',  name: 'action'},
+                {data: 'action',  name: 'action', orderable: false, searchable: false},
             ]
         });
 
