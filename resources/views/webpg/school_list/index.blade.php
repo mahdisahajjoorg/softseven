@@ -144,6 +144,26 @@ $(function() {
             </div>
 
         </div>
+
+        <div class="bd-example">
+   <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="exampleModalLabel">All Scores</h4>
+        </div>
+        <div class="modal-body">
+           
+        </div>
+         
+      </div>
+    </div>
+  </div>
+
+</div>
         <!-- /.container -->
 @endsection
 
@@ -228,6 +248,70 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
 
 
 
+$(document).on("click","#save_student",function(){
+                    if($("#grade").val() ==""){
+                        $("#nograde").show();
+                    }
+                    else{
+                        $("#nograde").hide();
+                        var student={'id':$("#id").val(),'grade':$("#grade").val(),'is_approved':$("#status:checked").val()};
+                        
+                        $.ajax({
+                                url:"updatestudent.php",
+                                type:'POST',
+                                data:student,
+                                success:function(result){
+                                    $(".modal-body").html("");
+                                    $('#exampleModal').modal('hide');
+                                    table.draw();
+                                }
+                        });
+                    }
+            });
+
+
+				$('#exampleModal').on('show.bs.modal', function (event) {
+                    $(".modal-body").html("");
+				  var button = $(event.relatedTarget) // Button that triggered the modal
+				  var recipient = button.data('whatever') // Extract info from data-* attributes
+				  var id = button.data('id')
+				  // console.log(recipient);
+				  // console.log(id);
+				  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+				  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                    if(recipient=="#"){
+                        var modal = $(this)
+                          modal.find('.modal-title').text('Student Id ' + id);
+                          var grade=button.data('grade');
+                          var status=button.data('ststatus');
+                          console.log(status);
+                          form='';
+                          form +='<div class="form-group"><label for="grade">Grade:</label>';
+                          form +='<input type="text" class="form-control" name="grade" id="grade" value="'+grade +'"><span style="color:red;font-weight:bold;display:none;" id="nograde">This field is required</span></div>';
+                        form +='<div class="checkbox"><label>'
+                        if(status==1){
+                            form +='<input type="radio" value="1" id="status" name="status" checked>Active ';
+                            form +='<input id="status" type="radio" value="0" name="status"> Deactive ';
+                        }else{
+                            form +='<input type="radio" value="1" id="status" name="status" >Active ';
+                            form +='<input id="status" type="radio" value="0" name="status" checked> Deactive ';
+                        }
+                     
+                        form +='</label></div><button type="button" id="save_student" class="btn btn-default">Save</button><input type="hidden" id="id" value="'+id+'">';
+                        $(".modal-body").html(form);
+                    } else{
+        				  var modal = $(this)
+        				  modal.find('.modal-title').text('All Scores ' + recipient)
+        				  modal.find('.modal-body input').val(recipient)
+                          $(".modal-body").html("");
+
+        				  $.ajax({
+        					url:"stscores.php?id="+id,
+         					success:function(result){
+        						$(".modal-body").html(result);
+        				   }});
+                    }
+				});
 
 </script>
 @endsection

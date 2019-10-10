@@ -35,7 +35,7 @@ class SchoolListController extends Controller
       $school_code = School::where('school_code', $school_code)->where('mainpassword', $password)->first();
       $student_ids = [];
       if ($school_code != NULL) {
-      $student_idss = Score::where('school_id', $school_code->id)->groupBy('student_id')->whereYear('created', Carbon::now()->year)->get();
+      $student_idss = Score::where('school_id', $school_code->id)->groupBy('student_id')->get();
         foreach ($student_idss as $value) {
             $student_ids[] = $value->student_id;
         }
