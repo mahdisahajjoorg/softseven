@@ -85,7 +85,7 @@ class OuterSuperContestController extends Controller
              ->editColumn('city', function(Score $gr) {
                     return $gr->city.', '.$gr->state;
                 })
-             ->editColumn('student_name', function(Score $gr) {
+             ->editColumn('firstname', function(Score $gr) {
                      $st =  \App\Student::where('id', $gr->student_id)->first();
                      return $st['firstname'].' '.$st['lastname'];
                 })

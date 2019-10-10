@@ -58,20 +58,20 @@ min-width: 125px !important;
                         <a href="http://softseven.com">Home Page</a>
                     </li>
                     <li>
-                        <a href="{{route('extenstion_list')}}" class="active">Extension Page</a>
+                        <a href="{{route('extensionpage.index')}}">Extension Page</a>
                     </li>
                     <li>
-                        <a href="{{route('schoolchampions_list')}}">School Champions</a>
+                        <a href="{{route('schoolchampions.index')}}">School Champions</a>
                     </li>
 					<li>
-                        <a href="{{route('todayschampions_list')}}">Today School Champions</a>
+                        <a href="{{route('todayschampions.index')}}">Today School Champions</a>
                     </li>
                     <li>
-                        <a href="{{route('softsevenchampions_list')}}">SoftSeven Champions</a>
+                        <a href="{{route('softsevenchampions.index')}}">SoftSeven Champions</a>
                     </li>
                     <li>
                         <!--<a href="softsevenchampionslevel.php">SoftSeven Champions by Level</a>-->
-                         <a href="{{route('goldstar_list')}}">Gold Star</a>
+                         <a href="{{route('goldstar.index')}}">Gold Star</a>
                     </li>
                 </ul>
             </div>
@@ -126,7 +126,7 @@ $(function() {
                         </div>
                          <div class="form-group">
                             <label for="usr">Password:</label>
-                            <input type="password" name="password" id="password">
+                            <input type="password" class="form-control" name="password" id="password">
                         </div>
 
                  <button type="submit" id="submit_btn" class="btn btn-default">Submit</button>
