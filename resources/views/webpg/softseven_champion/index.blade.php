@@ -176,9 +176,9 @@ $(document).ready(function () {
             },
             "columns": [
                 {data: 'created', name: 'created' , orderable: false, searchable: false},
-                {data: 'addition',  name: 'addition'},
+                {data: 'addition',  name: 'addition' ,orderable:false,searchable:false},
                 {data: 'school_code',  name: 'school_code'},
-                {data: 'multiplication',  name: 'multiplication'},
+                {data: 'multiplication',  name: 'multiplication',orderable:false,searchable:false},
 
             ]
         });
@@ -209,9 +209,9 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             },
             "columns": [
                 {data: 'created', name: 'created' , orderable: false, searchable: false},
-                {data: 'addition',  name: 'addition'},
+                {data: 'addition',  name: 'addition',orderable:false,searchable:false},
                 {data: 'school_code',  name: 'school_code'},
-                {data: 'multiplication',  name: 'multiplication'},
+                {data: 'multiplication',  name: 'multiplication',orderable:false,searchable:false},
             ]
         });
 

@@ -32,6 +32,7 @@ class SchoolListController extends Controller
       $pass_check = '';
       $password =isset($request->password)?$request->password:'';
 
+
       $school_code = School::where('school_code', $school_code)->where('mainpassword', $password)->first();
       $student_ids = [];
       if ($school_code != NULL) {
@@ -39,9 +40,9 @@ class SchoolListController extends Controller
         foreach ($student_idss as $value) {
             $student_ids[] = $value->student_id;
         }
-      }
       
-             return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC')->get())
+      
+             return Datatables::of(Student::query()->whereIn('id', $student_ids)->orderBy('id','DESC'))
              ->editColumn('action', function() {
                     return "<a class='btn btn-info'>Edit</a>";
                 })
@@ -50,7 +51,9 @@ class SchoolListController extends Controller
              ->make(true);
 
 
-
+        }else{
+            return 1;
+        }
     }
 
     /**

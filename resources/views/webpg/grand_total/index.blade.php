@@ -209,11 +209,11 @@ $(document).ready(function () {
             },
             "columns": [
                 {data: 'score',  name: 'score'},
-                {data: 'student_name',  name: 'student_name'},
+                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},
-                {data: 'grand_total',  name: 'grandtotal'},
+                {data: 'grand_total',  name: 'grandtotal',orderable:false,searchable:false},
             ]
         });
 
@@ -243,11 +243,11 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
             },
             "columns": [
                 {data: 'score',  name: 'score'},
-                {data: 'student_name',  name: 'student_name'},
+                {data: 'student_name',  name: 'student_name',orderable:false,searchable:false},
 
                 {data: 'school_name',  name: 'school_name'},
                 {data: 'city',  name: 'city'},
-                {data: 'grand_total',  name: 'grandtotal'},
+                {data: 'grand_total',  name: 'grandtotal',orderable:false,searchable:false},
             ]
         });
 

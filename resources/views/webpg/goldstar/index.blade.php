@@ -150,7 +150,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
                 {data: 'created', name: 'created' , orderable: false, searchable: false},
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'school_code',  name: 'school_code'},
-                {data: 'goldstar',  name: 'goldstar'},
+                {data: 'goldstar',  name: 'goldstar',orderable:false,searchable:false},
 
             ]
         });

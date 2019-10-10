@@ -190,38 +190,44 @@ $(document).ready(function () {
 
         oTable = $('#approve_student').DataTable({
             "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
+              "emptyTable": "No Record Found!!!"
             },
             "responsive": true,
             "processing": true,
             "serverSide": true,
             "ajax": {
               "url": "{{ route('total_school_list') }}",
+              "success":function(data){
+                   if(data == 1){
+                    $("#table_content").html('');
+                    $("#table_content").html('<div class="alert alert-warning"><a href="#" class="close" data-dismiss="alert">×</a>Select your school code and give password to see your students of your school </div>');
+                   }
+                }
             },
             "columns": [
                 {data: 'firstname',  name: 'firstname'},
                 {data: 'lastname',  name: 'lastname'},
-
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
                 {data: 'action',  name: 'action'},
-            ]
+            ],
+
         });
 
-
+});
 
 $(document).on('submit','#grandtotal',function(e){
-    $("#table_content").html('');
+
     e.preventDefault();
         var school_code = $('#school_code').val();
         var password = $('#password').val();
 
-
-$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th >Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
+    $("#table_content").html('');
+$("#table_content").html('<table class="table table-bordered table-striped mb-none" id="approve_student"><thead><tr><th>First Name</th><th>Last Name</th><th>Screen name</th><th>Grade</th><th>Action</th></tr></thead></table>');
 
         oTable = $('#approve_student').DataTable({
             "language": {
-              "emptyTable": "There is no school with this schoolcode and password"
+              "emptyTable": "No Record Found!!!"
             },
             "responsive": true,
             "processing": true,
@@ -231,12 +237,11 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
                 "url":"{!!route('total_school_list')!!}",
                 "data":{
                     school_code, password
-                }
+                },
             },
             "columns": [
                 {data: 'firstname',  name: 'firstname'},
                 {data: 'lastname',  name: 'lastname'},
-
                 {data: 'screen_name',  name: 'screen_name'},
                 {data: 'grade',  name: 'grade'},
                 {data: 'action',  name: 'action'},
@@ -244,7 +249,7 @@ $("#table_content").html('<table class="table table-bordered table-striped mb-no
         });
 
    });
-});
+
 
 
 
