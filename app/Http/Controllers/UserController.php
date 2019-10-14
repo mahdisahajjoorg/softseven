@@ -98,7 +98,7 @@ class UserController extends Controller
 
    public function firstNameEdit($id){
 	   $users["user"] = DB::table('students')->where('id', $id)->first();
-   	 return view('admin.Firstname.editfirstname', $users);
+   	 return view('admin.firstname.editfirstname', $users);
    }
 
    public function firstNameUpdate(Request $request, $id){

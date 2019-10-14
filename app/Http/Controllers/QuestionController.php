@@ -6,26 +6,28 @@ use Illuminate\Http\Request;
 use DB;
 use Response,File;
 use Redirect;
+use App\Question;
+use App\Wordracesetting;
 
 class QuestionController extends Controller
 {
 	public function index()
     {
-      $datas = DB::table('questions')->get();
+      $datas = Question::all();
       // print_r($datas); die();
     	return view('admin.Question.w_question', ["data" =>$datas]);
     }
 
     public function Word_race_settings()
     {
-    	$users = DB::table('wordracesettings')->get();
+    	$users = Wordracesetting::all();
     	return view('admin.Question.Word_race_set', ["data" =>$users]);
     }
 
     public function Word_race_settings_edit($id)
     {
       $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
-    	$users["data"] = DB::table('wordracesettings')->where('id', $id)->first();
+    	$users["data"] = Wordracesetting::where('id', $id)->first();
     	return view('admin.Question.edit_ques', $users);
     }
 
@@ -63,7 +65,7 @@ class QuestionController extends Controller
         }
 
         if (!empty($data2["image"])) {
-          DB::table('wordracesettings')->where('id',$data["id"])->update($data2);
+          Wordracesetting::where('id',$data["id"])->update($data2);
           return redirect()->route('question.ques_settions_form')->with('success_message','Question Updated successfully!');
         }
         else{
@@ -148,7 +150,7 @@ class QuestionController extends Controller
           $data2["modified"] = date("Y-m-d");
 
           if (!empty($data2["image"])) {
-            DB::table('questions')->insert($data2);
+           Question::insert($data2);
             return redirect()->route('question.add_question_form')->with('success_message','Question added successfully!');
           }
           else{
@@ -164,7 +166,7 @@ class QuestionController extends Controller
     {
 
         $users["img"] = scandir("assets/img/questionimage/thumb/", 1);
-        $users["data"] = DB::table('questions')->where('id', $id)->first();
+        $users["data"] = Question::where('id', $id)->first();
      
         return view('admin.Question.w_edit_ques', $users);
 
@@ -244,7 +246,7 @@ class QuestionController extends Controller
           $data2["modified"] = date("Y-m-d");
 
           if (!empty($data2["image"])) {
-            DB::table('questions')->where('id',$data["id"])->update($data2);
+            Question::where('id',$data["id"])->update($data2);
             return redirect()->route('question.question')->with('success_message','Question Updated successfully!');
           }
           else{
@@ -260,7 +262,7 @@ class QuestionController extends Controller
 
     public function delete_w_ques(Request $request){
 
-        DB::table('questions')->where('id', $request->id)->delete();
+        Question::where('id', $request->id)->delete();
         echo json_decode(1);
     }
 
@@ -304,7 +306,7 @@ class QuestionController extends Controller
         }
 
         if (!empty($data2["image"])) {
-          DB::table('wordracesettings')->insert($data2);
+          Wordracesetting::insert($data2);
           return redirect()->route('question.set_add')->with('success_message','Question added successfully!');
         }
         else{
@@ -314,7 +316,7 @@ class QuestionController extends Controller
 
     public function delete_w_setting_ques(Request $request){
 
-        DB::table('wordracesettings')->where('id', $request->id)->delete();
+        Wordracesetting::where('id', $request->id)->delete();
         echo json_decode(1);
     }
 

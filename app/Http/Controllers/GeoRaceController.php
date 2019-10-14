@@ -6,18 +6,20 @@ use Illuminate\Http\Request;
 use DB;
 use Response,File;
 use Redirect;
+use App\Georace_contest;
+use App\Georace_cat;
 
 class GeoRaceController extends Controller
 {
     public function index()
     {
-    	$users["data"] = DB::table('georace_contests')->get();
+    	$users["data"] = Georace_contest::all();
     	return view('admin.Georace.all_level', $users);
     }
 
     public function add_form()
     {
-    	$users["cat"] = DB::table('georace_cats')->get();
+    	$users["cat"] = Georace_cat::all();
     	return view('admin.Georace.add_all_level_q', $users);
     }
 
@@ -40,7 +42,7 @@ class GeoRaceController extends Controller
         $data2["created_date"] = date("Y/m/d");
         $data2["modified_date"] = date("Y/m/d");
 
-        $ck = DB::table('georace_cats')->where('georace_cat_id', $data["category"])->first();
+        $ck = Georace_cat::where('georace_cat_id', $data["category"])->first();
 
         $data2["georace_cat_name"] = $ck->georace_cat_name;
 
