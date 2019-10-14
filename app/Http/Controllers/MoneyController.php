@@ -133,18 +133,20 @@ class MoneyController extends Controller
         $data2["id"] = $data["id"];
 
         if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
+            $img["image"] = $data["image"];
         }
         else{
-            $data2["image"] = $data["image_other"];
+            $img["image"] = $data["image_other"];
         }
 
-        if (!empty($data2["image"])) {
+        if (!empty($img["image"])) {
+            $data2["image"] = $img["image"];
           DB::table('money_questions')->where('id',$data["id"])->update($data2);
           return redirect()->route('question.all_money_question')->with('success_message','Question Updated successfully!');
         }
         else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
+          DB::table('money_questions')->where('id',$data["id"])->update($data2);
+          return redirect()->route('question.all_money_question')->with('success_message','Question Updated successfully!');
         }
 
 	}

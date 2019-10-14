@@ -201,17 +201,19 @@ class TimeController extends Controller
         }
 
         if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
+            $img["image"] = $data["image"];
         }
         else{
-            $data2["image"] = $data["image_other"];
+            $img["image"] = $data["image_other"];
         }
-        if (!empty($data2["image"])) {
+        if (!empty($img["image"])) {
+            $data2["image"] = $img["image"];
           DB::table('time_questions')->where('id',$data["id"])->update($data2);
           return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
         }
         else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
+          DB::table('time_questions')->where('id',$data["id"])->update($data2);
+          return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
         }
     }
 

@@ -109,7 +109,7 @@
 	                    <label class="col-sm-3 control-label">Level<span class="required">*</span></label>
 	                    <div class="col-sm-9">
 	                        <select name="game_level" class="form-control input-lg" required="required" id="QuestionGameLevel">
-	                        	<?php for ($i=26; $i <61 ; $i++) { ?>
+	                        	<?php for ($i=1; $i <61 ; $i++) { ?>
 	                        	    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
 	                        	    <?php  } ?>
 							</select>                    

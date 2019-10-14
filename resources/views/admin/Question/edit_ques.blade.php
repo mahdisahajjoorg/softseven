@@ -7,7 +7,6 @@
 
 @section('main_content')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
 
 <script>
 // Navigation
@@ -246,11 +245,11 @@
             var imggg = $(this).attr('data-image');
           
             var inputid = $(".modal-body").attr('data-inputid');
-<<<<<<< HEAD
+
             var webrooturl ="{{url('/')}}/assets/img/questionimage/thumb/";
-=======
+
             var webrooturl ="{{url('')}}/assets/img/questionimage/thumb/";
->>>>>>> e91df10c8f4c0f41070a0a49443884f177527ac4
+
             var imgurl = webrooturl + imggg;
          
             $("#" + inputid).parent().parent().find('.image_other').val(imggg);
@@ -261,6 +260,7 @@
 
         });
 	</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.js"></script>
 
 
 @endsection
