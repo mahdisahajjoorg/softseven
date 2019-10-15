@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Student;
+use App\Usa_state;
+use App\Country;
 use App\Score;
 use Yajra\Datatables\Datatables;
 class StudentController extends Controller
@@ -110,5 +112,83 @@ class StudentController extends Controller
                 });
         }
             return redirect()->route('school.sendmail')->with('success','Mail Sent!');
+    }
+
+
+
+    //All School 
+    public function allStudent(){
+        return view('admin.students.all_student');
+    }
+
+    public function all_student_list(){
+             return Datatables::of(Student::query()->where('is_approved',1))
+             ->editColumn('is_approved', function(Student $st) {
+                    return "<a onclick='deleteStudent(".$st->id.")' class='btn btn-danger' id=''>Remove</a>&nbsp;&nbsp;<a href='".route('students.edit', $st->id)."' class='btn btn-primary' id=''>Edit</a>";
+                })
+             ->editColumn('firstname', function(Student $st) {
+                    return $st->firstname .' '.$st->lastname;
+                })
+             ->editColumn('city', function(Student $st) {
+                    $place='';
+                  if(isset($st->state) && !empty($st->state)) $place=$st->state;
+                     else $place=$st->country;
+
+                   return $st->city.', '.$place;
+                })
+             ->escapeColumns([])->make(true);
+    }
+
+
+    public function studentDelete(Request $request){
+        $student = Student::find($request->id);
+        $del = $student->delete();
+        if($del){
+            return 1;
+        }
+    }
+
+
+    public function studentEdit($id){
+        $student = Student::find($id);
+        $state = Usa_state::all();
+        $country = Country::all(); 
+        $data = [
+            'student'=>$student,
+            'states'=>$state,
+            'countries'=>$country,
+        ];
+        return view('admin.students.student_edit', $data);
+    }
+
+
+    public function studentUpdate(Request $request, $id){
+        $student = Student::find($id);
+
+        $this->validate($request, [
+            'firstname'=> 'required',
+            'lastname'=> 'required',
+            'school_code'=> 'required',
+            'screen_name'=> 'required',
+            'state'=> 'required',
+            'can_play_unlimited'=> 'required',
+            'country'=> 'required',
+        ]);
+
+        $student->firstname = $request->firstname;
+        $student->lastname = $request->lastname;
+        $student->screen_name = $request->screen_name;
+        $student->screen_name2 = $request->screen_name2;
+        $student->school_code = $request->school_code;
+        $student->zip = $request->zip;
+        $student->city = $request->city;
+        $student->state = $request->state;
+        $student->can_play_unlimited = $request->can_play_unlimited;
+        $student->country = $request->country;
+
+        $student->save();
+
+        return redirect()->route('all_student');
+
     }
 }

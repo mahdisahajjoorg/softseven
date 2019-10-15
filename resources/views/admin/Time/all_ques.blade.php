@@ -6,20 +6,8 @@
 @endsection
 
 @section('main_content')
-
-<style type="text/css">
-	.page-header {
-    background: #171717;
-    border-bottom: none;
-    border-left: 1px solid #3a3a3a;
-    box-shadow: 1px 3px 0 1px #cccccc;
-    height: 50px;
-    margin: -41px -39px 54px -41px;
-    padding: 0;
-}
-</style>
              
-<section class="content-body" style="margin: -4%;" role="main">
+<section class="content-body" style="margin: -5%;" role="main">
 	<header class="page-header">
 	    <h2>Questions</h2>
 

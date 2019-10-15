@@ -237,11 +237,22 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //statistics 
     Route::resource('statistic', 'StatisticsController');
+
+
+    //All School Section
+    Route::get('students', 'StudentController@allStudent')->name('all_student');
+    Route::post('students/delete', 'StudentController@studentDelete')->name('students.delete');
+    Route::get('students/edit/{id}', 'StudentController@studentEdit')->name('students.edit');
+    Route::post('students/update/{id}', 'StudentController@studentUpdate')->name('students.update');
+    Route::get('all_students_list', 'StudentController@all_student_list')->name('all_students_list');
+
+
+    //Nonstudent
+    Route::resource('nonstudent_payments', 'NonStudentController');
+    Route::get('nonstudent_payments_list', 'NonStudentController@nonStudentPaymentList')->name('nonstudent_payments_list');
 }); 
 
 //End by sajol mahmud
-
-
 
     // start by rakesh
     Route::group(['middleware'=>['authMiddleware']],function(){
