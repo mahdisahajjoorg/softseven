@@ -58,18 +58,21 @@ class QuestionController extends Controller
        
 
         if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
+            $img["image"] = $data["image"];
         }
         else{
-            $data2["image"] = $data["image_other"];
+            $img["image"] = $data["image_other"];
         }
 
-        if (!empty($data2["image"])) {
+        if (!empty($img["image"])) {
+          $data2["image"] = $img["color"];
           Wordracesetting::where('id',$data["id"])->update($data2);
           return redirect()->route('question.ques_settions_form')->with('success_message','Question Updated successfully!');
         }
         else{
-          return Redirect::back()->with('success_message', 'You must select one Image');
+          // print_r($data2); die();
+          Wordracesetting::where('id',$data["id"])->update($data2);
+          return redirect()->route('question.ques_settions_form')->with('success_message','Question Updated successfully!');
         }
     }
     public function add_ques()
@@ -182,9 +185,7 @@ class QuestionController extends Controller
             'answer1' => 'required',
             'answer2' => 'required',
             'answer3' => 'required',
-            'answer4' => 'required',
-            'questionmp3' => 'required',
-            'hintmp3' => 'required',
+            'answer4' => 'required'
         ]);
         
         if ($image=$request->file('image')) {
@@ -231,26 +232,33 @@ class QuestionController extends Controller
         $data2["answer2"] = $data["answer2"];
         $data2["answer3"] = $data["answer3"];
         $data2["answer4"] = $data["answer4"];
-        $data2["questionmp3"] = $data["questionmp3"];
-        $data2["hintmp3"] = $data["hintmp3"];
+        if (isset($data["questionmp3"])) {
+          $data2["questionmp3"] = $data["questionmp3"];
+        }
+        if (isset($data["hintmp3"])) {
+          $data2["hintmp3"] = $data["hintmp3"];
+        }
+        
 
         if ( $data2["answer1"] != $data2["answer2"] && $data2["answer1"] !=$data2["answer3"] && $data2["answer1"] != $data2["answer4"] ){
           if (!empty($data["image"])) {
-            $data2["image"] = $data["image"];
+            $img["image"] = $data["image"];
           }
           else{
-              $data2["image"] = $data["image_other"];
+              $img["image"] = $data["image_other"];
           }
 
           $data2["created"] = date("Y-m-d");
           $data2["modified"] = date("Y-m-d");
 
-          if (!empty($data2["image"])) {
+          if (!empty($img["image"])) {
+            $data2["image"] = $img["image"];
             Question::where('id',$data["id"])->update($data2);
             return redirect()->route('question.question')->with('success_message','Question Updated successfully!');
           }
           else{
-            return Redirect::back()->with('success_message', 'You must select one Image');
+            Question::where('id',$data["id"])->update($data2);
+            return redirect()->route('question.question')->with('success_message','Question Updated successfully!');
           }
         }
         else{
@@ -307,7 +315,7 @@ class QuestionController extends Controller
 
         if (!empty($data2["image"])) {
           Wordracesetting::insert($data2);
-          return redirect()->route('question.set_add')->with('success_message','Question added successfully!');
+          return redirect()->route('question.ques_settions_form')->with('success_message','Question added successfully!');
         }
         else{
           return Redirect::back()->with('success_message', 'You must select one Image');
