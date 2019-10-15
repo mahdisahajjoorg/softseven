@@ -8,23 +8,23 @@
 @section('main_content')
 
 <section class="content-body" role="main" style="margin: -40px;">
-     <header class="page-header">
-    <h2>Questions</h2>
+    <header class="page-header">
+        <h2>Questions</h2>
 
-    <div class="right-wrapper pull-right">
-        <ol class="breadcrumbs">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i>
-                </a>
-            </li>
-            <li><span>Questions</span></li>
-            <li><span>Index</span></li>
-        </ol>
+        <div class="right-wrapper pull-right">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="index.html">
+                        <i class="fa fa-home"></i>
+                    </a>
+                </li>
+                <li><span>Questions</span></li>
+                <li><span>Index</span></li>
+            </ol>
 
-        <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
-    </div>
-</header>
+            <a class="sidebar-right-toggle" data-open="sidebar-right"><i class="fa fa-chevron-left"></i></a>
+        </div>
+    </header>
 
 <section class="panel">
     <header class="panel-heading">
@@ -32,8 +32,6 @@
             <a href="#" class="fa fa-caret-down"></a>
             <a href="#" class="fa fa-times"></a>
         </div>
-
-        
     </header>
     <div class="panel-body">
         @if(Session::get('success_message'))
@@ -91,13 +89,6 @@
     } );
 
 </script>
-
-
-
-         </section>
-   
-</div>
-
             
 
 @endsection

@@ -1,3 +1,4 @@
+
 @extends('master')
 
 @section('title','Settings')
@@ -20,7 +21,7 @@
 </style>
 
                
-<section class="content-body" style="margin: -4%;" role="main">
+<section class="content-body" style="margin: -5%;" role="main">
     <header class="page-header">
         <h2>Questions</h2>
 
