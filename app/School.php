@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class School extends Model
 {
+    public $timestamps = false;
     public function state_details(){
         return $this->belongsTo(Usa_state::class,'state');
     }
