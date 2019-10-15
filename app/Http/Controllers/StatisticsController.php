@@ -22,10 +22,10 @@ class StatisticsController extends Controller
     								   ->whereMonth('created', Carbon::now()->month)->whereDay('created',Carbon::now()->day)->count(),
 
     		'school_count_alltime'	 => School::count(),
-    		'school_count_thismonth' => School::whereYear('created_at',Carbon::now()->year)
-    								   ->whereMonth('created_at', Carbon::now()->month)->count(),
-    		'school_count_tody'		 => School::whereYear('created_at',Carbon::now()->year)
-    								   ->whereMonth('created_at', Carbon::now()->month)->whereDay('created_at',Carbon::now()->day)->count(),
+    		'school_count_thismonth' => School::whereYear('created',Carbon::now()->year)
+    								   ->whereMonth('created', Carbon::now()->month)->count(),
+    		'school_count_tody'		 => School::whereYear('created',Carbon::now()->year)
+    								   ->whereMonth('created', Carbon::now()->month)->whereDay('created',Carbon::now()->day)->count(),
 
     		'game_count_alltime'=>Score::count(),
     		'game_count_thismonth'=>Score::whereYear('created',Carbon::now()->year)
