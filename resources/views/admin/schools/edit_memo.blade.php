@@ -56,9 +56,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Memo <span class="required">*</span></label>
                         <div class="col-sm-9">
-                        <textarea cols="30" rows="6" class="form-control input-lg" name="memo">
-                        {{$memo->memo}}
-                        </textarea>
+                        <textarea cols="30" rows="6" class="form-control input-lg" name="memo">{{$memo->memo}}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,7 +68,12 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label"> Date <span class="required">*</span></label>
                         <div class="col-sm-9">
-                        <input type="datetime-local"  class="form-control input-lg" style="display:inline-block;width:auto;" name="date">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' name="date" class="form-control" />
+                            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,12 +91,18 @@
     </form>
     </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>
 <script>
 
 jQuery(document).ready(function(){
     //jQuery('.datepicker').datepicker();
-});
 
+});
+$('#datetimepicker1').datetimepicker({
+			format: 'DD-MM-YYYY LT'
+		});
 </script>
 @endsection
 

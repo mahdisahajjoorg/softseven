@@ -164,11 +164,11 @@
                         <ul class="nav nav-children">
 
                             <li>
-                            <a href="">Non-student Payment Word</a>                                                                                                                                                                                                     
+                            <a href="{{ route('nonstudent_payments.index') }}">Non-student Payment Word</a>                                                                                                                                                                                                     
 
                             </li>
                             <li>
-                            <a href="">Non-student Payment Add</a>                                                                                                                                                                                                     
+                            <a href="{{ route('nonstudent_payments.create') }}">Non-student Payment Add</a>                                                                                                                                                                                                     
 
                             </li>
                         </ul>
@@ -227,7 +227,7 @@
                         </ul>
                     </li>
                     <li class="nav-parent">
-                    <a href="">All Students</a>                                                                                                                                                                                                     
+                    <a href="{{ route('all_student') }}">All Students</a>                                                                                                                                                                                                     
 
                     </li>
                     <li class="nav-parent">
