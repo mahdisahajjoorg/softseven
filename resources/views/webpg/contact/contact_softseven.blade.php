@@ -155,25 +155,25 @@ $(function() {
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Contact Person<span class="required">*</span> </label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolContactPerson" class="form-control input-lg" type="text" maxlength="255"  name="contact_person">
+                                        <input id="SchoolContactPerson" class="form-control input-lg" value="{{old('contact_person')}}" type="text" maxlength="255"  name="contact_person">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Contact Cell Phone <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolContactlPhone" class="form-control input-lg" type="text" maxlength="255" name="contact_person_phone">
+                                        <input id="SchoolContactlPhone" class="form-control input-lg" type="text" value="{{old('contact_person_phone')}}" maxlength="255" name="contact_person_phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Name <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolName" class="form-control input-lg" type="text" maxlength="255" name="school_name">
+                                        <input id="SchoolName" class="form-control input-lg" type="text" value="{{old('school_name')}}" maxlength="255" name="school_name">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">City <span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolCity" class="form-control input-lg" type="text" maxlength="255"  name="city">
+                                        <input id="SchoolCity" class="form-control input-lg" type="text" value="{{old('city')}}" maxlength="255"  name="city">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -204,26 +204,26 @@ $(function() {
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Address </label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolAddress" class="form-control input-lg" type="text" maxlength="255" name="address">
+                                        <input id="SchoolAddress" class="form-control input-lg" type="text" value="{{old('address')}}" maxlength="255" name="address">
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">Principal</label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolPrincipal" class="form-control input-lg" type="text" maxlength="255" name="principal">
+                                        <input id="SchoolPrincipal" class="form-control input-lg" type="text" value="{{old('principal')}}" maxlength="255" name="principal">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Phone<span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolPhone" class="form-control input-lg" type="text" maxlength="55"  name="school_phone">
+                                        <input id="SchoolPhone" class="form-control input-lg" type="text" value="{{old('school_phone')}}" maxlength="55"  name="school_phone">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label">School Email<span class="required">*</span></label>
                                     <div class="col-sm-9">
-                                        <input id="SchoolSchoolEmail" class="form-control input-lg" type="text" maxlength="255"  name="school_email">
+                                        <input id="SchoolSchoolEmail" class="form-control input-lg" type="text" value="{{old('school_email')}}" maxlength="255"  name="school_email">
                                     </div>
                                 </div>
 

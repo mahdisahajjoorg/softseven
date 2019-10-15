@@ -34,7 +34,7 @@
                         </a>
                         <ul class="nav nav-children">
                             <li>
-                             <a href="">School Contact</a>
+                             <a href="{{route('school_contact.index')}}">School Contact</a>
                             </li>
                             
                         </ul>
