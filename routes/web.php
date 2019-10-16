@@ -176,6 +176,15 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::get('/send-mail-student','StudentController@send_mail_student')->name('student.send_mail_student');
     Route::get('/send-mail-student/data','StudentController@student_list_for_send_mail')->name('student.send_mail_student.data');
     Route::get('student/send-mail','StudentController@sendMailStudent')->name('student.send_mail');
+
+    //School Contact
+    Route::get('/school-contact-list','SchoolContactController@index')->name('school_contact.index');
+    Route::post('/email-update','SchoolContactController@email_update')->name('school_contact.email_update');
+    Route::post('/school-contact-delete','SchoolContactController@contact_delete')->name('school_contact.contact_delete');
+    Route::get('/school-contact-edit/{id}','SchoolContactController@school_contact_edit_form')->name('school_contact.school_contact_edit_form');
+    Route::post('/school-contact-edit','SchoolContactController@school_contact_edit_form_submit')->name('school_contact.school_contact_edit_form_submit');
+    Route::get('/school-send-mail/{id}','SchoolContactController@send_mail')->name('school_contact.send_mail');
+    Route::post('/school-send-mail','SchoolContactController@send_mail_submit')->name('school_contact.send_mail_submit');
 });
 
 

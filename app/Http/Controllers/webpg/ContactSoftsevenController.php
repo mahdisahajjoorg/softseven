@@ -19,6 +19,8 @@ class ContactSoftsevenController extends Controller
     }
 
     public function contact_softseven_form_submit(Request $request){
+        // dd($request->all());
+
         $validateData = $request->validate([
             'contact_person'=>'required',
             'contact_person_phone'=>'required',
@@ -41,21 +43,7 @@ class ContactSoftsevenController extends Controller
         $school_contact->school_phone = $request->school_phone;
         $school_contact->school_email = $request->school_email;
         $school_contact->principal = $request->principal;
-        $options = array();
-        for($i=0;$i<4;$i++){
-            if($i=0){
-                $options[] = $request->more_info;
-            }
-            if($i=1){
-                $options[] = $request->proposal;
-            }
-            if($i=2){
-                $options[] = $request->schedule;
-            }
-            if($i=3){
-                $options[] = $request->refer;
-            }
-        }
+        $options = array($request->more_info,$request->proposal,$request->schedule,$request->refer);
         $school_contact->options = json_encode($options);
         if($school_contact->save()){
             $to_email = Admin_user::where('type',1)->first()->email;

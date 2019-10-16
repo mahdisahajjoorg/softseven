@@ -6,25 +6,27 @@ use Illuminate\Http\Request;
 use DB;
 use Response,File;
 use Redirect;
+use App\Time_contest;
+use App\Time_cat;
+use App\Time_question;
 
 class TimeController extends Controller
 {
     public function index()
     {
-    	$datas = DB::table('time_contests')->get();
+    	$datas = Time_contest::all();
     	return view('admin.Time.level_ques', ["data" =>$datas]);
     }
 
     public function add_time_level_ques()
     {
-    	$datas = DB::table('time_cats')->get();
+    	$datas = Time_cat::all();
     	return view('admin.Time.add_time_level', ["data" =>$datas]);
     }
 
     public function store_time_level_ques(Request $request)
     {
     	$data =  $request->all();
-
 
         $validateData = $request->validate([
 	        'status' => 'required',
@@ -35,6 +37,8 @@ class TimeController extends Controller
 	        'unlock_score'=>'required'
 	    ]);
 
+        $data2 = new Time_contest();
+
 	    $data2["status"] = $data["status"];
         $data2["contest_time"] = $data["contest_time"];
         $data2["start_date"] = $data["start_date"];
@@ -43,19 +47,21 @@ class TimeController extends Controller
         $data2["time_cat_id"] = $data["time_cat_id"];
         $data2["mathmatian_score"] = "0";
         $data2["unlock_score"] = $data["unlock_score"];
-        $ck = DB::table('time_cats')->where('time_cat_id', $data["time_cat_id"])->first();
+        $ck = Time_cat::where('time_cat_id', $data["time_cat_id"])->first();
         $data2["time_cat_name"] = $ck->time_cat_name;
         $data2["created_date"] = date("Y/m/d");
         $data2["modified_date"] = date("Y/m/d");
 
-        DB::table('time_contests')->insert($data2);
-        return redirect()->route('question.all_time_question')->with('success_message','Question added successfully!');
+        if($data2->save()){
+           return redirect()->route('question.all_time_question')->with('success_message','Question added successfully!');
+        }
+        
     }
 
     public function edit_ques_level($id)
     {
-    	$datas["info"] = DB::table('time_contests')->where('id', $id)->first();
-    	$datas["data"] = DB::table('time_cats')->get();
+    	$datas["info"] = Time_contest::where('id', $id)->first();
+    	$datas["data"] = Time_cat::all();
     	return view('admin.Time.edit_level_ques', $datas);
     }
 
@@ -74,6 +80,8 @@ class TimeController extends Controller
 	        'unlock_score'=>'required'
 	    ]);
 
+        $data2 = Time_contest::where('id',$request->id)->first();
+
 	    $data2["status"] = $data["status"];
         $data2["contest_time"] = $data["contest_time"];
         $data2["start_date"] = $data["start_date"];
@@ -83,30 +91,34 @@ class TimeController extends Controller
         $data2["mathmatian_score"] = "0";
         $data2["unlock_score"] = $data["unlock_score"];
 
-        $ck = DB::table('time_cats')->where('time_cat_id', $data["time_cat_id"])->first();
+        $ck = Time_cat::where('time_cat_id', $data["time_cat_id"])->first();
         $data2["time_cat_name"] = $ck->time_cat_name;
         $data2["modified_date"] = date("Y/m/d");
 
-        DB::table('time_contests')->where('id',$data["id"])->update($data2);
-          return redirect()->route('question.all_time_question')->with('success_message','Question Updated successfully!');
+        if($data2->update()){
+            return redirect()->route('question.all_time_question')->with('success_message','Question Updated successfully!');
+        }
+          
     }
 
     public function del_level(Request $request)
 	{
-		DB::table('time_contests')->where('id', $request->id)->delete();
-        echo json_decode(1);
+        $employee = Time_contest::where('id',$request->id)->first();
+        if($employee->delete()){
+            echo json_decode(1);
+        }
 	}
 
     public function show()
     {
-        $datas = DB::table('time_questions')->get();
+        $datas = Time_question::all();
         return view('admin.Time.all_ques', ["data" =>$datas]);
     }
 
     public function add_time()
     {
         $data["img"] = scandir("assets/img/questionimage/thumb/", 1);
-        $data["data"] = DB::table('time_contests')->get();
+        $data["data"] = Time_contest::all();
         return view('admin.Time.add_ques',$data);
     }
 
@@ -119,10 +131,12 @@ class TimeController extends Controller
             'hint' => 'required'
         ]);
 
+        $data2 = new Time_question();
+
         $data2["answer1"] = $data["answer1"];
         $data2["time_contest_id"] = $data["contest"];
         $data2["hint"] = $data["hint"];
-        $ck = DB::table('time_contests')->where('id', $data2["time_contest_id"])->first();
+        $ck = Time_contest::where('id', $data["contest"])->first();
 
         $data2["time_contest_name"] = $ck->time_contest_name;
         $data2["time_cat_id"] = $ck->time_cat_id;
@@ -150,8 +164,10 @@ class TimeController extends Controller
         }
 
         if (!empty($data2["image"])) {
-          DB::table('time_questions')->insert($data2);
-          return redirect()->route('question.all_time_question_two')->with('success_message','Question added successfully!');
+            if($data2->save()){
+            return redirect()->route('question.all_time_question_two')->with('success_message','Question added successfully!');
+            }
+          
         }
         else{
           return Redirect::back()->with('success_message', 'You must select one Image');
@@ -163,8 +179,8 @@ class TimeController extends Controller
     public function edit_time_ques($id)
     {
         $data["img"] = scandir("assets/img/questionimage/thumb/", 1);
-        $data["data"] = DB::table('time_contests')->get();
-        $data["datas"] = DB::table('time_questions')->where('id', $id)->first();
+        $data["data"] = Time_contest::all();
+        $data["datas"] = Time_question::where('id', $id)->first();
 
         return view('admin.Time.edit_ques',$data);
     }
@@ -178,10 +194,12 @@ class TimeController extends Controller
             'hint' => 'required'
         ]);
 
+        $data2 = Time_question::where('id',$request->id)->first();
+
         $data2["answer1"] = $data["answer1"];
         $data2["time_contest_id"] = $data["contest"];
         $data2["hint"] = $data["hint"];
-        $ck = DB::table('time_questions')->where('id', $data["contest"])->first();
+        $ck = Time_question::where('id', $data["contest"])->first();
 
         $data2["time_contest_name"] = $ck->time_contest_name;
         $data2["time_cat_id"] = $ck->time_cat_id;
@@ -208,18 +226,24 @@ class TimeController extends Controller
         }
         if (!empty($img["image"])) {
             $data2["image"] = $img["image"];
-          DB::table('time_questions')->where('id',$data["id"])->update($data2);
-          return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
+            if($data2->update()){
+            return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
+        }
+          
         }
         else{
-          DB::table('time_questions')->where('id',$data["id"])->update($data2);
-          return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
+
+            if($data2->update()){
+            return redirect()->route('question.all_time_question_two')->with('success_message','Question Updated successfully!');
+        }
         }
     }
 
     public function del_time_ques(Request $request)
     {
-        DB::table('time_questions')->where('id', $request->id)->delete();
-        echo json_decode(1);
+        $employee = Time_question::where('id',$request->id)->first();
+        if($employee->delete()){
+            echo json_decode(1);
+        }
     }
 }
