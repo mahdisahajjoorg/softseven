@@ -55,7 +55,7 @@ class SchoolContactController extends Controller
             'country'=>'required',
             'address'=>'required',
             'school_phone'=>'required',
-            'school_email'=>'required|email|unique:schools,school_email,'.$request->contact_id
+            'school_email'=>'required|email|unique:school_contacts,school_email,'.$request->contact_id
         ]);
 
         $school_contact = School_contact::where('id',$request->contact_id)->first();
@@ -92,7 +92,7 @@ class SchoolContactController extends Controller
         $message = $request->message;
         $data = array('subject'=>$subject,'message'=>$message);
         if($to_email){
-            Mail::send('email.mail_to_school',$data,function($message) use ($to_email,$from_email,$subject){
+            Mail::send('email.mail_to_school',['data'=>$data],function($message) use($to_email,$from_email,$subject){
                 $message->to($to_email,'School')
                         ->subject($subject);
                 $message->from($from_email,'Admin');

@@ -1,2 +1,2 @@
-<p>Subject: {{$subject}}</p>
-<p>Message: {{$message}}</p>
+<p>Subject: {{$data['subject']}}</p>
+<p>Message: {{$data['message']}}</p>
