@@ -26,7 +26,7 @@ class HomeBaseController extends Controller
         ]);
         $email = $request->email;
         $password = $request->password;
-        $check_username = Admin_user::where('email',$email)->first() ;
+        $check_username = Admin_user::where('email',$email)->where('type',1)->first() ;
         if($check_username!=null){
             if(Hash::check($password,$check_username->password)){
                 Session::put('user_id',$check_username->id);
