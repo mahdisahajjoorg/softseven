@@ -48,10 +48,10 @@
         <table class="table table-bordered table-striped mb-none" id="approve_student">
             <thead>
                 <tr>
-                 <th>Id</th>
+                    <th>Id</th>
                     <th>Firstname</th>
-                    <th >Status</th>
-                    <th >Action</th>
+                    <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
 

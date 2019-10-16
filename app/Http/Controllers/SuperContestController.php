@@ -44,7 +44,8 @@ class SuperContestController extends Controller
             'timer' => 'required',
             'category' => 'required',
             'timer' => 'required',
-            'first_value' => 'required',
+            'mathematician_name'=> 'required',
+            'mathematician_score' => 'required',
             'second_value' => 'required',
         ]);
         $supercontest = new \App\Supercontest;
@@ -57,8 +58,10 @@ class SuperContestController extends Controller
         $supercontest->date = $request->date;
         $supercontest->category = $request->category;
         $supercontest->status = $request->status;
+        $supercontest->mathematician_name = $request->mathematician_name;
+        $supercontest->mathematician_score = $request->mathematician_score;
         $supercontest->save();
- $supercontest_id = $supercontest->id;
+        $supercontest_id = $supercontest->id;
         $first_value = $request->first_value;
         $second_value = $request->second_value;
 
@@ -119,6 +122,8 @@ class SuperContestController extends Controller
             'date' => 'required',
             'timer' => 'required',
             'category' => 'required',
+            'mathematician_name'=> 'required',
+            'mathematician_score' => 'required',
             'timer' => 'required',
             'first_value' => 'required',
             'second_value' => 'required',
@@ -132,6 +137,8 @@ class SuperContestController extends Controller
         $supercontest->timer = $request->timer;
         $supercontest->date = $request->date;
         $supercontest->category = $request->category;
+        $supercontest->mathematician_name = $request->mathematician_name;
+        $supercontest->mathematician_score = $request->mathematician_score;
         $supercontest->status = $request->status;
         $supercontest->save();
 

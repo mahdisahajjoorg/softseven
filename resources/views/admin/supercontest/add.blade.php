@@ -85,6 +85,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 control-label">Mathematician Name<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input name="mathematician_name" class="form-control input-lg" required="required" maxlength="100" type="text">                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Mathematician Score<span class="required">*</span></label>
+                    <div class="col-sm-9">
+                        <input name="mathematician_score" class="form-control input-lg" required="required" maxlength="100" type="text">                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 control-label"></label>
                     <div class="col-sm-9">
                         <fieldset><legend>Status</legend><input type="hidden" name="data[Supercontests][status]" id="SupercontestsStatus_" value=""><input type="radio" name="status" id="SupercontestsStatus1" required="required" value="1"> Yes <input type="radio" name="status" id="SupercontestsStatus0" required="required" value="0"> No</fieldset>                     </div>

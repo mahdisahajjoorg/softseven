@@ -52,7 +52,9 @@
                     <th>Contest Timer</th>
                     <th>Contest Date</th>
                     <th>Contest Category</th>
-                    <th>ACtion</th>
+                    <th>Mathematician Name</th>
+                    <th>Mathematician Score</th>
+                    <th>Action</th>
                     
                 </tr>
             </thead>
@@ -67,6 +69,8 @@
                      <td><?php echo $contest->timer;?></td>
                     <td><?php echo $contest->date;?></td>
                      <td><?php echo $contest->category;?></td>
+                     <td><?php echo $contest->mathematician_name;?></td>
+                     <td><?php echo $contest->mathematician_score;?></td>
                      <td>
                 <a href="{{route('supercontest.edit',['id'=>$contest->id])}}" class="btn btn-primary">Edit</a>
                 <a href="javascript:;" onclick="deleteSuperContest({{$contest->id}})" class="btn btn-danger">Delete</a>
@@ -114,7 +118,7 @@
                 });
     
   } else {
-    swal("The employee is not deleted!");
+    swal("The Super Contest Question is not deleted!");
   }
 });
   }
