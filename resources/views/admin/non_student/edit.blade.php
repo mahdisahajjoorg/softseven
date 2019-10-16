@@ -29,7 +29,7 @@
                         <label class="col-sm-3 control-label">Student Name <span class="required">*</span></label>
                         <div class="col-sm-9">
                            <select class="form-control" style="width:500px" name="student" >
-                               <option value="{{ $student->id }}">{{ $student->student_info->screen_name }}</option>
+                               <option value="{{ $student->id }}">{{ $student->student_info['screen_name'] }}</option>
                            </select>                   
                          </div>
                     </div>
