@@ -185,6 +185,10 @@ Route::group(['middleware'=>['authMiddleware']],function(){
     Route::post('/school-contact-edit','SchoolContactController@school_contact_edit_form_submit')->name('school_contact.school_contact_edit_form_submit');
     Route::get('/school-send-mail/{id}','SchoolContactController@send_mail')->name('school_contact.send_mail');
     Route::post('/school-send-mail','SchoolContactController@send_mail_submit')->name('school_contact.send_mail_submit');
+
+    //Email Setting
+    Route::get('/email-setting-form','EmailSettingController@email_setting_form')->name('email_setting.email_setting_form');
+    Route::post('/email-setting-form','EmailSettingController@email_setting_form_submit')->name('email_setting.email_setting_form_submit');
 });
 
 

@@ -290,7 +290,9 @@
                 <li class="nav-parent">
                    <a href="{{ route('setting') }}">Settings</a>                                            
                 </li>
-
+                <li class="nav-parent">
+                   <a href="{{ route('email_setting.email_setting_form') }}">Email Settings</a>                                            
+                </li>
                 </ul>
 
             </nav>

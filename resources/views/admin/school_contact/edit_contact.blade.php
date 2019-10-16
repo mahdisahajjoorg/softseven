@@ -65,7 +65,7 @@
                         @endforeach
                     </select>
                 </div>
-                <br>
+                
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Country <span class="required">*</span></label>
                     <div class="col-sm-9">

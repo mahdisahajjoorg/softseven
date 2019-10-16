@@ -96,7 +96,9 @@ class SchoolContactController extends Controller
                 $message->to($to_email,'School')
                         ->subject($subject);
                 $message->from($from_email,'Admin');
-        });
-    }
+            });
+            return redirect()->route('school_contact.index')->with('success_message','Mail sent successfully!');
+            
+        }
 }
 }
