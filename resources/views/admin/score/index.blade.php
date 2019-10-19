@@ -35,7 +35,7 @@
         </h2>
     </header>
     <div class="panel-body">
-        <table class="table table-bordered table-striped mb-none" id="datatable-default">
+        <table class="table table-bordered table-striped mb-none" id="approve_student">
             <thead>
                 <tr>
                     <th><span>Screen Name
@@ -51,91 +51,6 @@
                     <th><span>Jump Badge Certificate</span></th>
                 </tr>
             </thead>
-            <tbody>
-
-                <?php foreach ($score as $score) {//echo $score['Score']['id'];die(); ?>
-                    <tr>
-                        <?php //echo $this->Paginator->sort('title', 'Title'); ?>
-                        <td>
-                            
-                            <?php echo $score->screen_name; ?></td>
-                        <td><?php echo $score->school_code; ?></td>
-                        <td><?php echo $score->game_name; ?></td>
-                        <td><?php echo $score->game_level; ?></td>
-                        <td><?php echo $score->score; ?></td>
-                        <td><?php echo $score->jump_badge; ?></td>
-                        <td><?php
-                        if($score->game_name=='auditory' || $score->game_name=='visual')
-                        $gmnm='wordrace';
-                        else $gmnm=$score->game_name;
-                            $gmlv=$score->game_level;
-                            $scoress=$score->score;
-                            foreach($certificates as $k=>$v){//debug($v);
-                              //echo   key($v['Certificate']).'<br>';
-                                if($v->$gmnm!=0 && $scoress >= $v->$gmnm){
-                                    ?>
-                                    <a href="{{route('score.scores_award',['c_id'=>$v->id,'s_id'=>$score->id])}}">{{$v->title}}</a>
-                                    <?php
-                                  break;
-                                }
-                            }
-                        ?>
-                            
-                            
-                            
-                            
-                            
-                            
-                            <?php 
-                            /*
-                            if($gmnm=='addition'){
-                                if($scoress>300)
-                                      echo $this->Html->link("Newton Award", array('controller' => 'scores', 'action' => 'newtonaward', $score['Score']['id']), array('escape' => false)); 
-                                   // echo '';
-                                if($scoress>600)//echo 'Double Newton Award';
-                                echo $this->Html->link("Double Newton Award", array('controller' => 'scores', 'action' => 'doublenewtonaward', $score['Score']['id']), array('escape' => false)); 
-                            }else if($gmnm=='multiplication'){
-                               if( $scoress>2000){
-                                //echo 'Einstein Award';
-                                 echo $this->Html->link("Einstein Award", array('controller' => 'scores', 'action' => 'einsteinaward', $score['Score']['id']), array('escape' => false)); 
-                                }
-                            }
-                            else if($gmnm=='auditory' || $gmnm=='visual' ){
-                               if( $scoress>2000){
-                               // echo 'Einstein Award';
-                                 echo $this->Html->link("Einstein Award", array('controller' => 'scores', 'action' => 'einsteinaward',$score['Score']['id']), array('escape' => false)); 
-                                }
-                            }
-                            
-                            */
-                            
-                            ?>
-                        </td>
-<td><?php
-                        if($score->game_name=='auditory' || $score->game_name=='visual')
-                        $gmnm='wordrace';
-                        else $gmnm=$score->game_name;
-                            $gmlv=$score->game_level;
-                            $scoress=$score->score;
-                            $jump_badge=$score->jump_badge;
-                            foreach($certificates as $k=>$v){//debug($v);
-                              //echo   key($v['Certificate']).'<br>';
-                               if($jump_badge >= $v->jampbage && $v->jampbage != 0 && $v->type == 2){
-                                   ?>
-                                    <a href="{{route('score.scores_award',['c_id'=>$v->id,'s_id'=>$score->id])}}">{{$v->title}}</a>
-                                   <?php
-                                  break;
-                                }
-                             }
-                        ?>
-                             
-                        </td>
-
-                    </tr>
-                <?php } ?>
-
-
-            </tbody>
         </table>
 
     </div>
@@ -152,4 +67,26 @@
 @endsection
 
 @section('css_js_down')
+<script type="text/javascript">
+    var oTable;
+
+    $(document).ready(function() {
+        oTable = $('#approve_student').DataTable({
+            "responsive": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{!!route('score.score_list')!!}",
+            "columns": [
+                {data: 'screen_name',  name: 'screen_name'},
+                {data: 'school_code',  name: 'school_code'},
+                {data: 'game_name',  name: 'game_name'},
+                {data: 'game_level',  name: 'game_level'},
+                {data: 'score',  name: 'score'},
+                {data: 'jump_badge',  name: 'jump_badge'},
+                {data: 'score_certificate',  name: 'score_certificate'},
+                {data: 'jump_badge_certificate',  name: 'jump_badge_certificate'},
+            ]
+        });
+    });
+</script>
 @endsection

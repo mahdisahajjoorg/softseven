@@ -162,6 +162,7 @@ Route::group(['middleware'=>['authMiddleware']],function(){
 
     //Scores
     Route::get('/scores','ScoreController@index')->name('score.index');
+    Route::get('/score-list','ScoreController@score_list')->name('score.score_list');
     Route::get('/scores-award/{c_id}/{s_id}','ScoreController@scores_award')->name('score.scores_award');
     Route::get('/view-pdf/scores-award/{c_id}/{s_id}','ScoreController@score_award_pdf')->name('score.score_award_pdf');
     
